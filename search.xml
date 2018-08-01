@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search> 
+  
+    
+    <entry>
+      <title>爬虫之批量下载Admin5源码</title>
+      <link href="/2018/08/01/crawl-admin5/"/>
+      <url>/2018/08/01/crawl-admin5/</url>
+      <content type="html"><![CDATA[<h2 id="项目介绍"><a href="#项目介绍" class="headerlink" title="项目介绍"></a>项目介绍</h2><p><a href="http://down.admin5.com" target="_blank" rel="noopener"><code>Admin5</code></a> 提供了各种语言的开源项目，包括<code>asp</code> <code>php</code> <code>.net</code> <code>jsp</code>等。最近开始玩代码审计，到处找项目很麻烦，所以打算写一个爬虫，借助Admin5批量下载各类开源项目。</p><h2 id="分析页面"><a href="#分析页面" class="headerlink" title="分析页面"></a>分析页面</h2><p>首先，分析下<code>Admin5</code>的页面。</p><p><img src="/2018/08/01/crawl-admin5/screenshot-1.png" alt="截图-1"></p><p>可以看到，页面数据直接在html中显示的，并不是JS渲染上去的，这就比较好爬了。在响应的请求中，页面用的是<code>gb2312</code>编码，打印的时候需要注意一下，不然会乱码。建议设置编码为<code>gbk</code>，因为<code>gb2312</code>的支持的字没有<code>gbk</code>多，像打印<code>囧</code>的时候，就会抛异常。</p><p>首页的地址是<code>http://down.admin5.com/php/</code>，往后翻页，再看看首页的地址。</p><p><img src="/2018/08/01/crawl-admin5/screenshot-2.png" alt="截图-2"></p><p>变成了<code>http://down.admin5.com/php/list_30_1.html</code>。</p><p>那么就可以得出页面的地址规则 <code>php/list_30_页码.html</code>。</p><p><img src="/2018/08/01/crawl-admin5/screenshot-3.png" alt="截图-3"></p><p>这里使用<code>XPATH表达式</code>可以很方便的获取页面数据，<code>//div[@class=&quot;lists_bigimg_right&quot;]/a</code>，获取当前页所有项目详情的 <code>a</code> 标签，即详情页的地址。</p><p>随便进入一个项目的详情，找到下载地址。</p><p><img src="/2018/08/01/crawl-admin5/screenshot-4.png" alt="截图-4"></p><p>使用 XPATH : <code>//ul[@class=&quot;down-anniu&quot;]//li/a/@href</code>，获取下载地址，这条XPATH是获取所有的下载点地址，实际用不到这么多，可以修改下 <code>//ul[@class=&quot;down-anniu&quot;]/li[1]/a/@href</code>，只获取1条。</p><p>当然，这个页面还包含了其它的数据，同样可以用 XPATH 采集，就不详细写了，后面在代码中会有。</p><h2 id="运行流程"><a href="#运行流程" class="headerlink" title="运行流程"></a>运行流程</h2><p>下面梳理下我们爬虫的运行流程。</p><ol><li><p>访问<code>http://down.admin5.com/php/</code>，<code>asp</code>,<code>.net</code>等语言项目的页面其实是一样的，改下路径就行，这里以<code>php</code>的为例。</p></li><li><p>获取后续页面的地址，即下一页。由于<code>Admin5</code>的页面比较简单，可以直接获取总页数，然后用<code>for</code>循环，遍历<code>http://down.admin5.com/php/list_30_页码.html</code>。</p></li><li><p>获取每个项目的详细页地址，并跟进。</p></li><li><p>提取项目的详细参数，获取下载地址，加入下载队列。</p></li><li><p>下载模块不断取出队列的任务，下载项目，直到队列为空。</p></li></ol><h2 id="具体实现"><a href="#具体实现" class="headerlink" title="具体实现"></a>具体实现</h2><p>这个项目比较简单，所以没有用<code>scrapy</code>等很重的框架去做。就用最简单的<code>requests</code>库去实现，下面设计一下具体的业务模型。</p><h3 id="模型"><a href="#模型" class="headerlink" title="模型"></a>模型</h3><ol><li>ProjectItem<ul><li>name</li><li>size</li><li>update_date</li><li>official_url</li><li>download_url</li></ul></li></ol><p>这个模型包含每个项目的属性，包括项目名称，大小，更新日期，官方地址，下载地址。</p><ol start="2"><li>Downloader<ul><li>download_queue</li><li>cache_path</li><li>save_path</li><li>add_task(projcet_item)</li><li>print_progress()</li><li>save_cache()</li></ul></li></ol><p>下载器，这个模型负责下载项目，维护下载队列，监控下载进度，并对下载过的项目地址做缓存，防止重复下载。</p><h4 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h4><p>已上传到 <a href="https://github.com/CHN-Jaylin/Spider/tree/master/admin5" target="_blank" rel="noopener">Github</a>， 具体实现请查看代码，注释已经写的比较清楚了。</p><h4 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h4><p><img src="/2018/08/01/crawl-admin5/screenshot-5.png" alt="截图-5"></p><p>已经实现了自动保存下载进度，可以随时<code>Ctrl+C</code>退出程序，下次执行时会跳过已下载的项目。</p>]]></content>
+      
+      
+        <tags>
+            
+            <tag> Python </tag>
+            
+            <tag> 爬虫 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
+      <title>昨天，明天</title>
+      <link href="/2018/07/31/yesterday-and-tomorrow/"/>
+      <url>/2018/07/31/yesterday-and-tomorrow/</url>
+      <content type="html"><![CDATA[<p>在二零一八年七月的尾巴，写下这篇文章。算是对过去的一个回忆总结，还有未来的计划。</p><p>做安全，是我高中时候就有的想法。那个时候WooYun还在，我还记得曾经挖到一个小厂的任意用户密码重置的漏洞，注册了第一个账号，踏上了我在安全路上的第一步。</p><p>高中的时候住校，手机查的还严。每天最开心的就是窝在被子里，翻着WooYun，逛逛Zone。看看今天谁家Struts2的洞还没补，哪个厂的裤子又被脱了。当然，还有各路大佬分享的奇技淫巧，一哥猪猪侠，画漫画的小川……</p><p>大学，我来到离家1500KM的成都，因为各种原因，选了一个不喜欢的专业，加了学生会，每天都让自己很忙，常常是通宵在工作，也没有时间再去关注安全圈。第一个学期的学期末，重要的几门专业基础课还是都不懂。我意识到这个专业真的不适合我，即使毕业了，我也不会去做这行。某个晚上，我扯出路由器上的网线，连上学校内网，拿下了支撑学校核心业务的数据库。表里，挂掉的两科静静的躺在那，只要我敲下键盘，就是全班最佳。思考了许久，还是关掉了终端。理智战胜了贪欲，假的永远不会真，做了假，就要每天担心谎言会在哪天被拆穿。</p><p>第二个学期，不顾家人反对，我转到了软件专业，学习软件开发。环境原因，班上的计算机水平都不行，凭着高中攒下的知识，吊打全专业。不过这没什么好比的，格局要大。我开始参加各种比赛，移动开发，大数据，软件杯。一路过来，经历了很多，承担了很多，收获了很多，可以说是我人生成长最多的历程。在这里，我迷失过，特别是我深入开发之后，我发现IT的方向原来这么多，我对每个方向都感兴趣，但一个人不可能把每条路走通，必须找一条合适自己路。开发这条路，我走了很久，也做过自己引以为傲的作品。不过我不喜欢做业务，像是搬砖一样的堆砌代码，写没有灵魂的程序，所以，是时候回去了。</p><p>这一年，最开心的事莫过于通过升本考试，接下来的两年，我将在CUIT继续学习。CUIT最出名的，就是信息安全了吧，也是牛人云集的地方。希望多年以后，再看这篇文章的时候，我也是一枚大佬了。</p><p>不忘初心，方得始终。</p>]]></content>
+      
+      
+        <tags>
+            
+            <tag> 日常 </tag>
+            
+            <tag> 心路 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+  
+  
+    
+    <entry>
+      <title>tags</title>
+      <link href="/tags/index.html"/>
+      <url>/tags/index.html</url>
+      <content type="html"><![CDATA[]]></content>
+    </entry>
+    
+    <entry>
+      <title>timeline</title>
+      <link href="/timeline/index.html"/>
+      <url>/timeline/index.html</url>
+      <content type="html"><![CDATA[]]></content>
+    </entry>
+    
+  
+</search>

@@ -50,7 +50,7 @@
     
     <title>
         
-            归档 | 
+            tags | 
         
         Jaylin&#39;s Blog
     </title>
@@ -226,7 +226,7 @@
     <!-- WebAPP Icons -->
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="application-name" content="Jaylin&#39;s Blog">
-    <meta name="msapplication-starturl" content="http://CHN-Jaylin.github.io/archives/">
+    <meta name="msapplication-starturl" content="http://CHN-Jaylin.github.io/tags/">
     <meta name="msapplication-navbutton-color" content="#0097A7">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-title" content="Jaylin&#39;s Blog">
@@ -241,9 +241,9 @@
     
 
     <!-- The Open Graph protocol -->
-    <meta property="og:url" content="http://CHN-Jaylin.github.io/archives/">
+    <meta property="og:url" content="http://CHN-Jaylin.github.io/tags/">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content="归档 | Jaylin&#39;s Blog">
+    <meta property="og:title" content="tags | Jaylin&#39;s Blog">
     <meta property="og:image" content="/img/favicon.png">
     <meta property="og:description" content="记录安全相关的琐碎，也会有开发方面的知识。">
     
@@ -255,7 +255,7 @@
 
     <!-- Add canonical link for SEO -->
     
-        <link rel="canonical" href="http://CHN-Jaylin.github.io/archives/index.html" />
+        <link rel="canonical" href="http://CHN-Jaylin.github.io/tags/index.html" />
     
 
     <!-- Structured-data for SEO -->
@@ -392,150 +392,63 @@
 
                     
 
-                    <!-- Index Module -->
-<div class="material-index mdl-grid">
-    
-    <div class="locate-thumbnail-symbol"></div>
+                    <!-- Post TOC -->
 
-    <!-- Pin on top -->
-    
 
-    <!-- Normal Post -->
-    
-        
-            
-            
-                <!-- Isolation Thumbnail -->
-                <div class="post_entry-module mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col fade out">
-    <!-- Post_entry Header -->
-    
-        <!-- Post Header Info -->
-        <div class="post_entry-header_info without-thumbnail">
-            <!-- Author Avatar & Name -->
-            <img src="/img/avatar.png" class="avatar-img" width="44px" height="44px" alt="Jaylin's avatar">
-            <span class="name-span">Jaylin</span>
-        </div>
+<!-- Layouts -->
 
-        <!-- Null Thumbnail -->
-        <div class="post_thumbnail-null">
-    
-        </div>
+    <!-- Tags Cloud -->
+    <style>
+    #bottom{
+        position: relative;
+    }
 
-    <!-- Post_entry Content -->
-    <div class="post_entry-content mdl-color-text--grey-600 mdl-card__supporting-text">
-        <!-- Post Title -->
-        <p class="post_entry-title">
-            <a href="/2018/08/01/crawl-admin5/">爬虫之批量下载Admin5源码</a>
-        </p>
+    @media screen and (max-width: 480px) {
+        .material-tagscloud{
+            margin: 6em 2em 0;
+        }
+    }
 
-        <!-- Post Excerpt -->
-        <p class="post_entry-excerpt">
-            
-                项目介绍
-            
-            &nbsp;&nbsp;&nbsp;
-            <span>
-                <a href="/2018/08/01/crawl-admin5/" target="_self">阅读全文</a>
-            </span>
-        </p>
+    .material-tagscloud a{
+        text-decoration:none;
+        padding: 1px 9px;
+        margin: 9px 1px;
+        line-height: 40px;
+        white-space: nowrap;
+        transition: .6s;
+        opacity: .85;
+    }
 
-        <!-- Post Tags -->
-        <ul class="post_entry-tags-list"><li class="post_entry-tags-list-item"><a class="post_entry-tags-list-link" href="/tags/Python/">Python</a></li><li class="post_entry-tags-list-item"><a class="post_entry-tags-list-link" href="/tags/爬虫/">爬虫</a></li></ul>
-    </div>
+    .material-tagscloud a:hover{
+        transition: .6s;
+        opacity: 1;
+        background: #FAFAFA;
+        box-shadow: 0 2px 2px 0 rgba(0,0,0,.14), 0 3px 1px -2px rgba(0,0,0,.2), 0 1px 5px 0 rgba(0,0,0,.12);
+    }
+</style>
 
-    <!-- Post_entry Footer -->
-    <div class="post_entry-footer">
-        <div class="post_entry-footer-border"></div>
-        <div class="post_entry-footer-info">
-            <div class="post_entry-footer-date">
-                8月 01, 2018
-            </div>
-            <div class="post_entry-footer-comment">
-                
-                
-                    <!-- Comment Number -->
-                    <span class="post_entry-comment" >
-                            <span id = "sourceId::archives/index.html" class = "cy_cmt_count" ></span>条评论
-                    </span>
-                
-            </div>
-        </div>
+<div class=" material-tagscloud">
+    <div class="material-post mdl-grid">
+        <a href="/tags/Python/" style="font-size: 16px; color: #757575">Python</a> <a href="/tags/心路/" style="font-size: 16px; color: #757575">心路</a> <a href="/tags/日常/" style="font-size: 16px; color: #757575">日常</a> <a href="/tags/爬虫/" style="font-size: 16px; color: #757575">爬虫</a>
     </div>
 </div>
 
-            
-        
-    
-        
-            
-            
-                <!-- Isolation Thumbnail -->
-                <div class="post_entry-module mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col fade out">
-    <!-- Post_entry Header -->
-    
-        <!-- Post Header Info -->
-        <div class="post_entry-header_info without-thumbnail">
-            <!-- Author Avatar & Name -->
-            <img src="/img/avatar.png" class="avatar-img" width="44px" height="44px" alt="Jaylin's avatar">
-            <span class="name-span">Jaylin</span>
-        </div>
 
-        <!-- Null Thumbnail -->
-        <div class="post_thumbnail-null">
-    
-        </div>
+<script type="text/ls-javascript" id="page-tagcloud-script">
+    var adjustFooter = function() {
+        if( ($('#bottom').offset().top + $('#bottom').outerHeight() ) < $(window).height() ) {
+            var footerBottom = $(window).height() - $('#bottom').outerHeight() - $('#bottom').offset().top;
+            $('#bottom').css('bottom', '-' + footerBottom + 'px');
+        }
+    };
 
-    <!-- Post_entry Content -->
-    <div class="post_entry-content mdl-color-text--grey-600 mdl-card__supporting-text">
-        <!-- Post Title -->
-        <p class="post_entry-title">
-            <a href="/2018/07/31/yesterday-and-tomorrow/">昨天，明天</a>
-        </p>
+    $(document).ready(function() {
+        adjustFooter();
+    });
+</script>
 
-        <!-- Post Excerpt -->
-        <p class="post_entry-excerpt">
-            
-                在二零一八年七月的尾巴，写下这篇文章。算是对过去的一个回忆总结，还有未来的计划。
-做安全，是我高中时候就有的想法。那个时候WooYun...
-            
-            &nbsp;&nbsp;&nbsp;
-            <span>
-                <a href="/2018/07/31/yesterday-and-tomorrow/" target="_self">阅读全文</a>
-            </span>
-        </p>
 
-        <!-- Post Tags -->
-        <ul class="post_entry-tags-list"><li class="post_entry-tags-list-item"><a class="post_entry-tags-list-link" href="/tags/心路/">心路</a></li><li class="post_entry-tags-list-item"><a class="post_entry-tags-list-link" href="/tags/日常/">日常</a></li></ul>
-    </div>
 
-    <!-- Post_entry Footer -->
-    <div class="post_entry-footer">
-        <div class="post_entry-footer-border"></div>
-        <div class="post_entry-footer-info">
-            <div class="post_entry-footer-date">
-                7月 31, 2018
-            </div>
-            <div class="post_entry-footer-comment">
-                
-                
-                    <!-- Comment Number -->
-                    <span class="post_entry-comment" >
-                            <span id = "sourceId::archives/index.html" class = "cy_cmt_count" ></span>条评论
-                    </span>
-                
-            </div>
-        </div>
-    </div>
-</div>
-
-            
-        
-    
-
-    
-
-    
-</div>
 
 
                     
