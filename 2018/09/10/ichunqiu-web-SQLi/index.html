@@ -8,7 +8,7 @@
   <title>i春秋-Web-SQLi | Jaylin&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="一道注入题，登录页面。 试了常见的万能密码，无效，不存在弱口令。 使用BP，看下过滤了哪些字符。  发现参数含有%时，报错。  提示 Warning: sprintf(): Too few arguments in /var/www/html/index.php on line 18，根据提示，判定可能存在sprintf格式化字符串漏洞。 看下sprintf函数的描述。  可以构造payload:">
-<meta name="keywords" content="Web,i春秋,SQLi">
+<meta name="keywords" content="i春秋,Web,SQLi">
 <meta property="og:type" content="article">
 <meta property="og:title" content="i春秋-Web-SQLi">
 <meta property="og:url" content="http://CHN-Jaylin.github.io/2018/09/10/ichunqiu-web-SQLi/index.html">
@@ -111,7 +111,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://CHN-Jaylin.github.io/2018/09/10/ichunqiu-web-SQLi/" data-id="cjlxgivc2000kvwvn43g4htyz" class="article-share-link">Share</a>
+      <a data-url="http://CHN-Jaylin.github.io/2018/09/10/ichunqiu-web-SQLi/" data-id="cjlxgobmh0006m0vn0qaaqzgv" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SQLi/">SQLi</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Web/">Web</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/i春秋/">i春秋</a></li></ul>
@@ -185,6 +185,10 @@
       <ul>
         
           <li>
+            <a href="/2018/09/11/ichunqiu-web-EXEC/">i春秋-Web-EXEC</a>
+          </li>
+        
+          <li>
             <a href="/2018/09/10/ichunqiu-web-brute-3/">i春秋-Web-爆破3</a>
           </li>
         
@@ -198,10 +202,6 @@
         
           <li>
             <a href="/2018/09/09/daily-life-20180909/">日常心路-180909</a>
-          </li>
-        
-          <li>
-            <a href="/2018/08/07/sql-injection-cheat-sheet/">SQL注入备忘录</a>
           </li>
         
       </ul>
