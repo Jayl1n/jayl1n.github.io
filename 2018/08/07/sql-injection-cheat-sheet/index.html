@@ -15,7 +15,7 @@
 <meta property="og:site_name" content="Jaylin&#39;s Blog">
 <meta property="og:description" content="转自：https://www.netsparker.com/blog/web-security/sql-injection-cheat-sheet/ 语法注释单行注释 -- (MySQL | SQLServer) DROP sample; –  # (MySQL) DROP sample; #   Sample Username: admin’–  SELECT * FROM members WH">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-08-14T13:55:31.435Z">
+<meta property="og:updated_time" content="2018-09-11T11:45:40.431Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SQL注入备忘录">
 <meta name="twitter:description" content="转自：https://www.netsparker.com/blog/web-security/sql-injection-cheat-sheet/ 语法注释单行注释 -- (MySQL | SQLServer) DROP sample; –  # (MySQL) DROP sample; #   Sample Username: admin’–  SELECT * FROM members WH">
@@ -204,7 +204,7 @@
 <p>返回ASCII码对应的字符</p>
 </li>
 </ul>
-<h2 id="Union-联合查询注入"><a href="#Union-联合查询注入" class="headerlink" title="Union 联合查询注入"></a>Union 联合查询注入</h2><p>  可以通过<code>unin</code>进行跨表查询。</p>
+<h2 id="UNION-联合查询注入"><a href="#UNION-联合查询注入" class="headerlink" title="UNION 联合查询注入"></a>UNION 联合查询注入</h2><p>  可以通过<code>unin</code>进行跨表查询。</p>
 <pre><code>1. SELECT header, txt FROm news UNION ALL SELECT name, pass FROM members
 
 2. &apos; UNION SELECT 1, &apos;anotheruser&apos;, &apos;doesnt matter&apos;, 1--
@@ -256,7 +256,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://CHN-Jaylin.github.io/2018/08/07/sql-injection-cheat-sheet/" data-id="cjlxhdq0z000g40vnelee2e3z" class="article-share-link">Share</a>
+      <a data-url="http://CHN-Jaylin.github.io/2018/08/07/sql-injection-cheat-sheet/" data-id="cjlxpfabs000vdcvnkjmcu9ux" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/sql-injection/">sql-injection</a></li></ul>
@@ -298,7 +298,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/EXPLOIT/">EXPLOIT</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PHP/">PHP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SMB/">SMB</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SQLi/">SQLi</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Web/">Web</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/i春秋/">i春秋</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sql-injection/">sql-injection</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/心路/">心路</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/日常/">日常</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/爬虫/">爬虫</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/破译/">破译</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/远程溢出/">远程溢出</a></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/BLOG/">BLOG</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/EXPLOIT/">EXPLOIT</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PHP/">PHP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SMB/">SMB</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SQLi/">SQLi</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Upload/">Upload</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Web/">Web</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/i春秋/">i春秋</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sql-injection/">sql-injection</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/心路/">心路</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/日常/">日常</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/爬虫/">爬虫</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/破译/">破译</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/远程溢出/">远程溢出</a></li></ul>
     </div>
   </div>
 
@@ -308,7 +308,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签云</h3>
     <div class="widget tagcloud">
-      <a href="/tags/EXPLOIT/" style="font-size: 10px;">EXPLOIT</a> <a href="/tags/PHP/" style="font-size: 15px;">PHP</a> <a href="/tags/Python/" style="font-size: 10px;">Python</a> <a href="/tags/SMB/" style="font-size: 10px;">SMB</a> <a href="/tags/SQLi/" style="font-size: 10px;">SQLi</a> <a href="/tags/Web/" style="font-size: 20px;">Web</a> <a href="/tags/i春秋/" style="font-size: 20px;">i春秋</a> <a href="/tags/sql-injection/" style="font-size: 10px;">sql-injection</a> <a href="/tags/心路/" style="font-size: 15px;">心路</a> <a href="/tags/日常/" style="font-size: 15px;">日常</a> <a href="/tags/爬虫/" style="font-size: 10px;">爬虫</a> <a href="/tags/破译/" style="font-size: 10px;">破译</a> <a href="/tags/远程溢出/" style="font-size: 10px;">远程溢出</a>
+      <a href="/tags/BLOG/" style="font-size: 10px;">BLOG</a> <a href="/tags/EXPLOIT/" style="font-size: 10px;">EXPLOIT</a> <a href="/tags/PHP/" style="font-size: 16.67px;">PHP</a> <a href="/tags/Python/" style="font-size: 10px;">Python</a> <a href="/tags/SMB/" style="font-size: 10px;">SMB</a> <a href="/tags/SQLi/" style="font-size: 10px;">SQLi</a> <a href="/tags/Upload/" style="font-size: 10px;">Upload</a> <a href="/tags/Web/" style="font-size: 20px;">Web</a> <a href="/tags/i春秋/" style="font-size: 20px;">i春秋</a> <a href="/tags/sql-injection/" style="font-size: 10px;">sql-injection</a> <a href="/tags/心路/" style="font-size: 13.33px;">心路</a> <a href="/tags/日常/" style="font-size: 13.33px;">日常</a> <a href="/tags/爬虫/" style="font-size: 10px;">爬虫</a> <a href="/tags/破译/" style="font-size: 10px;">破译</a> <a href="/tags/远程溢出/" style="font-size: 10px;">远程溢出</a>
     </div>
   </div>
 
@@ -330,6 +330,14 @@
       <ul>
         
           <li>
+            <a href="/2018/09/11/ichunqiu-web-BLOG/">i春秋-Web-BLOG</a>
+          </li>
+        
+          <li>
+            <a href="/2018/09/11/ichunqiu-web-Upload/">ichunqiu-web-Upload</a>
+          </li>
+        
+          <li>
             <a href="/2018/09/11/ichunqiu-web-decode/">i春秋-Web-破译</a>
           </li>
         
@@ -339,14 +347,6 @@
         
           <li>
             <a href="/2018/09/10/ichunqiu-web-brute-3/">i春秋-Web-爆破3</a>
-          </li>
-        
-          <li>
-            <a href="/2018/09/10/ichunqiu-web-brute-2/">i春秋-Web-爆破2</a>
-          </li>
-        
-          <li>
-            <a href="/2018/09/10/ichunqiu-web-SQLi/">i春秋-Web-SQLi</a>
           </li>
         
       </ul>
