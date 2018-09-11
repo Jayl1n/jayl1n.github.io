@@ -5,19 +5,22 @@
   
 
   
-  <title>Tag: 爬虫 | Jaylin&#39;s Blog</title>
+  <title>i春秋-Web-爆破2 | Jaylin&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="记录安全相关的琐碎，也会有开发方面的知识。">
-<meta name="keywords" content="安全 编程 开发 博客">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Jaylin&#39;s Blog">
-<meta property="og:url" content="http://CHN-Jaylin.github.io/tags/爬虫/index.html">
+  <meta name="description" content="flag 藏在 flag.php 中，要求读出来。 提示 flag 不在变量中。 源码： 12345&amp;lt;?phpinclude &amp;quot;flag.php&amp;quot;;$a = @$_REQUEST[&amp;apos;hello&amp;apos;];eval( &amp;quot;var_dump($a);&amp;quot;);show_source(__FILE__); eval 会执行参数中的代码。 var_du">
+<meta name="keywords" content="Web,i春秋,PHP">
+<meta property="og:type" content="article">
+<meta property="og:title" content="i春秋-Web-爆破2">
+<meta property="og:url" content="http://CHN-Jaylin.github.io/2018/09/10/ichunqiu-web-brute-2/index.html">
 <meta property="og:site_name" content="Jaylin&#39;s Blog">
-<meta property="og:description" content="记录安全相关的琐碎，也会有开发方面的知识。">
+<meta property="og:description" content="flag 藏在 flag.php 中，要求读出来。 提示 flag 不在变量中。 源码： 12345&amp;lt;?phpinclude &amp;quot;flag.php&amp;quot;;$a = @$_REQUEST[&amp;apos;hello&amp;apos;];eval( &amp;quot;var_dump($a);&amp;quot;);show_source(__FILE__); eval 会执行参数中的代码。 var_du">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://chn-jaylin.github.io/2018/09/10/ichunqiu-web-brute-2/flag.png">
+<meta property="og:updated_time" content="2018-09-11T08:28:14.365Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Jaylin&#39;s Blog">
-<meta name="twitter:description" content="记录安全相关的琐碎，也会有开发方面的知识。">
+<meta name="twitter:title" content="i春秋-Web-爆破2">
+<meta name="twitter:description" content="flag 藏在 flag.php 中，要求读出来。 提示 flag 不在变量中。 源码： 12345&amp;lt;?phpinclude &amp;quot;flag.php&amp;quot;;$a = @$_REQUEST[&amp;apos;hello&amp;apos;];eval( &amp;quot;var_dump($a);&amp;quot;);show_source(__FILE__); eval 会执行参数中的代码。 var_du">
+<meta name="twitter:image" content="http://chn-jaylin.github.io/2018/09/10/ichunqiu-web-brute-2/flag.png">
   
     <link rel="alternate" href="/atom.xml" title="Jaylin&#39;s Blog" type="application/atom+xml">
   
@@ -64,40 +67,72 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2018" class="archive-year">2018</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2018/08/01/crawl-admin5/" class="archive-article-date">
-  <time datetime="2018-08-01T01:45:40.000Z" itemprop="datePublished">8月 1</time>
+        <section id="main"><article id="post-ichunqiu-web-brute-2" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/09/10/ichunqiu-web-brute-2/" class="article-date">
+  <time datetime="2018-09-10T10:40:35.854Z" itemprop="datePublished">2018-09-10</time>
 </a>
-      
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/08/01/crawl-admin5/">爬虫之批量下载Admin5源码</a>
+    <h1 class="article-title" itemprop="name">
+      i春秋-Web-爆破2
     </h1>
   
 
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><code>flag</code> 藏在 <code>flag.php</code> 中，要求读出来。</p>
+<p>提示 <code>flag</code> 不在变量中。</p>
+<p>源码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">include &quot;flag.php&quot;;</span><br><span class="line">$a = @$_REQUEST[&apos;hello&apos;];</span><br><span class="line">eval( &quot;var_dump($a);&quot;);</span><br><span class="line">show_source(__FILE__);</span><br></pre></td></tr></table></figure>
+<p><code>eval</code> 会执行参数中的代码。</p>
+<p><code>var_dump</code> 打印变量相关的信息。</p>
+<p><code>$a</code> 是可控的参数，可以传入 <code>file_get_contents</code> 函数，直接读取 <code>flag.php</code> 的内容。</p>
+<p>构造 payload <code>/?hello=file_get_contents(&#39;flag.php&#39;)</code>。</p>
+<p>得到 <code>flag</code>。</p>
+<p><img src="/2018/09/10/ichunqiu-web-brute-2/flag.png" alt="flag"></p>
 
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://CHN-Jaylin.github.io/2018/09/10/ichunqiu-web-brute-2/" data-id="cjlxgfg2q0019i8vnx0tfqlmk" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/PHP/">PHP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Web/">Web</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/i春秋/">i春秋</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/09/10/ichunqiu-web-brute-3/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          i春秋-Web-爆破3
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/09/10/ichunqiu-web-SQLi/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">i春秋-Web-SQLi</div>
+    </a>
+  
+</nav>
+
+  
+</article>
 
 </section>
         

