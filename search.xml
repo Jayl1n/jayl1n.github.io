@@ -3,6 +3,25 @@
   
     
     <entry>
+      <title>i春秋-Web-破译</title>
+      <link href="/2018/09/11/ichunqiu-web-decode/"/>
+      <url>/2018/09/11/ichunqiu-web-decode/</url>
+      <content type="html"><![CDATA[<p>题目是给了一串密文</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">TW5650Y - 0TS UZ50S S0V LZW UZ50WKW 9505KL4G 1X WVMUSL510 S001M0UWV 910VSG S0 WFLW0K510 1X LZW54 WF5KL50Y 2S4L0W4KZ52 L1 50U14214SLW X5L0WKK S0V TSK7WLTS88 VWNW8129W0L 50 W8W9W0LS4G, 95VV8W S0V Z5YZ KUZ118K SU41KK UZ50S.LZW S001M0UW9W0L ESK 9SVW SL S K5Y050Y UW4W910G L1VSG TG 0TS UZ50S UW1 VSN5V KZ1W9S7W4 S0V FM LS1, V54WUL14 YW0W4S8 1X LZW 50LW40SL510S8 U112W4SL510 S0V WFUZS0YW VW2S4L9W0L 1X LZW 9505KL4G 1X WVMUSL510.</span><br><span class="line">&quot;EW S4W WFU5LWV L1 T41SVW0 1M4 2S4L0W4KZ52 E5LZ LZW 9505KL4G 1X WVMUSL510 L1 9S7W S 810Y-8SKL50Y 592SUL 10 LZW 85NWK 1X UZ50WKW KLMVW0LK LZ41MYZ S 6150L8G-VWK5Y0WV TSK7WLTS88 UM445UM8M9 S0V S E5VW 4S0YW 1X KUZ118 TSK7WLTS88 241Y4S9K,&quot; KS5V KZ1W9S7W4. &quot;LZ5K U1995L9W0L 9S47K S01LZW4 958WKL10W 50 LZW 0TS&apos;K G1MLZ S0V TSK7WLTS88 VWNW8129W0L WXX14LK 50 UZ50S.&quot; X8SY &#123; YK182V9ZUL9STU5V&#125;</span><br></pre></td></tr></table></figure><p>看到末尾的 <code>{ ... }</code> 猜测是凯撒加密，放工具里跑了下，得到以下。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">E5650G - 0BA CH50A A0D THE CH50ESE 9505ST4O 1F EDUCAT510 A001U0CED 910DAO A0 ENTE0S510 1F THE54 EN5ST50G 2A4T0E4SH52 T1 50C14214ATE F5T0ESS A0D BAS7ETBA88 DEVE8129E0T 50 E8E9E0TA4O, 95DD8E A0D H5GH SCH118S AC41SS CH50A.THE A001U0CE9E0T MAS 9ADE AT A S5G050G CE4E910O T1DAO BO 0BA CH50A CE1 DAV5D SH1E9A7E4 A0D NU TA1, D54ECT14 GE0E4A8 1F THE 50TE40AT510A8 C112E4AT510 A0D ENCHA0GE DE2A4T9E0T 1F THE 9505ST4O 1F EDUCAT510.</span><br><span class="line">&quot;ME A4E ENC5TED T1 B41ADE0 1U4 2A4T0E4SH52 M5TH THE 9505ST4O 1F EDUCAT510 T1 9A7E A 810G-8AST50G 592ACT 10 THE 85VES 1F CH50ESE STUDE0TS TH41UGH A 6150T8O-DES5G0ED BAS7ETBA88 CU445CU8U9 A0D A M5DE 4A0GE 1F SCH118 BAS7ETBA88 241G4A9S,&quot; SA5D SH1E9A7E4. &quot;TH5S C1995T9E0T 9A47S A01THE4 958EST10E 50 THE 0BA&apos;S O1UTH A0D BAS7ETBA88 DEVE8129E0T EFF14TS 50 CH50A.&quot; F8AG &#123; GS182D9HCT9ABC5D&#125;</span><br></pre></td></tr></table></figure><p><code>FLAG</code> 的雏形出来了，看起来是一堆单词，有部分被数字替换了。</p><p>通过分析，找到以下映射关系。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">8 -&gt; L</span><br><span class="line">0 -&gt; N</span><br><span class="line">5 -&gt; I</span><br><span class="line">1 -&gt; O</span><br><span class="line">7 -&gt; K</span><br><span class="line">2 -&gt; P</span><br><span class="line">9 -&gt; M</span><br><span class="line">4 -&gt; R</span><br></pre></td></tr></table></figure><blockquote><p>还有个6，没找出来，不过不影响。</p></blockquote><p>直接替换。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">EI6ING - NBA CHINA AND THE CHINESE MINISTRO OF EDUCATION ANNOUNCED MONDAO AN ENTENSION OF THEIR ENISTING PARTNERSHIP TO INCORPORATE FITNESS AND BASKETBALL DEVELOPMENT IN ELEMENTARO, MIDDLE AND HIGH SCHOOLS ACROSS CHINA.THE ANNOUNCEMENT MAS MADE AT A SIGNING CEREMONO TODAO BO NBA CHINA CEO DAVID SHOEMAKER AND NU TAO, DIRECTOR GENERAL OF THE INTERNATIONAL COOPERATION AND ENCHANGE DEPARTMENT OF THE MINISTRO OF EDUCATION.</span><br><span class="line">&quot;ME ARE ENCITED TO BROADEN OUR PARTNERSHIP MITH THE MINISTRO OF EDUCATION TO MAKE A LONG-LASTING IMPACT ON THE LIVES OF CHINESE STUDENTS THROUGH A 6OINTLO-DESIGNED BASKETBALL CURRICULUM AND A MIDE RANGE OF SCHOOL BASKETBALL PROGRAMS,&quot; SAID SHOEMAKER. &quot;THIS COMMITMENT MARKS ANOTHER MILESTONE IN THE NBA&apos;S OOUTH AND BASKETBALL DEVELOPMENT EFFORTS IN CHINA.&quot; FLAG &#123; GSOLPDMHCTMABCID&#125;</span><br></pre></td></tr></table></figure><p>得到 <code>flag</code> ， <code>FLAG{GSOLPDMHCTMABCID}</code>。</p>]]></content>
+      
+      
+        <tags>
+            
+            <tag> i春秋 </tag>
+            
+            <tag> Web </tag>
+            
+            <tag> 破译 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
       <title>i春秋-Web-EXEC</title>
       <link href="/2018/09/11/ichunqiu-web-EXEC/"/>
       <url>/2018/09/11/ichunqiu-web-EXEC/</url>
