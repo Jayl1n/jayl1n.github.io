@@ -5,22 +5,22 @@
   
 
   
-  <title>i春秋-Web-爆破2 | Jaylin&#39;s Blog</title>
+  <title>i春秋-Web-时间 | Jaylin&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="flag 藏在 flag.php 中，要求读出来。 提示 flag 不在变量中。 源码： 12345&amp;lt;?phpinclude &amp;quot;flag.php&amp;quot;;$a = @$_REQUEST[&amp;apos;hello&amp;apos;];eval( &amp;quot;var_dump($a);&amp;quot;);show_source(__FILE__); eval 会执行参数中的代码。 var_du">
-<meta name="keywords" content="Web,i春秋,PHP">
+  <meta name="description" content="123456789101112&amp;lt;?php     header(&quot;content-type:text/html;charset=utf-8&quot;);    &apos;天下武功唯快不破&apos;;    setcookie(&apos;token&apos;,&apos;hello&apos;);    show_source(__FILE__);    if ($_COOKIE[&apos;token&apos;]==&apos;hello&apos;)&amp;#123;    $txt = f">
+<meta name="keywords" content="Web,i春秋">
 <meta property="og:type" content="article">
-<meta property="og:title" content="i春秋-Web-爆破2">
-<meta property="og:url" content="http://CHN-Jaylin.github.io/2018/09/10/ichunqiu-web-brute-2/index.html">
+<meta property="og:title" content="i春秋-Web-时间">
+<meta property="og:url" content="http://CHN-Jaylin.github.io/2018/09/12/ichunqiu-web-time/index.html">
 <meta property="og:site_name" content="Jaylin&#39;s Blog">
-<meta property="og:description" content="flag 藏在 flag.php 中，要求读出来。 提示 flag 不在变量中。 源码： 12345&amp;lt;?phpinclude &amp;quot;flag.php&amp;quot;;$a = @$_REQUEST[&amp;apos;hello&amp;apos;];eval( &amp;quot;var_dump($a);&amp;quot;);show_source(__FILE__); eval 会执行参数中的代码。 var_du">
+<meta property="og:description" content="123456789101112&amp;lt;?php     header(&quot;content-type:text/html;charset=utf-8&quot;);    &apos;天下武功唯快不破&apos;;    setcookie(&apos;token&apos;,&apos;hello&apos;);    show_source(__FILE__);    if ($_COOKIE[&apos;token&apos;]==&apos;hello&apos;)&amp;#123;    $txt = f">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://chn-jaylin.github.io/2018/09/10/ichunqiu-web-brute-2/flag.png">
-<meta property="og:updated_time" content="2018-09-11T08:31:01.365Z">
+<meta property="og:image" content="http://chn-jaylin.github.io/2018/09/12/ichunqiu-web-time/flag.png">
+<meta property="og:updated_time" content="2018-09-12T15:31:00.346Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="i春秋-Web-爆破2">
-<meta name="twitter:description" content="flag 藏在 flag.php 中，要求读出来。 提示 flag 不在变量中。 源码： 12345&amp;lt;?phpinclude &amp;quot;flag.php&amp;quot;;$a = @$_REQUEST[&amp;apos;hello&amp;apos;];eval( &amp;quot;var_dump($a);&amp;quot;);show_source(__FILE__); eval 会执行参数中的代码。 var_du">
-<meta name="twitter:image" content="http://chn-jaylin.github.io/2018/09/10/ichunqiu-web-brute-2/flag.png">
+<meta name="twitter:title" content="i春秋-Web-时间">
+<meta name="twitter:description" content="123456789101112&amp;lt;?php     header(&quot;content-type:text/html;charset=utf-8&quot;);    &apos;天下武功唯快不破&apos;;    setcookie(&apos;token&apos;,&apos;hello&apos;);    show_source(__FILE__);    if ($_COOKIE[&apos;token&apos;]==&apos;hello&apos;)&amp;#123;    $txt = f">
+<meta name="twitter:image" content="http://chn-jaylin.github.io/2018/09/12/ichunqiu-web-time/flag.png">
   
     <link rel="alternate" href="/atom.xml" title="Jaylin&#39;s Blog" type="application/atom+xml">
   
@@ -67,10 +67,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-ichunqiu-web-brute-2" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-ichunqiu-web-time" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2018/09/10/ichunqiu-web-brute-2/" class="article-date">
-  <time datetime="2018-09-10T06:30:38.000Z" itemprop="datePublished">2018-09-10</time>
+    <a href="/2018/09/12/ichunqiu-web-time/" class="article-date">
+  <time datetime="2018-09-12T15:30:38.000Z" itemprop="datePublished">2018-09-12</time>
 </a>
     
   </div>
@@ -81,7 +81,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      i春秋-Web-爆破2
+      i春秋-Web-时间
     </h1>
   
 
@@ -89,24 +89,19 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p><code>flag</code> 藏在 <code>flag.php</code> 中，要求读出来。</p>
-<p>提示 <code>flag</code> 不在变量中。</p>
-<p>源码：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">include &quot;flag.php&quot;;</span><br><span class="line">$a = @$_REQUEST[&apos;hello&apos;];</span><br><span class="line">eval( &quot;var_dump($a);&quot;);</span><br><span class="line">show_source(__FILE__);</span><br></pre></td></tr></table></figure>
-<p><code>eval</code> 会执行参数中的代码。</p>
-<p><code>var_dump</code> 打印变量相关的信息。</p>
-<p><code>$a</code> 是可控的参数，可以传入 <code>file_get_contents</code> 函数，直接读取 <code>flag.php</code> 的内容。</p>
-<p>构造 payload <code>/?hello=file_get_contents(&#39;flag.php&#39;)</code>。</p>
-<p>得到 <code>flag</code>。</p>
-<p><img src="/2018/09/10/ichunqiu-web-brute-2/flag.png" alt="flag"></p>
+        <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> </span><br><span class="line">    header(<span class="string">"content-type:text/html;charset=utf-8"</span>);</span><br><span class="line">    <span class="string">'天下武功唯快不破'</span>;</span><br><span class="line">    setcookie(<span class="string">'token'</span>,<span class="string">'hello'</span>);</span><br><span class="line">    show_source(<span class="keyword">__FILE__</span>);</span><br><span class="line">    <span class="keyword">if</span> ($_COOKIE[<span class="string">'token'</span>]==<span class="string">'hello'</span>)&#123;</span><br><span class="line">    $txt = file_get_contents(<span class="string">'flag.php'</span>);</span><br><span class="line">    $filename = <span class="string">'u/'</span>.md5(mt_rand(<span class="number">1</span>,<span class="number">1000</span>)).<span class="string">'.txt'</span>;</span><br><span class="line">    file_put_contents($filename,$txt);</span><br><span class="line">    sleep(<span class="number">10</span>);</span><br><span class="line">    unlink($filename);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>分析代码，知道在第二次访问首页后，会把 <code>flag</code> 写入一个txt文件，位置 <code>u/md5(随机1-1000的数字).txt</code>，十秒后会删除这个文件。</p>
+<p>这道题主要就是拼速度。在第二次访问首页后，立刻开始爆破。</p>
+<p>我使用的BurpSuite自带的爆破模块，开了 <code>50</code> 个线程，跑出来了。</p>
+<p><img src="/2018/09/12/ichunqiu-web-time/flag.png" alt="flag"></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://CHN-Jaylin.github.io/2018/09/10/ichunqiu-web-brute-2/" data-id="cjlzazerf000r58vnougb5mlv" class="article-share-link">Share</a>
+      <a data-url="http://CHN-Jaylin.github.io/2018/09/12/ichunqiu-web-time/" data-id="cjlzazerp001158vnb4kal4ok" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/PHP/">PHP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Web/">Web</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/i春秋/">i春秋</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Web/">Web</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/i春秋/">i春秋</a></li></ul>
 
     </footer>
   </div>
@@ -114,19 +109,10 @@
     
 <nav id="article-nav">
   
-    <a href="/2018/09/10/ichunqiu-web-brute-3/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          i春秋-Web-爆破3
-        
-      </div>
-    </a>
   
-  
-    <a href="/2018/09/10/ichunqiu-web-SQLi/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2018/09/11/php-pseudo-protocol/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">i春秋-Web-SQLi</div>
+      <div class="article-nav-title">关于PHP的伪协议</div>
     </a>
   
 </nav>

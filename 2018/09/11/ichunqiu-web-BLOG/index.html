@@ -8,7 +8,7 @@
   <title>i春秋-Web-BLOG | Jaylin&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="一个BLOG，注册后登录，发现使用了 kindeditor 4.1.10 编辑器，这个编辑器存在目录遍历漏洞，访问 /kindeditor/php/file_manager_json.php?path=../，会泄露目录内文件。  发现 flag 就在网站根目录下，但是没办法访问到。 继续摸索，有个发文章的功能，存在SQL注入，INSERT型。 通过INSERT可以批量添加记录的特性，判断出当前表">
-<meta name="keywords" content="i春秋,Web,BLOG">
+<meta name="keywords" content="Web,i春秋,BLOG">
 <meta property="og:type" content="article">
 <meta property="og:title" content="i春秋-Web-BLOG">
 <meta property="og:url" content="http://CHN-Jaylin.github.io/2018/09/11/ichunqiu-web-BLOG/index.html">
@@ -17,7 +17,7 @@
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://chn-jaylin.github.io/2018/09/11/ichunqiu-web-BLOG/kindeditor.png">
 <meta property="og:image" content="http://chn-jaylin.github.io/2018/09/11/ichunqiu-web-BLOG/flag.png">
-<meta property="og:updated_time" content="2018-09-11T12:40:08.697Z">
+<meta property="og:updated_time" content="2018-09-11T12:51:28.623Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="i春秋-Web-BLOG">
 <meta name="twitter:description" content="一个BLOG，注册后登录，发现使用了 kindeditor 4.1.10 编辑器，这个编辑器存在目录遍历漏洞，访问 /kindeditor/php/file_manager_json.php?path=../，会泄露目录内文件。  发现 flag 就在网站根目录下，但是没办法访问到。 继续摸索，有个发文章的功能，存在SQL注入，INSERT型。 通过INSERT可以批量添加记录的特性，判断出当前表">
@@ -131,7 +131,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://CHN-Jaylin.github.io/2018/09/11/ichunqiu-web-BLOG/" data-id="cjlxpfabd000hdcvnwozkga13" class="article-share-link">Share</a>
+      <a data-url="http://CHN-Jaylin.github.io/2018/09/11/ichunqiu-web-BLOG/" data-id="cjlzazer7000l58vnmelsdjcf" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/BLOG/">BLOG</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Web/">Web</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/i春秋/">i春秋</a></li></ul>
@@ -141,6 +141,15 @@
   
     
 <nav id="article-nav">
+  
+    <a href="/2018/09/11/php-pseudo-protocol/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          关于PHP的伪协议
+        
+      </div>
+    </a>
   
   
     <a href="/2018/09/11/ichunqiu-web-Upload/" id="article-nav-older" class="article-nav-link-wrap">
@@ -174,7 +183,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签云</h3>
     <div class="widget tagcloud">
-      <a href="/tags/BLOG/" style="font-size: 10px;">BLOG</a> <a href="/tags/EXPLOIT/" style="font-size: 10px;">EXPLOIT</a> <a href="/tags/PHP/" style="font-size: 16.67px;">PHP</a> <a href="/tags/Python/" style="font-size: 10px;">Python</a> <a href="/tags/SMB/" style="font-size: 10px;">SMB</a> <a href="/tags/SQLi/" style="font-size: 10px;">SQLi</a> <a href="/tags/Upload/" style="font-size: 10px;">Upload</a> <a href="/tags/Web/" style="font-size: 20px;">Web</a> <a href="/tags/i春秋/" style="font-size: 20px;">i春秋</a> <a href="/tags/sql-injection/" style="font-size: 10px;">sql-injection</a> <a href="/tags/心路/" style="font-size: 13.33px;">心路</a> <a href="/tags/日常/" style="font-size: 13.33px;">日常</a> <a href="/tags/爬虫/" style="font-size: 10px;">爬虫</a> <a href="/tags/破译/" style="font-size: 10px;">破译</a> <a href="/tags/远程溢出/" style="font-size: 10px;">远程溢出</a>
+      <a href="/tags/BLOG/" style="font-size: 10px;">BLOG</a> <a href="/tags/EXPLOIT/" style="font-size: 10px;">EXPLOIT</a> <a href="/tags/PHP/" style="font-size: 15px;">PHP</a> <a href="/tags/Python/" style="font-size: 10px;">Python</a> <a href="/tags/SMB/" style="font-size: 10px;">SMB</a> <a href="/tags/SQLi/" style="font-size: 10px;">SQLi</a> <a href="/tags/Upload/" style="font-size: 10px;">Upload</a> <a href="/tags/Web/" style="font-size: 20px;">Web</a> <a href="/tags/i春秋/" style="font-size: 17.5px;">i春秋</a> <a href="/tags/sql-injection/" style="font-size: 10px;">sql-injection</a> <a href="/tags/心路/" style="font-size: 12.5px;">心路</a> <a href="/tags/日常/" style="font-size: 12.5px;">日常</a> <a href="/tags/爬虫/" style="font-size: 10px;">爬虫</a> <a href="/tags/破译/" style="font-size: 10px;">破译</a> <a href="/tags/远程溢出/" style="font-size: 10px;">远程溢出</a>
     </div>
   </div>
 
@@ -196,6 +205,14 @@
       <ul>
         
           <li>
+            <a href="/2018/09/12/ichunqiu-web-time/">i春秋-Web-时间</a>
+          </li>
+        
+          <li>
+            <a href="/2018/09/11/php-pseudo-protocol/">关于PHP的伪协议</a>
+          </li>
+        
+          <li>
             <a href="/2018/09/11/ichunqiu-web-BLOG/">i春秋-Web-BLOG</a>
           </li>
         
@@ -205,14 +222,6 @@
         
           <li>
             <a href="/2018/09/11/ichunqiu-web-decode/">i春秋-Web-破译</a>
-          </li>
-        
-          <li>
-            <a href="/2018/09/11/ichunqiu-web-EXEC/">i春秋-Web-EXEC</a>
-          </li>
-        
-          <li>
-            <a href="/2018/09/10/ichunqiu-web-brute-3/">i春秋-Web-爆破3</a>
           </li>
         
       </ul>
