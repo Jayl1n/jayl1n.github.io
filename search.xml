@@ -20,25 +20,6 @@
     </entry>
     
     <entry>
-      <title>SQL注入的那些事儿</title>
-      <link href="/2018/09/13/summary-sqli/"/>
-      <url>/2018/09/13/summary-sqli/</url>
-      <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>SQL注入在实际中应该是最常见到的漏洞，主要是由于开发人员对用户传来的参数未作有效的过滤，导致原本的SQL语句的语义被篡改。</p><p>在CTF中，这种漏洞经常会出现到，一般都是需要绕WAF。</p><p>下面总结些常用的绕WAF方式，做个备忘录。</p><h2 id="常见的Bypass手段"><a href="#常见的Bypass手段" class="headerlink" title="常见的Bypass手段"></a>常见的Bypass手段</h2><ol><li>替换关键字 </li><li>使用编码 </li><li>使用注释 </li><li>等价函数与命令 </li><li>使用特殊符号 </li><li>HTTP参数控制 </li><li>缓冲区溢出 </li><li>整合绕过 </li></ol>]]></content>
-      
-      
-        <tags>
-            
-            <tag> Web </tag>
-            
-            <tag> SQLi </tag>
-            
-            <tag> CTF </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    <entry>
       <title>i春秋-Web-时间</title>
       <link href="/2018/09/12/ichunqiu-web-time/"/>
       <url>/2018/09/12/ichunqiu-web-time/</url>
