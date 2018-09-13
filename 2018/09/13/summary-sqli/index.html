@@ -5,19 +5,20 @@
   
 
   
-  <title>Tag: PHP | Jaylin&#39;s Blog</title>
+  <title>SQL注入的那些事儿 | Jaylin&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="记录安全相关的琐碎，也会有开发方面的知识。">
-<meta name="keywords" content="安全 编程 开发 博客">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Jaylin&#39;s Blog">
-<meta property="og:url" content="http://CHN-Jaylin.github.io/tags/PHP/index.html">
+  <meta name="description" content="前言SQL注入在实际中应该是最常见到的漏洞，主要是由于开发人员对用户传来的参数未作有效的过滤，导致原本的SQL语句的语义被篡改。 在CTF中，这种漏洞经常会出现到，一般都是需要绕WAF。 下面总结些常用的绕WAF方式，做个备忘录。 常见的Bypass手段 替换关键字  使用编码  使用注释  等价函数与命令  使用特殊符号  HTTP参数控制  缓冲区溢出  整合绕过">
+<meta name="keywords" content="Web,SQLi,CTF">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SQL注入的那些事儿">
+<meta property="og:url" content="http://CHN-Jaylin.github.io/2018/09/13/summary-sqli/index.html">
 <meta property="og:site_name" content="Jaylin&#39;s Blog">
-<meta property="og:description" content="记录安全相关的琐碎，也会有开发方面的知识。">
+<meta property="og:description" content="前言SQL注入在实际中应该是最常见到的漏洞，主要是由于开发人员对用户传来的参数未作有效的过滤，导致原本的SQL语句的语义被篡改。 在CTF中，这种漏洞经常会出现到，一般都是需要绕WAF。 下面总结些常用的绕WAF方式，做个备忘录。 常见的Bypass手段 替换关键字  使用编码  使用注释  等价函数与命令  使用特殊符号  HTTP参数控制  缓冲区溢出  整合绕过">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-09-13T00:37:35.720Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Jaylin&#39;s Blog">
-<meta name="twitter:description" content="记录安全相关的琐碎，也会有开发方面的知识。">
+<meta name="twitter:title" content="SQL注入的那些事儿">
+<meta name="twitter:description" content="前言SQL注入在实际中应该是最常见到的漏洞，主要是由于开发人员对用户传来的参数未作有效的过滤，导致原本的SQL语句的语义被篡改。 在CTF中，这种漏洞经常会出现到，一般都是需要绕WAF。 下面总结些常用的绕WAF方式，做个备忘录。 常见的Bypass手段 替换关键字  使用编码  使用注释  等价函数与命令  使用特殊符号  HTTP参数控制  缓冲区溢出  整合绕过">
   
     <link rel="alternate" href="/atom.xml" title="Jaylin&#39;s Blog" type="application/atom+xml">
   
@@ -64,78 +65,75 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2018" class="archive-year">2018</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2018/09/11/ichunqiu-web-Upload/" class="archive-article-date">
-  <time datetime="2018-09-11T09:13:43.000Z" itemprop="datePublished">9月 11</time>
+        <section id="main"><article id="post-summary-sqli" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/09/13/summary-sqli/" class="article-date">
+  <time datetime="2018-09-12T16:22:08.000Z" itemprop="datePublished">2018-09-13</time>
 </a>
-      
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/09/11/ichunqiu-web-Upload/">ichunqiu-web-Upload</a>
+    <h1 class="article-title" itemprop="name">
+      SQL注入的那些事儿
     </h1>
   
 
-    </header>
-  </div>
-</article>
-  
+      </header>
     
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2018/09/10/ichunqiu-web-brute-3/" class="archive-article-date">
-  <time datetime="2018-09-10T08:30:38.000Z" itemprop="datePublished">9月 10</time>
-</a>
+    <div class="article-entry" itemprop="articleBody">
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/09/10/ichunqiu-web-brute-3/">i春秋-Web-爆破3</a>
-    </h1>
-  
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>SQL注入在实际中应该是最常见到的漏洞，主要是由于开发人员对用户传来的参数未作有效的过滤，导致原本的SQL语句的语义被篡改。</p>
+<p>在CTF中，这种漏洞经常会出现到，一般都是需要绕WAF。</p>
+<p>下面总结些常用的绕WAF方式，做个备忘录。</p>
+<h2 id="常见的Bypass手段"><a href="#常见的Bypass手段" class="headerlink" title="常见的Bypass手段"></a>常见的Bypass手段</h2><ol>
+<li>替换关键字 </li>
+<li>使用编码 </li>
+<li>使用注释 </li>
+<li>等价函数与命令 </li>
+<li>使用特殊符号 </li>
+<li>HTTP参数控制 </li>
+<li>缓冲区溢出 </li>
+<li>整合绕过 </li>
+</ol>
 
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2018/09/10/ichunqiu-web-brute-2/" class="archive-article-date">
-  <time datetime="2018-09-10T06:30:38.000Z" itemprop="datePublished">9月 10</time>
-</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/09/10/ichunqiu-web-brute-2/">i春秋-Web-爆破2</a>
-    </h1>
-  
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://CHN-Jaylin.github.io/2018/09/13/summary-sqli/" data-id="cjm0ntujo0018jsvnxmk9srbu" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CTF/">CTF</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SQLi/">SQLi</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Web/">Web</a></li></ul>
 
-    </header>
+    </footer>
   </div>
-</article>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/09/13/ichunqiu-web-whoareyou/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          i春秋-Web-WhoAreYou
+        
+      </div>
+    </a>
   
   
-    </div></section>
+    <a href="/2018/09/12/ichunqiu-web-time/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">i春秋-Web-时间</div>
+    </a>
   
+</nav>
 
+  
+</article>
 
 </section>
         
