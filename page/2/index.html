@@ -11,7 +11,7 @@
 <meta name="keywords" content="安全 编程 开发 博客">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Jaylin&#39;s Blog">
-<meta property="og:url" content="http://CHN-Jaylin.github.io/page/2/index.html">
+<meta property="og:url" content="http://Jayl1n.github.io/page/2/index.html">
 <meta property="og:site_name" content="Jaylin&#39;s Blog">
 <meta property="og:description" content="记录安全相关的琐碎，也会有开发方面的知识。">
 <meta property="og:locale" content="zh-CN">
@@ -58,13 +58,57 @@
         <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
       </nav>
       <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://CHN-Jaylin.github.io"></form>
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://Jayl1n.github.io"></form>
       </div>
     </div>
   </div>
 </header>
       <div class="outer">
         <section id="main">
+  
+    <article id="post-daily-life-20180909" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/09/09/daily-life-20180909/" class="article-date">
+  <time datetime="2018-09-09T15:14:15.000Z" itemprop="datePublished">2018-09-09</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/09/09/daily-life-20180909/">日常心路-180909</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>最近忙了很多事，从公司离职，搬家，开学，又跑到某市做培训。</p>
+<p>突然回到校园生活，身份从社会人变成学生，感觉还有点不适应。</p>
+<p>今天，如愿以偿的通过了<code>Syclover</code>的面试，进入了新芽组，应该是唯一一个大三的新芽 ( ╯□╰ )，不过也算是完成了高中时候的心愿（进入CUIT，进入Syclover）。今天面的师傅很严肃，感觉自己确实还差的太多了，希望能在这个学期努力跟上。</p>
+<p>这个学期，需要额外补<code>3</code>门课，把四级过了，还要尽量通过核心组面试，任务挺重的⊙﹏⊙∥。</p>
+<p>诸君共勉吧(ﾉ*･ω･)ﾉ。</p>
+<p><img src="/2018/09/09/daily-life-20180909/jldnydhgjxzpmdzj.jpg" alt="表情"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://Jayl1n.github.io/2018/09/09/daily-life-20180909/" data-id="cjm7necof0002q0vnkg9jtl6m" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/心路/">心路</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/日常/">日常</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
   
     <article id="post-sql-injection-cheat-sheet" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
@@ -147,7 +191,7 @@
 <h3 id="PostgreSQL"><a href="#PostgreSQL" class="headerlink" title="PostgreSQL"></a>PostgreSQL</h3>  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">CASE</span> <span class="keyword">WHEN</span> condition <span class="keyword">THEN</span> <span class="literal">true</span>-part <span class="keyword">ELSE</span> <span class="literal">false</span>-part <span class="keyword">END</span>;</span><br></pre></td></tr></table></figure>
   <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">CASE</span> WEHEN (<span class="number">1</span>=<span class="number">1</span>) <span class="keyword">THEN</span> <span class="string">'A'</span> <span class="keyword">ELSE</span> <span class="string">'B'</span><span class="keyword">END</span>;</span><br></pre></td></tr></table></figure>
 <h4 id="Sample-2"><a href="#Sample-2" class="headerlink" title="Sample"></a>Sample</h4>  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">if ((<span class="keyword">select</span> <span class="keyword">user</span>) = <span class="string">'sa'</span> <span class="keyword">OR</span> (<span class="keyword">select</span> <span class="keyword">user</span>) = <span class="string">'dbo'</span>) <span class="keyword">select</span> <span class="number">1</span> <span class="keyword">else</span> <span class="keyword">select</span> <span class="number">1</span>/<span class="number">0</span> (S)</span><br></pre></td></tr></table></figure>
-<p>  如果当前账号不是<code>sa</code>或<code>dbo</code>，会报 <code>divide by zero error</code>错误。</p>
+<p>  如果当前账号不是<code>sa</code>或<code>dbo</code>，会报 <code>divide by zero error</code> 错误。</p>
 <h2 id="使用整型"><a href="#使用整型" class="headerlink" title="使用整型"></a>使用整型</h2><p>  可以用来绕过<code>magic_quotes()</code>等过滤器，甚至是<code>WAF</code></p>
 <ul>
 <li><p>0xHEXNUMBER (MySQL | SQL Server)<br>You can  write hex like these; </p>
@@ -242,22 +286,23 @@
 </ul>
 <h2 id="绕过密码MD5验证的登录点"><a href="#绕过密码MD5验证的登录点" class="headerlink" title="绕过密码MD5验证的登录点"></a>绕过密码MD5验证的登录点</h2><p>  可以通过联合查询，提交一个已知密码的MD5，这时候，数据库会优先比较你提交的MD5，从而绕过登录。</p>
 <blockquote>
-<p>Username :<br>admin’ AND 1=0 UNION ALL SELECT ‘admin’, ‘81dc9bdb52d04dc20036dbd8313ed055’</p>
-</blockquote>
-<blockquote>
-<p>Password : 1234</p>
+<p>Username :<br>admin’ AND 1=0 UNION ALL SELECT ‘admin’, ‘81dc9bdb52d04dc20036dbd8313ed055’<br>Password : 1234</p>
 </blockquote>
 <h2 id="通过报错发现字段名"><a href="#通过报错发现字段名" class="headerlink" title="通过报错发现字段名"></a>通过报错发现字段名</h2><h3 id="使用-HAVING-BY-MySQL"><a href="#使用-HAVING-BY-MySQL" class="headerlink" title="使用 HAVING BY (MySQL)"></a>使用 <code>HAVING BY</code> (MySQL)</h3><ul>
-<li>‘ HAVING 1=1 –</li>
-<li>‘ GROUP BY table.columnfromerror1 HAVING 1=1 –</li>
-<li>‘ GROUP BY table.columnfromerror1, columnfromerror2 HAVING 1=1 –</li>
-<li>‘ GROUP BY table.columnfromerror1, columnfromerror2, columnfromerror(n) HAVING 1=1 – 依次类推</li>
+<li><p>‘ HAVING 1=1 –</p>
+</li>
+<li><p>‘ GROUP BY table.columnfromerror1 HAVING 1=1 –</p>
+</li>
+<li><p>‘ GROUP BY table.columnfromerror1, columnfromerror2 HAVING 1=1 –</p>
+</li>
+<li><p>‘ GROUP BY table.columnfromerror1, columnfromerror2, columnfromerror(n) HAVING 1=1 – 依次类推</p>
+</li>
 </ul>
 <h3 id="使用-ORDER-BY"><a href="#使用-ORDER-BY" class="headerlink" title="使用 ORDER BY (*)"></a>使用 <code>ORDER BY</code> (*)</h3>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://CHN-Jaylin.github.io/2018/08/07/sql-injection-cheat-sheet/" data-id="cjm0nvetr003azkvnhnajhkjn" class="article-share-link">Share</a>
+      <a data-url="http://Jayl1n.github.io/2018/08/07/sql-injection-cheat-sheet/" data-id="cjm7necqb000mq0vni6iny3f6" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/sql-injection/">sql-injection</a></li></ul>
@@ -300,7 +345,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://CHN-Jaylin.github.io/2018/08/02/exploit-erraticgopher/" data-id="cjm0nveps000qzkvn21sbe037" class="article-share-link">Share</a>
+      <a data-url="http://Jayl1n.github.io/2018/08/02/exploit-erraticgopher/" data-id="cjm7necp00006q0vnry85b0xg" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/EXPLOIT/">EXPLOIT</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SMB/">SMB</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/远程溢出/">远程溢出</a></li></ul>
@@ -392,7 +437,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://CHN-Jaylin.github.io/2018/08/01/crawl-admin5/" data-id="cjm0nveps000lzkvnmw6mbdy2" class="article-share-link">Share</a>
+      <a data-url="http://Jayl1n.github.io/2018/08/01/crawl-admin5/" data-id="cjm7necnx0000q0vn3qmrg1oo" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/">Python</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/爬虫/">爬虫</a></li></ul>
@@ -437,7 +482,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://CHN-Jaylin.github.io/2018/07/31/yesterday-and-tomorrow/" data-id="cjm0nvetb0038zkvnnp39bbge" class="article-share-link">Share</a>
+      <a data-url="http://Jayl1n.github.io/2018/07/31/yesterday-and-tomorrow/" data-id="cjm7necqg000qq0vntougtt06" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/心路/">心路</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/日常/">日常</a></li></ul>
@@ -477,7 +522,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签云</h3>
     <div class="widget tagcloud">
-      <a href="/tags/BLOG/" style="font-size: 10px;">BLOG</a> <a href="/tags/EXPLOIT/" style="font-size: 10px;">EXPLOIT</a> <a href="/tags/PHP/" style="font-size: 16.67px;">PHP</a> <a href="/tags/Python/" style="font-size: 10px;">Python</a> <a href="/tags/SMB/" style="font-size: 10px;">SMB</a> <a href="/tags/SQLi/" style="font-size: 10px;">SQLi</a> <a href="/tags/Upload/" style="font-size: 10px;">Upload</a> <a href="/tags/Web/" style="font-size: 20px;">Web</a> <a href="/tags/i春秋/" style="font-size: 20px;">i春秋</a> <a href="/tags/sql-injection/" style="font-size: 10px;">sql-injection</a> <a href="/tags/心路/" style="font-size: 13.33px;">心路</a> <a href="/tags/日常/" style="font-size: 13.33px;">日常</a> <a href="/tags/爬虫/" style="font-size: 10px;">爬虫</a> <a href="/tags/破译/" style="font-size: 10px;">破译</a> <a href="/tags/远程溢出/" style="font-size: 10px;">远程溢出</a>
+      <a href="/tags/BLOG/" style="font-size: 10px;">BLOG</a> <a href="/tags/EXPLOIT/" style="font-size: 10px;">EXPLOIT</a> <a href="/tags/PHP/" style="font-size: 15px;">PHP</a> <a href="/tags/Python/" style="font-size: 10px;">Python</a> <a href="/tags/SMB/" style="font-size: 10px;">SMB</a> <a href="/tags/SQLi/" style="font-size: 10px;">SQLi</a> <a href="/tags/Upload/" style="font-size: 10px;">Upload</a> <a href="/tags/Web/" style="font-size: 20px;">Web</a> <a href="/tags/i春秋/" style="font-size: 17.5px;">i春秋</a> <a href="/tags/sql-injection/" style="font-size: 10px;">sql-injection</a> <a href="/tags/心路/" style="font-size: 12.5px;">心路</a> <a href="/tags/日常/" style="font-size: 12.5px;">日常</a> <a href="/tags/爬虫/" style="font-size: 10px;">爬虫</a> <a href="/tags/破译/" style="font-size: 10px;">破译</a> <a href="/tags/远程溢出/" style="font-size: 10px;">远程溢出</a>
     </div>
   </div>
 
@@ -499,6 +544,10 @@
       <ul>
         
           <li>
+            <a href="/2018/09/18/summary-fileupload-bypass/">文件上传绕过的各种姿势</a>
+          </li>
+        
+          <li>
             <a href="/2018/09/13/ichunqiu-web-whoareyou/">i春秋-Web-WhoAreYou</a>
           </li>
         
@@ -512,10 +561,6 @@
         
           <li>
             <a href="/2018/09/11/ichunqiu-web-Upload/">ichunqiu-web-Upload</a>
-          </li>
-        
-          <li>
-            <a href="/2018/09/11/ichunqiu-web-decode/">i春秋-Web-破译</a>
           </li>
         
       </ul>

@@ -5,19 +5,20 @@
   
 
   
-  <title>Tag: EXPLOIT | Jaylin&#39;s Blog</title>
+  <title>文件上传绕过的各种姿势 | Jaylin&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="记录安全相关的琐碎，也会有开发方面的知识。">
-<meta name="keywords" content="安全 编程 开发 博客">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Jaylin&#39;s Blog">
-<meta property="og:url" content="http://Jayl1n.github.io/tags/EXPLOIT/index.html">
+  <meta name="description" content="JS前端检测  浏览器审核元素，修改代码  BP抓包，修改后缀    文件后缀绕过  Apache的配置文件 httpd.conf,配置了哪些后缀会当作 php 脚本来解析，只要上传支持的后缀就行。    1AddType application/x-httpd-php .php .phtml  Content-Type 绕过  如果后台是通过 Content-Type 判断文件类型的，可以通过">
+<meta name="keywords" content="Web">
+<meta property="og:type" content="article">
+<meta property="og:title" content="文件上传绕过的各种姿势">
+<meta property="og:url" content="http://Jayl1n.github.io/2018/09/18/summary-fileupload-bypass/index.html">
 <meta property="og:site_name" content="Jaylin&#39;s Blog">
-<meta property="og:description" content="记录安全相关的琐碎，也会有开发方面的知识。">
+<meta property="og:description" content="JS前端检测  浏览器审核元素，修改代码  BP抓包，修改后缀    文件后缀绕过  Apache的配置文件 httpd.conf,配置了哪些后缀会当作 php 脚本来解析，只要上传支持的后缀就行。    1AddType application/x-httpd-php .php .phtml  Content-Type 绕过  如果后台是通过 Content-Type 判断文件类型的，可以通过">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-09-18T11:39:40.430Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Jaylin&#39;s Blog">
-<meta name="twitter:description" content="记录安全相关的琐碎，也会有开发方面的知识。">
+<meta name="twitter:title" content="文件上传绕过的各种姿势">
+<meta name="twitter:description" content="JS前端检测  浏览器审核元素，修改代码  BP抓包，修改后缀    文件后缀绕过  Apache的配置文件 httpd.conf,配置了哪些后缀会当作 php 脚本来解析，只要上传支持的后缀就行。    1AddType application/x-httpd-php .php .phtml  Content-Type 绕过  如果后台是通过 Content-Type 判断文件类型的，可以通过">
   
     <link rel="alternate" href="/atom.xml" title="Jaylin&#39;s Blog" type="application/atom+xml">
   
@@ -64,40 +65,86 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2018" class="archive-year">2018</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2018/08/02/exploit-erraticgopher/" class="archive-article-date">
-  <time datetime="2018-08-02T01:20:48.000Z" itemprop="datePublished">8月 2</time>
+        <section id="main"><article id="post-summary-fileupload-bypass" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/09/18/summary-fileupload-bypass/" class="article-date">
+  <time datetime="2018-09-18T09:52:50.000Z" itemprop="datePublished">2018-09-18</time>
 </a>
-      
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/08/02/exploit-erraticgopher/">远程溢出之古怪地鼠ERRATICGOPHER</a>
+    <h1 class="article-title" itemprop="name">
+      文件上传绕过的各种姿势
     </h1>
   
 
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <ol>
+<li><p>JS前端检测</p>
+<ul>
+<li><p>浏览器审核元素，修改代码</p>
+</li>
+<li><p>BP抓包，修改后缀</p>
+</li>
+</ul>
+</li>
+<li><p>文件后缀绕过</p>
+<p> Apache的配置文件 <code>httpd.conf</code>,配置了哪些后缀会当作 <code>php</code> 脚本来解析，只要上传支持的后缀就行。</p>
+   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">AddType application/x-httpd-php .php .phtml</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Content-Type 绕过</p>
+<p> 如果后台是通过 <code>Content-Type</code> 判断文件类型的，可以通过抓包修改 <code>Content-Type</code> 绕过，如 <code>image/jpeg</code>,<code>image/gif</code>。</p>
+</li>
+<li><p>getimagesize() 绕过</p>
+<p> PHP函数 <code>getimagesize()</code> 可以获取图片信息，以此来判断是不是图片。</p>
+<p> 可以将图片和 <code>webshell</code> 合并绕过。</p>
+<blockquote>
+<p>copy img.jpg /a + webshell.php /b &gt; webhsell.php </p>
+</blockquote>
+</li>
+<li><p>文件截断绕过</p>
+<p> 参数值中包含 <code>%00</code>，字符串后面的内容会被截断。</p>
+<p> 如参数 <code>a=1.php%00.jpg</code>，截断后就变为 <code>a=1.php</code>。</p>
+<p> 此方法在 <code>PHP 5.3.4</code> ，且关闭了 <code>GPC</code> 的情况下有效。</p>
+</li>
+<li><p>条件竞争</p>
+<p> 有些程序在上传时，会先将文件上传到服务器，再判断文件是否是 <code>webshell</code>，如果是 <code>webshell</code> 再删除。</p>
+<p> 这个过程是需要时间的，如果在文件被删除前访问 <code>webshell</code>，再写一个 <code>webshell</code>，就可以绕过该限制。</p>
+</li>
+</ol>
 
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://Jayl1n.github.io/2018/09/18/summary-fileupload-bypass/" data-id="cjm7necqd000oq0vnotf1fdge" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Web/">Web</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2018/09/13/ichunqiu-web-whoareyou/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">i春秋-Web-WhoAreYou</div>
+    </a>
+  
+</nav>
+
+  
+</article>
 
 </section>
         
