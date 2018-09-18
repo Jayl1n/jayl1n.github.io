@@ -3,6 +3,23 @@
   
     
     <entry>
+      <title>PHP中的命令执行</title>
+      <link href="/2018/09/18/summary-command-execution/"/>
+      <url>/2018/09/18/summary-command-execution/</url>
+      <content type="html"><![CDATA[<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>在 PHP 中, <code>exec()</code>、<code>system()</code>、<code>popen()</code>、<code>passthru()</code>、<code>proc_open()</code>、<code>pcntl_exec()</code>、<code>shell_exec()</code>，还有反引号 ``包裹的内容，都可以用来执行系统命令。</p><p>如果执行的命令参数是用户可控的，那么就会造成命令执行漏洞。</p><p>下面是常见的函数描述：</p><ul><li><p>system()</p><p>  输出并返回最后一行shell结果。 </p></li><li><p>exec()</p><p>  不输出结果，返回最后一行shell结果，所有结果可以保存到一个返回的数组里面。</p></li><li><p>passthru()</p><p>  只调用命令，把命令的运行结果原样地直接输出到标准输出设备上。</p></li><li><p>popen()、proc_open()</p><p>  不会直接返回执行结果，而是返回一个文件指针。</p></li><li><p>反引号</p><p>  调用 <code>shell_exec()</code> 函数</p></li></ul><hr><h2 id="各平台的漏洞利用"><a href="#各平台的漏洞利用" class="headerlink" title="各平台的漏洞利用"></a>各平台的漏洞利用</h2><p>在实际场景中，要利用命令执行漏洞，通常需要借助管道符，拼接到正常的命令参数中来实现。</p><p>各个平台支持的管道符都有所不同，下面是 <code>Windows</code> 及 <code>Linux</code> 支持的管道符。</p><h3 id="Windows"><a href="#Windows" class="headerlink" title="Windows"></a>Windows</h3><ul><li><p>|</p><p>  直接执行后面的语句。</p><blockquote><p>ping | whoami</p></blockquote></li><li><p>||</p><p>  如果前面的语句执行出错，则执行后面的语句。</p><blockquote><p>p || whoami</p></blockquote></li><li><p>\&amp;</p><p>  如果前面的语句为假，直接执行后面的语句。</p><p>  为真，也会执行后面的语句。</p><blockquote><p>ping 127.0.0.1 &amp; whoami</p></blockquote></li><li><p>\&amp;\&amp;</p><p>  如果前面的语句为假直接出错，不会执行后面的。前面的语句必须为真。</p><blockquote><p>ping 127.0.0.1 &amp;&amp; whoami</p></blockquote></li></ul><h3 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h3><ul><li><p>\;</p><p>  执行完前面的语句，再执行后面的。</p><blockquote><p>ping 127.0.0.1;whoami</p></blockquote></li><li><p>|</p><p>  直接执行后面的语句。</p><blockquote><p>ping | whoami</p></blockquote></li><li><p>||</p><p>  如果前面的语句执行出错，则执行后面的语句。</p><blockquote><p>p || whoami</p></blockquote></li><li><p>\&amp;</p><p>  如果前面的语句为假，直接执行后面的语句。</p><p>  为真，也会执行后面的语句。</p><blockquote><p>ping 127.0.0.1 &amp; whoami</p></blockquote></li><li><p>\&amp;\&amp;</p><p>  如果前面的语句为假直接出错，不会执行后面的。前面的语句必须为真。</p><blockquote><p>ping 127.0.0.1 &amp;&amp; whoami</p></blockquote></li></ul><hr><h2 id="防御方法"><a href="#防御方法" class="headerlink" title="防御方法"></a>防御方法</h2><p>PHP 内置了两个函数，<code>escapeshellarg()</code>，<code>escapeshellcmd()</code>可以防止命令执行。</p><ol><li><p>escapeshellarg()</p><p> 把字符串转码为可以在 shell 命令里使用的参数。</p></li><li><p>escapeshellcmd()</p><p> shell 元字符转义。</p><p> 对字符串中可能会欺骗 shell 命令执行任意命令的字符进行转义。 此函数保证用户输入的数据在传送到 <code>exec()</code> 或 <code>system()</code> 函数，或者 执行操作符 之前进行转义。</p><p> 反斜线（\）会在以下字符之前插入： &amp;#;`|*?~&lt;&gt;^()[]{}$\, \x0A 和 \xFF。 ‘ 和 “ 仅在不配对儿的时候被转义。 在 Windows 平台上，所有这些字符以及 % 和 ! 字符都会被空格代替。 </p></li></ol>]]></content>
+      
+      
+        <tags>
+            
+            <tag> Web </tag>
+            
+            <tag> Php </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
       <title>文件上传绕过的各种姿势</title>
       <link href="/2018/09/18/summary-fileupload-bypass/"/>
       <url>/2018/09/18/summary-fileupload-bypass/</url>
@@ -26,9 +43,9 @@
       
         <tags>
             
-            <tag> i春秋 </tag>
-            
             <tag> Web </tag>
+            
+            <tag> i春秋 </tag>
             
         </tags>
       
@@ -43,9 +60,9 @@
       
         <tags>
             
-            <tag> i春秋 </tag>
-            
             <tag> Web </tag>
+            
+            <tag> i春秋 </tag>
             
         </tags>
       
@@ -60,9 +77,9 @@
       
         <tags>
             
-            <tag> i春秋 </tag>
-            
             <tag> Web </tag>
+            
+            <tag> i春秋 </tag>
             
             <tag> BLOG </tag>
             
@@ -79,9 +96,9 @@
       
         <tags>
             
-            <tag> i春秋 </tag>
-            
             <tag> Web </tag>
+            
+            <tag> i春秋 </tag>
             
             <tag> PHP </tag>
             
@@ -100,9 +117,9 @@
       
         <tags>
             
-            <tag> i春秋 </tag>
-            
             <tag> Web </tag>
+            
+            <tag> i春秋 </tag>
             
             <tag> 破译 </tag>
             
@@ -119,9 +136,9 @@
       
         <tags>
             
-            <tag> i春秋 </tag>
-            
             <tag> Web </tag>
+            
+            <tag> i春秋 </tag>
             
         </tags>
       
@@ -136,9 +153,9 @@
       
         <tags>
             
-            <tag> i春秋 </tag>
-            
             <tag> Web </tag>
+            
+            <tag> i春秋 </tag>
             
             <tag> PHP </tag>
             
@@ -155,9 +172,9 @@
       
         <tags>
             
-            <tag> i春秋 </tag>
-            
             <tag> Web </tag>
+            
+            <tag> i春秋 </tag>
             
             <tag> PHP </tag>
             
@@ -174,9 +191,9 @@
       
         <tags>
             
-            <tag> i春秋 </tag>
-            
             <tag> Web </tag>
+            
+            <tag> i春秋 </tag>
             
             <tag> SQLi </tag>
             
@@ -273,16 +290,16 @@
   
     
     <entry>
-      <title>timeline</title>
-      <link href="/timeline/index.html"/>
-      <url>/timeline/index.html</url>
+      <title>tags</title>
+      <link href="/tags/index.html"/>
+      <url>/tags/index.html</url>
       <content type="html"><![CDATA[]]></content>
     </entry>
     
     <entry>
-      <title>tags</title>
-      <link href="/tags/index.html"/>
-      <url>/tags/index.html</url>
+      <title>timeline</title>
+      <link href="/timeline/index.html"/>
+      <url>/timeline/index.html</url>
       <content type="html"><![CDATA[]]></content>
     </entry>
     

