@@ -66,6 +66,54 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-ichunqiu-web-brute-2" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/09/10/ichunqiu-web-brute-2/" class="article-date">
+  <time datetime="2018-09-10T06:30:38.000Z" itemprop="datePublished">2018-09-10</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/09/10/ichunqiu-web-brute-2/">i春秋-Web-爆破2</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><code>flag</code> 藏在 <code>flag.php</code> 中，要求读出来。</p>
+<p>提示 <code>flag</code> 不在变量中。</p>
+<p>源码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">include &quot;flag.php&quot;;</span><br><span class="line">$a = @$_REQUEST[&apos;hello&apos;];</span><br><span class="line">eval( &quot;var_dump($a);&quot;);</span><br><span class="line">show_source(__FILE__);</span><br></pre></td></tr></table></figure>
+<p><code>eval</code> 会执行参数中的代码。</p>
+<p><code>var_dump</code> 打印变量相关的信息。</p>
+<p><code>$a</code> 是可控的参数，可以传入 <code>file_get_contents</code> 函数，直接读取 <code>flag.php</code> 的内容。</p>
+<p>构造 payload <code>/?hello=file_get_contents(&#39;flag.php&#39;)</code>。</p>
+<p>得到 <code>flag</code>。</p>
+<p><img src="/2018/09/10/ichunqiu-web-brute-2/flag.png" alt="flag"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://Jayl1n.github.io/2018/09/10/ichunqiu-web-brute-2/" data-id="cjmamjdq7001330vnhvalgfat" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/PHP/">PHP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Web/">Web</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/i春秋/">i春秋</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-ichunqiu-web-SQLi" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2018/09/10/ichunqiu-web-SQLi/" class="article-date">
@@ -107,7 +155,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://Jayl1n.github.io/2018/09/10/ichunqiu-web-SQLi/" data-id="cjm7r8sd600293ovn4e606vbo" class="article-share-link">Share</a>
+      <a data-url="http://Jayl1n.github.io/2018/09/10/ichunqiu-web-SQLi/" data-id="cjmamjdq2000y30vnogt887nw" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SQLi/">SQLi</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Web/">Web</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/i春秋/">i春秋</a></li></ul>
@@ -151,7 +199,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://Jayl1n.github.io/2018/09/09/daily-life-20180909/" data-id="cjm7r8sau000r3ovnzyhd0zw9" class="article-share-link">Share</a>
+      <a data-url="http://Jayl1n.github.io/2018/09/09/daily-life-20180909/" data-id="cjmamjdpu000q30vnzc3igenh" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/心路/">心路</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/日常/">日常</a></li></ul>
@@ -355,7 +403,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://Jayl1n.github.io/2018/08/07/sql-injection-cheat-sheet/" data-id="cjm7r8se7002r3ovnyx27x4mw" class="article-share-link">Share</a>
+      <a data-url="http://Jayl1n.github.io/2018/08/07/sql-injection-cheat-sheet/" data-id="cjmamjdqf001d30vnqhhu5dsb" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/sql-injection/">sql-injection</a></li></ul>
@@ -398,7 +446,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://Jayl1n.github.io/2018/08/02/exploit-erraticgopher/" data-id="cjm7r8sb0000u3ovn6iwtvvvw" class="article-share-link">Share</a>
+      <a data-url="http://Jayl1n.github.io/2018/08/02/exploit-erraticgopher/" data-id="cjmamjdpx000t30vnvunzq8k5" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/EXPLOIT/">EXPLOIT</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SMB/">SMB</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/远程溢出/">远程溢出</a></li></ul>
@@ -490,7 +538,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://Jayl1n.github.io/2018/08/01/crawl-admin5/" data-id="cjm7r8sar000p3ovnxosakclo" class="article-share-link">Share</a>
+      <a data-url="http://Jayl1n.github.io/2018/08/01/crawl-admin5/" data-id="cjmamjdpt000o30vn52k0isav" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/">Python</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/爬虫/">爬虫</a></li></ul>
@@ -535,7 +583,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://Jayl1n.github.io/2018/07/31/yesterday-and-tomorrow/" data-id="cjm7r8see002w3ovnpaawz9bx" class="article-share-link">Share</a>
+      <a data-url="http://Jayl1n.github.io/2018/07/31/yesterday-and-tomorrow/" data-id="cjmamjds8003n30vn2sx61sqz" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/心路/">心路</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/日常/">日常</a></li></ul>
@@ -575,7 +623,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签云</h3>
     <div class="widget tagcloud">
-      <a href="/tags/BLOG/" style="font-size: 10px;">BLOG</a> <a href="/tags/EXPLOIT/" style="font-size: 10px;">EXPLOIT</a> <a href="/tags/PHP/" style="font-size: 15px;">PHP</a> <a href="/tags/Php/" style="font-size: 10px;">Php</a> <a href="/tags/Python/" style="font-size: 10px;">Python</a> <a href="/tags/SMB/" style="font-size: 10px;">SMB</a> <a href="/tags/SQLi/" style="font-size: 10px;">SQLi</a> <a href="/tags/Upload/" style="font-size: 10px;">Upload</a> <a href="/tags/Web/" style="font-size: 20px;">Web</a> <a href="/tags/i春秋/" style="font-size: 17.5px;">i春秋</a> <a href="/tags/sql-injection/" style="font-size: 10px;">sql-injection</a> <a href="/tags/心路/" style="font-size: 12.5px;">心路</a> <a href="/tags/日常/" style="font-size: 12.5px;">日常</a> <a href="/tags/爬虫/" style="font-size: 10px;">爬虫</a> <a href="/tags/破译/" style="font-size: 10px;">破译</a> <a href="/tags/远程溢出/" style="font-size: 10px;">远程溢出</a>
+      <a href="/tags/BLOG/" style="font-size: 10px;">BLOG</a> <a href="/tags/EXPLOIT/" style="font-size: 10px;">EXPLOIT</a> <a href="/tags/PHP/" style="font-size: 15px;">PHP</a> <a href="/tags/Php/" style="font-size: 10px;">Php</a> <a href="/tags/Python/" style="font-size: 10px;">Python</a> <a href="/tags/SMB/" style="font-size: 10px;">SMB</a> <a href="/tags/SQLi/" style="font-size: 12.5px;">SQLi</a> <a href="/tags/Upload/" style="font-size: 10px;">Upload</a> <a href="/tags/Web/" style="font-size: 20px;">Web</a> <a href="/tags/i春秋/" style="font-size: 17.5px;">i春秋</a> <a href="/tags/sql-injection/" style="font-size: 10px;">sql-injection</a> <a href="/tags/心路/" style="font-size: 12.5px;">心路</a> <a href="/tags/日常/" style="font-size: 12.5px;">日常</a> <a href="/tags/爬虫/" style="font-size: 10px;">爬虫</a> <a href="/tags/破译/" style="font-size: 10px;">破译</a> <a href="/tags/远程溢出/" style="font-size: 10px;">远程溢出</a>
     </div>
   </div>
 
@@ -597,6 +645,10 @@
       <ul>
         
           <li>
+            <a href="/2018/09/19/summary-sqli-bypass/">当SQL注入遇到WAF</a>
+          </li>
+        
+          <li>
             <a href="/2018/09/18/summary-command-execution/">PHP中的命令执行</a>
           </li>
         
@@ -610,10 +662,6 @@
         
           <li>
             <a href="/2018/09/12/ichunqiu-web-time/">i春秋-Web-时间</a>
-          </li>
-        
-          <li>
-            <a href="/2018/09/11/ichunqiu-web-BLOG/">i春秋-Web-BLOG</a>
           </li>
         
       </ul>

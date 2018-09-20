@@ -7,18 +7,18 @@
   
   <title>PHP中的命令执行 | Jaylin&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="介绍在 PHP 中, exec()、system()、popen()、passthru()、proc_open()、pcntl_exec()、shell_exec()，还有反引号 ``包裹的内容，都可以用来执行系统命令。 如果执行的命令参数是用户可控的，那么就会造成命令执行漏洞。 下面是常见的函数描述：  system()   输出并返回最后一行shell结果。   exec()   不输出结果，">
+  <meta name="description" content="前言在 PHP 中, exec()、system()、popen()、passthru()、proc_open()、pcntl_exec()、shell_exec()，还有反引号 ``包裹的内容，都可以用来执行系统命令。 如果执行的命令参数是用户可控的，那么就会造成命令执行漏洞。 下面是常见的函数描述：  system()   输出并返回最后一行shell结果。   exec()   不输出结果，">
 <meta name="keywords" content="Web,Php">
 <meta property="og:type" content="article">
 <meta property="og:title" content="PHP中的命令执行">
 <meta property="og:url" content="http://Jayl1n.github.io/2018/09/18/summary-command-execution/index.html">
 <meta property="og:site_name" content="Jaylin&#39;s Blog">
-<meta property="og:description" content="介绍在 PHP 中, exec()、system()、popen()、passthru()、proc_open()、pcntl_exec()、shell_exec()，还有反引号 ``包裹的内容，都可以用来执行系统命令。 如果执行的命令参数是用户可控的，那么就会造成命令执行漏洞。 下面是常见的函数描述：  system()   输出并返回最后一行shell结果。   exec()   不输出结果，">
+<meta property="og:description" content="前言在 PHP 中, exec()、system()、popen()、passthru()、proc_open()、pcntl_exec()、shell_exec()，还有反引号 ``包裹的内容，都可以用来执行系统命令。 如果执行的命令参数是用户可控的，那么就会造成命令执行漏洞。 下面是常见的函数描述：  system()   输出并返回最后一行shell结果。   exec()   不输出结果，">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-09-18T12:47:41.765Z">
+<meta property="og:updated_time" content="2018-09-19T11:23:21.296Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="PHP中的命令执行">
-<meta name="twitter:description" content="介绍在 PHP 中, exec()、system()、popen()、passthru()、proc_open()、pcntl_exec()、shell_exec()，还有反引号 ``包裹的内容，都可以用来执行系统命令。 如果执行的命令参数是用户可控的，那么就会造成命令执行漏洞。 下面是常见的函数描述：  system()   输出并返回最后一行shell结果。   exec()   不输出结果，">
+<meta name="twitter:description" content="前言在 PHP 中, exec()、system()、popen()、passthru()、proc_open()、pcntl_exec()、shell_exec()，还有反引号 ``包裹的内容，都可以用来执行系统命令。 如果执行的命令参数是用户可控的，那么就会造成命令执行漏洞。 下面是常见的函数描述：  system()   输出并返回最后一行shell结果。   exec()   不输出结果，">
   
     <link rel="alternate" href="/atom.xml" title="Jaylin&#39;s Blog" type="application/atom+xml">
   
@@ -87,7 +87,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>在 PHP 中, <code>exec()</code>、<code>system()</code>、<code>popen()</code>、<code>passthru()</code>、<code>proc_open()</code>、<code>pcntl_exec()</code>、<code>shell_exec()</code>，还有反引号 ``包裹的内容，都可以用来执行系统命令。</p>
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在 PHP 中, <code>exec()</code>、<code>system()</code>、<code>popen()</code>、<code>passthru()</code>、<code>proc_open()</code>、<code>pcntl_exec()</code>、<code>shell_exec()</code>，还有反引号 ``包裹的内容，都可以用来执行系统命令。</p>
 <p>如果执行的命令参数是用户可控的，那么就会造成命令执行漏洞。</p>
 <p>下面是常见的函数描述：</p>
 <ul>
@@ -179,14 +179,14 @@
 <li><p>escapeshellcmd()</p>
 <p> shell 元字符转义。</p>
 <p> 对字符串中可能会欺骗 shell 命令执行任意命令的字符进行转义。 此函数保证用户输入的数据在传送到 <code>exec()</code> 或 <code>system()</code> 函数，或者 执行操作符 之前进行转义。</p>
-<p> 反斜线（\）会在以下字符之前插入： &amp;#;`|*?~&lt;&gt;^()[]{}$\, \x0A 和 \xFF。 ‘ 和 “ 仅在不配对儿的时候被转义。 在 Windows 平台上，所有这些字符以及 % 和 ! 字符都会被空格代替。 </p>
+<p> 反斜线（\）会在以下字符之前插入： &amp;#;`|*?~&lt;&gt;^()[]{}$\, \x0A 和 \xFF。 ‘ 和 “ 仅在不配对儿的时候被转义。 在 Windows 平台上，所有这些字符以及 % 和 ! 字符都会被空格代替。</p>
 </li>
 </ol>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://Jayl1n.github.io/2018/09/18/summary-command-execution/" data-id="cjm7r8se1002m3ovnwxywj2gq" class="article-share-link">Share</a>
+      <a data-url="http://Jayl1n.github.io/2018/09/18/summary-command-execution/" data-id="cjmamjdqi001g30vnw4xcdq0j" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Php/">Php</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Web/">Web</a></li></ul>
@@ -196,6 +196,15 @@
   
     
 <nav id="article-nav">
+  
+    <a href="/2018/09/19/summary-sqli-bypass/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          当SQL注入遇到WAF
+        
+      </div>
+    </a>
   
   
     <a href="/2018/09/18/summary-fileupload-bypass/" id="article-nav-older" class="article-nav-link-wrap">
@@ -229,7 +238,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签云</h3>
     <div class="widget tagcloud">
-      <a href="/tags/BLOG/" style="font-size: 10px;">BLOG</a> <a href="/tags/EXPLOIT/" style="font-size: 10px;">EXPLOIT</a> <a href="/tags/PHP/" style="font-size: 15px;">PHP</a> <a href="/tags/Php/" style="font-size: 10px;">Php</a> <a href="/tags/Python/" style="font-size: 10px;">Python</a> <a href="/tags/SMB/" style="font-size: 10px;">SMB</a> <a href="/tags/SQLi/" style="font-size: 10px;">SQLi</a> <a href="/tags/Upload/" style="font-size: 10px;">Upload</a> <a href="/tags/Web/" style="font-size: 20px;">Web</a> <a href="/tags/i春秋/" style="font-size: 17.5px;">i春秋</a> <a href="/tags/sql-injection/" style="font-size: 10px;">sql-injection</a> <a href="/tags/心路/" style="font-size: 12.5px;">心路</a> <a href="/tags/日常/" style="font-size: 12.5px;">日常</a> <a href="/tags/爬虫/" style="font-size: 10px;">爬虫</a> <a href="/tags/破译/" style="font-size: 10px;">破译</a> <a href="/tags/远程溢出/" style="font-size: 10px;">远程溢出</a>
+      <a href="/tags/BLOG/" style="font-size: 10px;">BLOG</a> <a href="/tags/EXPLOIT/" style="font-size: 10px;">EXPLOIT</a> <a href="/tags/PHP/" style="font-size: 15px;">PHP</a> <a href="/tags/Php/" style="font-size: 10px;">Php</a> <a href="/tags/Python/" style="font-size: 10px;">Python</a> <a href="/tags/SMB/" style="font-size: 10px;">SMB</a> <a href="/tags/SQLi/" style="font-size: 12.5px;">SQLi</a> <a href="/tags/Upload/" style="font-size: 10px;">Upload</a> <a href="/tags/Web/" style="font-size: 20px;">Web</a> <a href="/tags/i春秋/" style="font-size: 17.5px;">i春秋</a> <a href="/tags/sql-injection/" style="font-size: 10px;">sql-injection</a> <a href="/tags/心路/" style="font-size: 12.5px;">心路</a> <a href="/tags/日常/" style="font-size: 12.5px;">日常</a> <a href="/tags/爬虫/" style="font-size: 10px;">爬虫</a> <a href="/tags/破译/" style="font-size: 10px;">破译</a> <a href="/tags/远程溢出/" style="font-size: 10px;">远程溢出</a>
     </div>
   </div>
 
@@ -251,6 +260,10 @@
       <ul>
         
           <li>
+            <a href="/2018/09/19/summary-sqli-bypass/">当SQL注入遇到WAF</a>
+          </li>
+        
+          <li>
             <a href="/2018/09/18/summary-command-execution/">PHP中的命令执行</a>
           </li>
         
@@ -264,10 +277,6 @@
         
           <li>
             <a href="/2018/09/12/ichunqiu-web-time/">i春秋-Web-时间</a>
-          </li>
-        
-          <li>
-            <a href="/2018/09/11/ichunqiu-web-BLOG/">i春秋-Web-BLOG</a>
           </li>
         
       </ul>

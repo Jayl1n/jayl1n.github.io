@@ -5,22 +5,22 @@
   
 
   
-  <title>日常心路-180909 | Jaylin&#39;s Blog</title>
+  <title>当SQL注入遇到WAF | Jaylin&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="最近忙了很多事，从公司离职，搬家，开学，又跑到某市做培训。 突然回到校园生活，身份从社会人变成学生，感觉还有点不适应。 今天，如愿以偿的通过了Syclover的面试，进入了新芽组，应该是唯一一个大三的新芽 ( ╯□╰ )，不过也算是完成了高中时候的心愿（进入CUIT，进入Syclover）。今天面的师傅很严肃，感觉自己确实还差的太多了，希望能在这个学期努力跟上。 这个学期，需要额外补3门课，把四级">
-<meta name="keywords" content="日常,心路">
+  <meta name="description" content="前言目前，有越来越多的网站上了 WAF ，有硬WAF，软WAF，云WAF，内嵌WAF。给SQL注入的利用带来不小麻烦，下面总结些常见的 WAF Bypass 姿势。  Bypass 姿势大小写混合在规则匹配时，只过滤了特定的大写或小写，可以通过混合大小写的方式绕过。（目前很少有这种情况出现）  UniON SelEcT 1,2,3  URL 编码 有些 WAF 不会对普通字符进行 URL编码，可以">
+<meta name="keywords" content="Web,SQLi">
 <meta property="og:type" content="article">
-<meta property="og:title" content="日常心路-180909">
-<meta property="og:url" content="http://Jayl1n.github.io/2018/09/09/daily-life-20180909/index.html">
+<meta property="og:title" content="当SQL注入遇到WAF">
+<meta property="og:url" content="http://Jayl1n.github.io/2018/09/19/summary-sqli-bypass/index.html">
 <meta property="og:site_name" content="Jaylin&#39;s Blog">
-<meta property="og:description" content="最近忙了很多事，从公司离职，搬家，开学，又跑到某市做培训。 突然回到校园生活，身份从社会人变成学生，感觉还有点不适应。 今天，如愿以偿的通过了Syclover的面试，进入了新芽组，应该是唯一一个大三的新芽 ( ╯□╰ )，不过也算是完成了高中时候的心愿（进入CUIT，进入Syclover）。今天面的师傅很严肃，感觉自己确实还差的太多了，希望能在这个学期努力跟上。 这个学期，需要额外补3门课，把四级">
+<meta property="og:description" content="前言目前，有越来越多的网站上了 WAF ，有硬WAF，软WAF，云WAF，内嵌WAF。给SQL注入的利用带来不小麻烦，下面总结些常见的 WAF Bypass 姿势。  Bypass 姿势大小写混合在规则匹配时，只过滤了特定的大写或小写，可以通过混合大小写的方式绕过。（目前很少有这种情况出现）  UniON SelEcT 1,2,3  URL 编码 有些 WAF 不会对普通字符进行 URL编码，可以">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://jayl1n.github.io/2018/09/09/daily-life-20180909/jldnydhgjxzpmdzj.jpg">
-<meta property="og:updated_time" content="2018-09-09T15:48:57.635Z">
+<meta property="og:image" content="http://jayl1n.github.io/2018/09/19/summary-sqli-bypass/double-encode.png">
+<meta property="og:updated_time" content="2018-09-19T12:55:53.339Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="日常心路-180909">
-<meta name="twitter:description" content="最近忙了很多事，从公司离职，搬家，开学，又跑到某市做培训。 突然回到校园生活，身份从社会人变成学生，感觉还有点不适应。 今天，如愿以偿的通过了Syclover的面试，进入了新芽组，应该是唯一一个大三的新芽 ( ╯□╰ )，不过也算是完成了高中时候的心愿（进入CUIT，进入Syclover）。今天面的师傅很严肃，感觉自己确实还差的太多了，希望能在这个学期努力跟上。 这个学期，需要额外补3门课，把四级">
-<meta name="twitter:image" content="http://jayl1n.github.io/2018/09/09/daily-life-20180909/jldnydhgjxzpmdzj.jpg">
+<meta name="twitter:title" content="当SQL注入遇到WAF">
+<meta name="twitter:description" content="前言目前，有越来越多的网站上了 WAF ，有硬WAF，软WAF，云WAF，内嵌WAF。给SQL注入的利用带来不小麻烦，下面总结些常见的 WAF Bypass 姿势。  Bypass 姿势大小写混合在规则匹配时，只过滤了特定的大写或小写，可以通过混合大小写的方式绕过。（目前很少有这种情况出现）  UniON SelEcT 1,2,3  URL 编码 有些 WAF 不会对普通字符进行 URL编码，可以">
+<meta name="twitter:image" content="http://jayl1n.github.io/2018/09/19/summary-sqli-bypass/double-encode.png">
   
     <link rel="alternate" href="/atom.xml" title="Jaylin&#39;s Blog" type="application/atom+xml">
   
@@ -67,10 +67,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-daily-life-20180909" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-summary-sqli-bypass" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2018/09/09/daily-life-20180909/" class="article-date">
-  <time datetime="2018-09-09T15:14:15.000Z" itemprop="datePublished">2018-09-09</time>
+    <a href="/2018/09/19/summary-sqli-bypass/" class="article-date">
+  <time datetime="2018-09-19T11:07:41.000Z" itemprop="datePublished">2018-09-19</time>
 </a>
     
   </div>
@@ -81,7 +81,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      日常心路-180909
+      当SQL注入遇到WAF
     </h1>
   
 
@@ -89,20 +89,66 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>最近忙了很多事，从公司离职，搬家，开学，又跑到某市做培训。</p>
-<p>突然回到校园生活，身份从社会人变成学生，感觉还有点不适应。</p>
-<p>今天，如愿以偿的通过了<code>Syclover</code>的面试，进入了新芽组，应该是唯一一个大三的新芽 ( ╯□╰ )，不过也算是完成了高中时候的心愿（进入CUIT，进入Syclover）。今天面的师傅很严肃，感觉自己确实还差的太多了，希望能在这个学期努力跟上。</p>
-<p>这个学期，需要额外补<code>3</code>门课，把四级过了，还要尽量通过核心组面试，任务挺重的⊙﹏⊙∥。</p>
-<p>诸君共勉吧(ﾉ*･ω･)ﾉ。</p>
-<p><img src="/2018/09/09/daily-life-20180909/jldnydhgjxzpmdzj.jpg" alt="表情"></p>
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>目前，有越来越多的网站上了 WAF ，有硬WAF，软WAF，云WAF，内嵌WAF。给SQL注入的利用带来不小麻烦，下面总结些常见的 WAF Bypass 姿势。</p>
+<hr>
+<h2 id="Bypass-姿势"><a href="#Bypass-姿势" class="headerlink" title="Bypass 姿势"></a>Bypass 姿势</h2><h3 id="大小写混合"><a href="#大小写混合" class="headerlink" title="大小写混合"></a>大小写混合</h3><p>在规则匹配时，只过滤了特定的大写或小写，可以通过混合大小写的方式绕过。（目前很少有这种情况出现）</p>
+<blockquote>
+<p>UniON SelEcT 1,2,3</p>
+</blockquote>
+<h3 id="URL-编码"><a href="#URL-编码" class="headerlink" title="URL 编码"></a>URL 编码</h3><ol>
+<li><p>有些 WAF 不会对普通字符进行 URL编码，可以对 payload 进行 URL 编码来绕过。</p>
+<blockquote>
+<p>%55%6e%49%6f%6e%20%53%65%4c%65%43%74%20%31%2c%32%2c%33%2c%34 – UnIon SeLeCt 1,2,3,4</p>
+</blockquote>
+</li>
+<li><p>还有些 WAF 可能只进行了一次解码，如果 Web 程序中有对参数进行了一次解码，那么还是可以绕过。</p>
+<p> 如下图：</p>
+<p> <img src="/2018/09/19/summary-sqli-bypass/double-encode.png" alt="double-encode"></p>
+</li>
+</ol>
+<h3 id="替换关键字"><a href="#替换关键字" class="headerlink" title="替换关键字"></a>替换关键字</h3><p>WAF 通过替换或删除 <code>select</code> <code>union</code> 等关键词来过滤，且只过滤了一次的情况时，可以双写关键字来绕过。</p>
+<blockquote>
+<p>UniUnioNon SeSelecTlect 1,2,3,4</p>
+</blockquote>
+<h3 id="注释"><a href="#注释" class="headerlink" title="注释"></a>注释</h3><p>WAF 在过滤空格时，可以用注释来替代。</p>
+<blockquote>
+<p>union/<em>1</em>/select/<em>1</em>/1,2,3,4</p>
+</blockquote>
+<h3 id="多参数请求拆分"><a href="#多参数请求拆分" class="headerlink" title="多参数请求拆分"></a>多参数请求拆分</h3><p>如果多个参数会拼接到同一条 SQL 语句中，可以将注入的语句拆分插入。</p>
+<p>如发出请求 ：</p>
+<blockquote>
+<p>a=[data1]&amp;b=[data2]</p>
+</blockquote>
+<p>拼接到 SQL 语句中，变成 ：</p>
+<blockquote>
+<p>and a=[data1] and b=[data2]</p>
+</blockquote>
+<p>那么，可以构造 payload ：</p>
+<blockquote>
+<p>a=unIOn/<em>&amp;b=</em>/Select 1,2,3,4</p>
+</blockquote>
+<p>SQL 语句就变成 ：</p>
+<blockquote>
+<p>and a=unIOn/<em> and b=</em>/Select 1,2,3,4</p>
+</blockquote>
+<h3 id="HTTP-参数污染"><a href="#HTTP-参数污染" class="headerlink" title="HTTP 参数污染"></a>HTTP 参数污染</h3><p>当同一参数出现多次时，不同的中间件会解析出不同的结果。</p>
+<p>在 <code>ASP / IIS</code> ， <code>ASP.NET / IIS</code> 下，多个同一参数会被逗号 <code>,</code> 给拼接起来。</p>
+<p>如 ：</p>
+<blockquote>
+<p>?inject=select&amp;inject=1&amp;inject=2&amp;inject=3&amp;inject=4</p>
+</blockquote>
+<p>如果 WAF 只检测同参数名中第一个或最后一个，由于 <code>IIS</code> 的特性则可以成功绕过 WAF。</p>
+<h3 id="生僻函数"><a href="#生僻函数" class="headerlink" title="生僻函数"></a>生僻函数</h3><p>WAF 使用黑名单机制，过滤某些函数，如报错注入时使用的 <code>updatexml()</code> 函数，可以用 <code>polygon()</code> 替代。</p>
+<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><p>《Web安全攻防》</p>
+<p><a href="http://www.mamicode.com/info-detail-2361120.html" target="_blank" rel="noopener">SQL注入防御绕过——二次编码之干掉反斜杠</a></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://Jayl1n.github.io/2018/09/09/daily-life-20180909/" data-id="cjmamjdpu000q30vnzc3igenh" class="article-share-link">Share</a>
+      <a data-url="http://Jayl1n.github.io/2018/09/19/summary-sqli-bypass/" data-id="cjmamjdqn001l30vnjexwrqdz" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/心路/">心路</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/日常/">日常</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SQLi/">SQLi</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Web/">Web</a></li></ul>
 
     </footer>
   </div>
@@ -110,19 +156,10 @@
     
 <nav id="article-nav">
   
-    <a href="/2018/09/10/ichunqiu-web-SQLi/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          i春秋-Web-SQLi
-        
-      </div>
-    </a>
   
-  
-    <a href="/2018/08/07/sql-injection-cheat-sheet/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2018/09/18/summary-command-execution/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">SQL注入备忘录</div>
+      <div class="article-nav-title">PHP中的命令执行</div>
     </a>
   
 </nav>
