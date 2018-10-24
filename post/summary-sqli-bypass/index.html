@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>当SQL注入遇到WAF - Jaylin&#39;s Blog</title>
+<base href="/">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+<link rel="canonical" href="http://Jayl1n.github.io/post/summary-sqli-bypass/">
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="translucent">
+<meta name="description" content="前言目前，有越来越多的网站上了 WAF ，有硬WAF，软WAF，云WAF，内嵌WAF。给SQL注入的利用带来不小麻烦，下面总结些常见的 WAF Bypass 姿势。  Bypass 姿势大小写混合在规则匹配时，只过滤了特定的大写或小写，可以通过混合大小写的方式绕过。（目前很少有这种情况出现）  UniON SelEcT 1,2,3  URL 编码 有些 WAF 不会对普通字符进行 URL编码，可以">
+<meta name="keywords" content="Web,SQLi">
+<meta property="og:type" content="website">
+<meta property="og:title" content="当SQL注入遇到WAF">
+<meta property="og:url" content="http://Jayl1n.github.io/post/summary-sqli-bypass/index.html">
+<meta property="og:site_name" content="Jaylin&#39;s Blog">
+<meta property="og:description" content="前言目前，有越来越多的网站上了 WAF ，有硬WAF，软WAF，云WAF，内嵌WAF。给SQL注入的利用带来不小麻烦，下面总结些常见的 WAF Bypass 姿势。  Bypass 姿势大小写混合在规则匹配时，只过滤了特定的大写或小写，可以通过混合大小写的方式绕过。（目前很少有这种情况出现）  UniON SelEcT 1,2,3  URL 编码 有些 WAF 不会对普通字符进行 URL编码，可以">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://jayl1n.github.io/avatar.jpg">
+<meta property="og:updated_time" content="2018-10-07T13:17:59.206Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="当SQL注入遇到WAF">
+<meta name="twitter:description" content="前言目前，有越来越多的网站上了 WAF ，有硬WAF，软WAF，云WAF，内嵌WAF。给SQL注入的利用带来不小麻烦，下面总结些常见的 WAF Bypass 姿势。  Bypass 姿势大小写混合在规则匹配时，只过滤了特定的大写或小写，可以通过混合大小写的方式绕过。（目前很少有这种情况出现）  UniON SelEcT 1,2,3  URL 编码 有些 WAF 不会对普通字符进行 URL编码，可以">
+<meta name="twitter:image" content="http://jayl1n.github.io/avatar.jpg">
+
+<link rel="stylesheet" href="/fonts.e15b7f98c5fa14803416.css">
+<link rel="stylesheet" href="/styles.15f0d614df0a9a578c2c.css">
+<script src="/config.d9c860d08566cef32b7d.js"></script>
+</head>
+<body>
+<is-root></is-root>
+<script src="/runtime.ec2944dd8b20ec099bf3.js"></script>
+<script src="/polyfills.d08f09f49682da52980e.js"></script></body>
+</html>
