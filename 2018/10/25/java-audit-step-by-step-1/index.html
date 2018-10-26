@@ -23,17 +23,17 @@
 <meta property="og:site_name" content="Jayl1n&#39;s Blog">
 <meta property="og:description" content="基本环境JDK目前，JDK已经出到11了，JDK每个版本都会有些新特性出来。很多情况下JDK并不向下兼容，导致一些软件在较新的JDK中无法正常运行，所以推荐用现在比较主流的JDK8。而且有些漏洞需要在低版本的JDK上才能复现出来，比如反序列化用到的JNDI Bean Property类型的Gadget，需要在小于JDK8_113的版本下才可以利用，所以在安装的时候建议再安装一个低版本的JDK。JD">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://jayl1n.github.io/2018/10/25/java-audit-step-by-step-1/java-audit-step-by-step-1/jdk_ctl.png">
-<meta property="og:image" content="https://jayl1n.github.io/2018/10/25/java-audit-step-by-step-1/java-audit-step-by-step-1/bin_directory.png">
-<meta property="og:image" content="https://jayl1n.github.io/2018/10/25/java-audit-step-by-step-1/java-audit-step-by-step-1/exec_dc.png">
-<meta property="og:image" content="https://jayl1n.github.io/2018/10/25/java-audit-step-by-step-1/java-audit-step-by-step-1/result_dc.png">
-<meta property="og:image" content="https://jayl1n.github.io/2018/10/25/java-audit-step-by-step-1/java-audit-step-by-step-1/exec_fsb.png">
-<meta property="og:image" content="https://jayl1n.github.io/2018/10/25/java-audit-step-by-step-1/java-audit-step-by-step-1/result_fsb.png">
+<meta property="og:image" content="https://jayl1n.github.io/2018/10/25/java-audit-step-by-step-1/jdk_ctl.png">
+<meta property="og:image" content="https://jayl1n.github.io/2018/10/25/java-audit-step-by-step-1/bin_directory.png">
+<meta property="og:image" content="https://jayl1n.github.io/2018/10/25/java-audit-step-by-step-1/exec_dc.png">
+<meta property="og:image" content="https://jayl1n.github.io/2018/10/25/java-audit-step-by-step-1/result_dc.png">
+<meta property="og:image" content="https://jayl1n.github.io/2018/10/25/java-audit-step-by-step-1/exec_fsb.png">
+<meta property="og:image" content="https://jayl1n.github.io/2018/10/25/java-audit-step-by-step-1/result_fsb.png">
 <meta property="og:updated_time" content="2018-10-25T13:20:17.315Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="从1开始的Java代码审计·第一弹·基础篇">
 <meta name="twitter:description" content="基本环境JDK目前，JDK已经出到11了，JDK每个版本都会有些新特性出来。很多情况下JDK并不向下兼容，导致一些软件在较新的JDK中无法正常运行，所以推荐用现在比较主流的JDK8。而且有些漏洞需要在低版本的JDK上才能复现出来，比如反序列化用到的JNDI Bean Property类型的Gadget，需要在小于JDK8_113的版本下才可以利用，所以在安装的时候建议再安装一个低版本的JDK。JD">
-<meta name="twitter:image" content="https://jayl1n.github.io/2018/10/25/java-audit-step-by-step-1/java-audit-step-by-step-1/jdk_ctl.png">
+<meta name="twitter:image" content="https://jayl1n.github.io/2018/10/25/java-audit-step-by-step-1/jdk_ctl.png">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -58,7 +58,7 @@
     <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
 
 
-<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="../../../../css/style.css">
 
 
 
@@ -183,13 +183,13 @@
                     <nav class="header-menu">
                         <ul>
                         
-                            <li><a href="/">主页</a></li>
+                            <li><a href="../../../../index.html">主页</a></li>
                         
-                            <li><a href="/archives/">所有文章</a></li>
+                            <li><a href="../../../../archives/">所有文章</a></li>
                         
-                            <li><a href="/tags/">标签云</a></li>
+                            <li><a href="../../../../tags/">标签云</a></li>
                         
-                            <li><a href="/about/">关于我</a></li>
+                            <li><a href="../../../../about/">关于我</a></li>
                         
                         </ul>
                     </nav>
@@ -200,7 +200,7 @@
                             
                                 <a class="fa GitHub" href="https://www.github.com/Jayl1n" title="GitHub"></a>
                             
-                                <a class="fa RSS" href="/atom.xml" title="RSS"></a>
+                                <a class="fa RSS" href="../../../../atom.xml" title="RSS"></a>
                             
                         </ul>
                     </nav>
@@ -209,7 +209,7 @@
                 
                 <section class="switch-part switch-part2">
                     <div class="widget tagcloud" id="js-tagcloud">
-                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/BLOG/">BLOG</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/EXPLOIT/">EXPLOIT</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PHP/">PHP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pentest/">Pentest</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SMB/">SMB</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SQLi/">SQLi</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Upload/">Upload</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Web/">Web</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/i春秋/">i春秋</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sql-injection/">sql-injection</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/代码审计/">代码审计</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/心路/">心路</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/日常/">日常</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/爬虫/">爬虫</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/远程溢出/">远程溢出</a></li></ul>
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/BLOG/">BLOG</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/EXPLOIT/">EXPLOIT</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/Java/">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/PHP/">PHP</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/Pentest/">Pentest</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/Python/">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/SMB/">SMB</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/SQLi/">SQLi</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/Upload/">Upload</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/Web/">Web</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/i春秋/">i春秋</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/sql-injection/">sql-injection</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/代码审计/">代码审计</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/心路/">心路</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/日常/">日常</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/爬虫/">爬虫</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/远程溢出/">远程溢出</a></li></ul>
                     </div>
                 </section>
                 
@@ -258,13 +258,13 @@
             <nav class="header-menu">
                 <ul>
                 
-                    <li><a href="/">主页</a></li>
+                    <li><a href="../../../../index.html">主页</a></li>
                 
-                    <li><a href="/archives/">所有文章</a></li>
+                    <li><a href="../../../../archives/">所有文章</a></li>
                 
-                    <li><a href="/tags/">标签云</a></li>
+                    <li><a href="../../../../tags/">标签云</a></li>
                 
-                    <li><a href="/about/">关于我</a></li>
+                    <li><a href="../../../../about/">关于我</a></li>
                 
                 <div class="clearfix"></div>
                 </ul>
@@ -276,7 +276,7 @@
                             
                                 <a class="fa GitHub" target="_blank" href="https://www.github.com/Jayl1n" title="GitHub"></a>
                             
-                                <a class="fa RSS" target="_blank" href="/atom.xml" title="RSS"></a>
+                                <a class="fa RSS" target="_blank" href="../../../../atom.xml" title="RSS"></a>
                             
                         </ul>
             </nav>
@@ -287,7 +287,7 @@
       <div class="body-wrap"><article id="post-java-audit-step-by-step-1" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2018/10/25/java-audit-step-by-step-1/" class="article-date">
+      <a href="" class="article-date">
       <time datetime="2018-10-24T17:59:39.000Z" itemprop="datePublished">2018-10-25</time>
 </a>
 
@@ -314,7 +314,7 @@
 
         
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/代码审计/">代码审计</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../../../tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../../../tags/代码审计/">代码审计</a></li></ul>
     </div>
 
         <div class="clearfix"></div>
@@ -326,7 +326,7 @@
           
         <h1 id="基本环境"><a href="#基本环境" class="headerlink" title="基本环境"></a>基本环境</h1><h2 id="JDK"><a href="#JDK" class="headerlink" title="JDK"></a>JDK</h2><p>目前，<code>JDK</code>已经出到<code>11</code>了，<code>JDK</code>每个版本都会有些新特性出来。很多情况下<code>JDK</code>并不向下兼容，导致一些软件在较新的<code>JDK</code>中无法正常运行，所以推荐用现在比较主流的<code>JDK8</code>。而且有些漏洞需要在低版本的<code>JDK</code>上才能复现出来，比如反序列化用到的<code>JNDI Bean Property</code>类型的<code>Gadget</code>，需要在小于<code>JDK8_113</code>的版本下才可以利用，所以在安装的时候建议再安装一个低版本的JDK。JDK安装时自带的控制面板程序，可以帮助我们很方便的切换版本。</p>
 <a id="more"></a>
-<p><img src="java-audit-step-by-step-1/jdk_ctl.png" alt="jdk-ctl"></p>
+<p><img src="/2018/10/25/java-audit-step-by-step-1/jdk_ctl.png" alt="jdk-ctl"></p>
 <h2 id="IDE"><a href="#IDE" class="headerlink" title="IDE"></a>IDE</h2><p>做任何一门语言的代码审计，一个强大的IDE是必不可少的，好的IDE可以极大提高我们审计的效率。写Java的程序及代码审计，我推荐使用JetBrains家的<a href="https://www.jetbrains.com/idea/" target="_blank" rel="noopener"><code>Intelij IDEA</code></a>（JB大法好 O(∩_∩)O ），内置的代码检查工具比Eclipse强太多了，而且有很多的插件支持。</p>
 <h2 id="数据库"><a href="#数据库" class="headerlink" title="数据库"></a>数据库</h2><p>常见的数据库有 MySQL、PostgreSQL、Oracle，除此之外还有现在比较流行的非关系型数据库 Redis、Mongodb、Memcached 等等，有些数据库安装起来可能比较麻烦，不用一次性装完，有需要的时候再去装就行了。</p>
 <h2 id="Web-容器"><a href="#Web-容器" class="headerlink" title="Web 容器"></a>Web 容器</h2><p><code>Java Web</code>应用在开发完后，通常会以<code>war</code>包的形式发布，我们需要把这个<code>war</code>包部署到自己的<code>Web容器</code>（也可以说是Web服务器）里去，容器在启动后会自动解压<code>war</code>包，处理用户发来的HTTP请求，将<code>jsp</code>编译成<code>servlet</code>，管理<code>servlet</code>的整个生命周期。</p>
@@ -348,21 +348,21 @@
 <li><p>解压出来，进到bin目录，有两个文件，分别对应windows版和linux版。</p>
 </li>
 </ol>
-<p><img src="java-audit-step-by-step-1/bin_directory.png" alt="bin目录"></p>
+<p><img src="/2018/10/25/java-audit-step-by-step-1/bin_directory.png" alt="bin目录"></p>
 <ol start="3">
 <li>进到命令行下，执行 <code>dependency-check.bat --project 项目名 --out 输出名 -s 源码路径</code> 即可，程序会自动从NVD更新漏洞库，所以需要点时间（应该还要翻墙）。</li>
 </ol>
-<p><img src="java-audit-step-by-step-1/exec_dc.png" alt="执行过程"></p>
+<p><img src="/2018/10/25/java-audit-step-by-step-1/exec_dc.png" alt="执行过程"></p>
 <ol start="4">
 <li>扫描完毕后，会输出一份报告，如下：</li>
 </ol>
-<p><img src="java-audit-step-by-step-1/result_dc.png" alt="扫描结果"></p>
+<p><img src="/2018/10/25/java-audit-step-by-step-1/result_dc.png" alt="扫描结果"></p>
 <h2 id="FindSecBugs"><a href="#FindSecBugs" class="headerlink" title="FindSecBugs"></a>FindSecBugs</h2><p><a href="https://find-sec-bugs.github.io" target="_blank" rel="noopener">FindSecBugs</a> 是专门用于检测Java Web应用安全漏洞的插件，支持多种IDE，还可以和SonarQube等代码分析平台集成。</p>
 <h3 id="使用方法-1"><a href="#使用方法-1" class="headerlink" title="使用方法"></a>使用方法</h3><p>安装方法官网讲的很详细了，<a href="https://github.com/find-sec-bugs/find-sec-bugs/wiki/IntelliJ-Tutorial" target="_blank" rel="noopener">IDEA中安装FindSecBugs</a>。</p>
 <p>这里主要讲IDEA中如何使用<code>FindSecBugs</code>。</p>
 <p>IDEA打开要审计的项目以后，先点开 FindBugs-IDEA 标签，然后点左边的这个带绿色旗帜的文件夹logo，插件就会自动对项目进行审计。</p>
-<p><img src="java-audit-step-by-step-1/exec_fsb.png" alt="开始扫描"></p>
-<p><img src="java-audit-step-by-step-1/result_fsb.png" alt="扫描结果"></p>
+<p><img src="/2018/10/25/java-audit-step-by-step-1/exec_fsb.png" alt="开始扫描"></p>
+<p><img src="/2018/10/25/java-audit-step-by-step-1/result_fsb.png" alt="扫描结果"></p>
 <p>看这个项目的扫描结果，发现了 5 处安全bug，其中四处是文件的操作可能被用户控制，造成任意文件删除。当然，这也可能是误报，需要人工来再次确认。不过，这已经给我们的审计工作带来了很大的便利了（。＾▽＾）。</p>
 <h2 id="抓包改包"><a href="#抓包改包" class="headerlink" title="抓包改包"></a>抓包改包</h2><p>做Java Web审计时，可能要结合黑盒的方法，动态调试。这时候就需要抓包改包的工具，发送自定义的HTTP包。这个功能很多工具都有，burpsuite，zap，postman，fiddler都可以用。</p>
 
@@ -373,12 +373,12 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2018/10/25/java-audit-step-by-step-1/">从1开始的Java代码审计·第一弹·基础篇</a></p>
+        <p><span>本文标题:</span><a href="">从1开始的Java代码审计·第一弹·基础篇</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">Jayl1n</a></p>
         <p><span>发布时间:</span>2018-10-25, 01:59:39</p>
         <p><span>最后更新:</span>2018-10-25, 21:20:17</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2018/10/25/java-audit-step-by-step-1/" title="从1开始的Java代码审计·第一弹·基础篇">https://jayl1n.github.io/2018/10/25/java-audit-step-by-step-1/</a>
+            <span>原始链接:</span><a class="post-url" href="" title="从1开始的Java代码审计·第一弹·基础篇">https://jayl1n.github.io/2018/10/25/java-audit-step-by-step-1/</a>
             <span class="copy-path" data-clipboard-text="原文: https://jayl1n.github.io/2018/10/25/java-audit-step-by-step-1/　　作者: Jayl1n" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
@@ -393,7 +393,7 @@
         
         
             <div id="article-nav-older" class="article-nav-title">
-                <a href="/2018/10/25/java-audit-step-by-step-0/">
+                <a href="../java-audit-step-by-step-0/">
                     从1开始的Java代码审计·序
                 </a>
             </div>
@@ -468,13 +468,13 @@
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/2018/10/25/java-audit-step-by-step-0/" title="下一篇: 从1开始的Java代码审计·序">
+            <a href="../java-audit-step-by-step-0/" title="下一篇: 从1开始的Java代码审计·序">
                 <i class="fa fa-angle-right"></i>
             </a>
         
     </div>
 
-    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2018/10/25/java-audit-step-by-step-1/">从1开始的Java代码审计·第一弹·基础篇</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/10/25/java-audit-step-by-step-0/">从1开始的Java代码审计·序</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/10/05/pentest-20181005/">渗透日记-20181005</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/09/19/summary-sqli-bypass/">当SQL注入遇到WAF</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/09/18/summary-command-execution/">PHP中的命令执行</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/09/18/summary-fileupload-bypass/">文件上传绕过的各种姿势</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/09/11/ichunqiu-web-BLOG/">i春秋-Web-BLOG</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/09/11/ichunqiu-web-Upload/">ichunqiu-web-Upload</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/09/11/ichunqiu-web-EXEC/">i春秋-Web-EXEC</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/09/10/ichunqiu-web-SQLi/">i春秋-Web-SQLi</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/09/09/daily-life-20180909/">日常心路-180909</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/07/sql-injection-cheat-sheet/">SQL注入备忘录</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/02/exploit-erraticgopher/">远程溢出之古怪地鼠ERRATICGOPHER</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/01/crawl-admin5/">爬虫之批量下载Admin5源码</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/07/31/yesterday-and-tomorrow/">昨天，明天</a></li></ul>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="">从1开始的Java代码审计·第一弹·基础篇</a></li><li class="post-list-item"><a class="post-list-link" href="../java-audit-step-by-step-0/">从1开始的Java代码审计·序</a></li><li class="post-list-item"><a class="post-list-link" href="../../05/pentest-20181005/">渗透日记-20181005</a></li><li class="post-list-item"><a class="post-list-link" href="../../../09/19/summary-sqli-bypass/">当SQL注入遇到WAF</a></li><li class="post-list-item"><a class="post-list-link" href="../../../09/18/summary-command-execution/">PHP中的命令执行</a></li><li class="post-list-item"><a class="post-list-link" href="../../../09/18/summary-fileupload-bypass/">文件上传绕过的各种姿势</a></li><li class="post-list-item"><a class="post-list-link" href="../../../09/11/ichunqiu-web-BLOG/">i春秋-Web-BLOG</a></li><li class="post-list-item"><a class="post-list-link" href="../../../09/11/ichunqiu-web-Upload/">ichunqiu-web-Upload</a></li><li class="post-list-item"><a class="post-list-link" href="../../../09/11/ichunqiu-web-EXEC/">i春秋-Web-EXEC</a></li><li class="post-list-item"><a class="post-list-link" href="../../../09/10/ichunqiu-web-SQLi/">i春秋-Web-SQLi</a></li><li class="post-list-item"><a class="post-list-link" href="../../../09/09/daily-life-20180909/">日常心路-180909</a></li><li class="post-list-item"><a class="post-list-link" href="../../../08/07/sql-injection-cheat-sheet/">SQL注入备忘录</a></li><li class="post-list-item"><a class="post-list-link" href="../../../08/02/exploit-erraticgopher/">远程溢出之古怪地鼠ERRATICGOPHER</a></li><li class="post-list-item"><a class="post-list-link" href="../../../08/01/crawl-admin5/">爬虫之批量下载Admin5源码</a></li><li class="post-list-item"><a class="post-list-link" href="../../../07/31/yesterday-and-tomorrow/">昨天，明天</a></li></ul>
 
 
 
