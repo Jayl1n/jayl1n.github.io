@@ -29,7 +29,7 @@
 <meta property="og:image" content="https://jayl1n.github.io/2018/10/29/java-audit-step-by-step-2/maven1.png">
 <meta property="og:image" content="https://jayl1n.github.io/2018/10/29/java-audit-step-by-step-2/maven2.png">
 <meta property="og:image" content="https://jayl1n.github.io/2018/10/29/java-audit-step-by-step-2/mybatis1.png">
-<meta property="og:updated_time" content="2018-10-29T05:42:40.200Z">
+<meta property="og:updated_time" content="2018-10-29T08:28:09.725Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="从1开始的Java代码审计·第二弹·基础篇（下）">
 <meta name="twitter:description" content="我们在审计一个项目的时候，最开始应该是先熟悉项目的结构，了解项目的技术栈。 本篇，我会引入一个开源的 Java Web 项目，通过实例分析 Java Web 的项目结构，常用的 MVC 模式。">
@@ -436,49 +436,7 @@
 </table>
 <p>根据上表，即使我们不看官方的介绍，也基本可以确定这套程序的技术栈。</p>
 <p>主要使用了 <code>SSM框架</code> (Spring+SpringMVC+MyBatis)， <code>freemarker</code> 模板引擎，支持 <code>MySQL</code> 数据库，使用 <code>c3p0</code> 连接池，<code>jackson</code> 处理 <code>json</code> 数据，<code>hibernate-validator</code> 对用户传来的请求数据进行有效性验证，还有一些 <code>apache</code> 提供的工具类。</p>
-<h4 id="包结构"><a href="#包结构" class="headerlink" title="包结构"></a>包结构</h4><ul>
-<li><p>core</p>
-<ul>
-<li><p>annotation</p>
-<p>定义注解</p>
-</li>
-<li><p>consts</p>
-<p>定义常量</p>
-</li>
-<li><p>directive</p>
-<p>定义了一个抽象类 <code>BaseDirective</code> ，所有的标签类都会继承它</p>
-</li>
-<li><p>dto</p>
-<p>定义<code>响应结果</code>的数据传输模型</p>
-</li>
-<li><p>enums</p>
-<p>定义功能相关的常量</p>
-</li>
-<li><p>exception</p>
-<p>定义异常</p>
-</li>
-<li><p>filter</p>
-<p>定义过滤器，目前只有一个<code>XSS</code>过滤器</p>
-</li>
-<li><p>handler</p>
-<p>定义处理器，目前只有<code>DirectiveHandler</code>，负责处理每个页面的渲染</p>
-</li>
-<li><p>model</p>
-<p>定义了数据模型，这里只有<code>Page</code>，描述页面对象，用于数据分页情况</p>
-</li>
-<li><p>utils</p>
-<p>定义工具类</p>
-</li>
-</ul>
-</li>
-<li><p>interceptor</p>
-<ul>
-<li><p>PageInterceptor</p>
-<p>分页拦截器，处理需要分页的请求。</p>
-</li>
-</ul>
-</li>
-</ul>
+<h4 id="包结构"><a href="#包结构" class="headerlink" title="包结构"></a>包结构</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">- core</span><br><span class="line"></span><br><span class="line">  - annotation 定义注解</span><br><span class="line"></span><br><span class="line">  - consts 定义常量</span><br><span class="line"></span><br><span class="line">  - directive 定义了一个抽象类 `BaseDirective` ，所有的标签类都会继承它</span><br><span class="line"></span><br><span class="line">  - dto 定义`响应结果`的数据传输模型</span><br><span class="line"></span><br><span class="line">  - enums 定义功能相关的常量</span><br><span class="line"></span><br><span class="line">  - exception 定义异常</span><br><span class="line"></span><br><span class="line">  - filter 定义过滤器，目前只有一个`XSS`过滤器</span><br><span class="line"></span><br><span class="line">  - handler 定义处理器，目前只有`DirectiveHandler`，负责处理每个页面的渲染</span><br><span class="line"></span><br><span class="line">  - model 定义了数据模型，这里只有`Page`，描述页面对象，用于数据分页情况</span><br><span class="line"></span><br><span class="line">  - utils 定义工具类</span><br><span class="line"></span><br><span class="line">+ interceptor</span><br><span class="line"></span><br><span class="line">  - PageInterceptor 分页拦截器，处理需要分页的请求。</span><br></pre></td></tr></table></figure>
 <h4 id="模块小结"><a href="#模块小结" class="headerlink" title="模块小结"></a>模块小结</h4><p>通过分析 <code>jeesns-core</code> 的模块，我们已经知道了 <code>jeesns</code> 的技术栈，是目前比较流行的 <code>SSM</code> 框架，这个核心模块给整个项目构建了一个基本骨架，包括功能方面的还有我们关心的安全方面的（虽然只有 <code>XSS</code> 防御 <code>($ _ $)</code> ）。</p>
 <p>在分析下面模块之前，我们需要先了解 <code>SSM</code> 的一些概念。<a href="https://www.cnblogs.com/zyw-205520/p/4771253.html" target="_blank" rel="noopener">参考文章</a></p>
 <p>当然，最重要的还是要知道什么是 <code>MVC</code>，因为大部分的 <code>Web</code> 项目，都是基于这种<code>设计模式</code>开发的，包括 <code>JEESNS</code> 。<a href="https://blog.csdn.net/qq_26411021/article/details/79493340" target="_blank" rel="noopener">参考文章</a></p>
@@ -528,7 +486,7 @@
         <p><span>本文标题:</span><a href="">从1开始的Java代码审计·第二弹·基础篇（下）</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">Jayl1n</a></p>
         <p><span>发布时间:</span>2018-10-29, 13:45:39</p>
-        <p><span>最后更新:</span>2018-10-29, 13:42:40</p>
+        <p><span>最后更新:</span>2018-10-29, 16:28:09</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="" title="从1开始的Java代码审计·第二弹·基础篇（下）">https://jayl1n.github.io/2018/10/29/java-audit-step-by-step-2/</a>
             <span class="copy-path" data-clipboard-text="原文: https://jayl1n.github.io/2018/10/29/java-audit-step-by-step-2/　　作者: Jayl1n" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
@@ -605,6 +563,28 @@
 
 
 
+
+
+    
+        <section id="comments">
+    <style> aside.comment-bar { margin: auto 30px; }</style>
+    <div id="disqus_thread"></div>
+    <script>
+        var disqus_config = function(){
+            this.page.url = 'https://jayl1n.github.io/2018/10/29/java-audit-step-by-step-2/';
+            this.page.identifier = '2018/10/29/java-audit-step-by-step-2/';
+        };
+        var loadComment = function(){
+            var d = document, s = d.createElement('script');
+            s.src = '//jayl1n-github-io.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        }
+    </script>
+    
+    <script> loadComment(); </script>
+
+</section>
 
 
     
