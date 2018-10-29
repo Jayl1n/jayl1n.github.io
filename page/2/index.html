@@ -283,6 +283,89 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="post-summary-command-execution" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="../../2018/09/18/summary-command-execution/" class="article-date">
+      <time datetime="2018-09-18T11:44:31.000Z" itemprop="datePublished">2018-09-18</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="../../2018/09/18/summary-command-execution/">PHP中的命令执行</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在 PHP 中, <code>exec()</code>、<code>system()</code>、<code>popen()</code>、<code>passthru()</code>、<code>proc_open()</code>、<code>pcntl_exec()</code>、<code>shell_exec()</code>，还有反引号 ``包裹的内容，都可以用来执行系统命令。</p>
+<p>如果执行的命令参数是用户可控的，那么就会造成命令执行漏洞。</p>
+<p>下面是常见的函数描述：</p>
+<ul>
+<li><p>system()</p>
+<p>  输出并返回最后一行shell结果。 </p>
+</li>
+<li><p>exec()</p>
+<p>  不输出结果，返回最后一行shell结果，所有结果可以保存到一个返回的数组里面。</p>
+</li>
+<li><p>passthru()</p>
+<p>  只调用命令，把命令的运行结果原样地直接输出到标准输出设备上。</p>
+</li>
+<li><p>popen()、proc_open()</p>
+<p>  不会直接返回执行结果，而是返回一个文件指针。</p>
+</li>
+<li><p>反引号</p>
+<p>  调用 <code>shell_exec()</code> 函数</p>
+</li>
+</ul>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/PHP/">PHP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/Web/">Web</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="../../2018/09/18/summary-command-execution/#more">阅读全文 >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
     <article id="post-summary-fileupload-bypass" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -549,71 +632,6 @@
         <p class="article-more-link">
           <a href="../../2018/09/10/ichunqiu-web-SQLi/#more">阅读全文 >></a>
         </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-daily-life-20180909" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="../../2018/09/09/daily-life-20180909/" class="article-date">
-      <time datetime="2018-09-09T15:14:15.000Z" itemprop="datePublished">2018-09-09</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="../../2018/09/09/daily-life-20180909/">日常心路-180909</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-        <p>最近忙了很多事，从公司离职，搬家，开学，又跑到某市做培训。</p>
-<p>突然回到校园生活，身份从社会人变成学生，感觉还有点不适应。</p>
-<p>今天，如愿以偿的通过了<code>Syclover</code>的面试，进入了新芽组，应该是唯一一个大三的新芽 ( ╯□╰ )，不过也算是完成了高中时候的心愿（进入CUIT，进入Syclover）。今天面的师傅很严肃，感觉自己确实还差的太多了，希望能在这个学期努力跟上。</p>
-<p>这个学期，需要额外补<code>3</code>门课，把四级过了，还要尽量通过核心组面试，任务挺重的⊙﹏⊙∥。</p>
-<p>诸君共勉吧(ﾉ*･ω･)ﾉ。</p>
-<p><img src="/2018/09/09/daily-life-20180909/jldnydhgjxzpmdzj.jpg" alt="表情"></p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/心路/">心路</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/日常/">日常</a></li></ul>
-    </div>
-
       
       <div class="clearfix"></div>
     </div>

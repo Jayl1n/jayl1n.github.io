@@ -283,6 +283,71 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="post-java-audit-step-by-step-2" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="2018/10/29/java-audit-step-by-step-2/" class="article-date">
+      <time datetime="2018-10-29T05:45:39.000Z" itemprop="datePublished">2018-10-29</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="2018/10/29/java-audit-step-by-step-2/">从1开始的Java代码审计·第二弹·基础篇（下）</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <p>我们在审计一个项目的时候，最开始应该是先熟悉项目的结构，了解项目的技术栈。</p>
+<p>本篇，我会引入一个开源的 Java Web 项目，通过实例分析 Java Web 的项目结构，常用的 MVC 模式。</p>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/代码审计/">代码审计</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="2018/10/29/java-audit-step-by-step-2/#more">阅读全文 >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
     <article id="post-java-audit-step-by-step-1" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -302,7 +367,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="2018/10/25/java-audit-step-by-step-1/">从1开始的Java代码审计·第一弹·基础篇</a>
+      <a class="article-title" href="2018/10/25/java-audit-step-by-step-1/">从1开始的Java代码审计·第一弹·基础篇（上）</a>
     </h1>
   
 
@@ -376,7 +441,7 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>小组经常有小伙伴问我<code>Java</code>该怎么审计，其实我也挺头大的。因为，在我看来审<code>Java</code>的代码，和审<code>PHP</code>的代码，相差不大。WEB 漏洞就那些，只是换了门语言实现而已，只要漏洞原理知道了，审起来是很容易的。</p>
+        <p>小组经常有小伙伴问我<code>Java</code>该怎么审计，其实我也挺头大的。因为我觉得审<code>Java</code>的代码和审<code>PHP</code>的代码，相差不大。WEB 漏洞就那些，只是换了门语言实现而已，只要漏洞原理知道了，审起来是很容易的。</p>
 <p>很多学安全的同学，应该是从<code>PHP</code>入门的。<code>PHP</code>作为一门脚本语言，跨平台、语法简单、易上手、开源框架多、用户量大。但是，<code>PHP</code>语言本身的特性，它在后期的拓展和维护困难，而且支持所有漏洞（抖个机灵）。很多对系统稳定性、安全性要求较高的厂商不太会去选择<code>PHP</code>，而是<code>Java</code>或者别的语言。</p>
 <p><code>Java</code>是纯正的面向对象的语言，适合团队协作开发，重构、维护相对轻松，语言生态好，且在高性能、高并发、分布式的场景吊打某语言。（虽然<code>PHP</code>也是支持面向对象的写法，不过身边真的在用面向对象的方法写<code>PHP</code>的同学真的很少，可能是不太理解面向对象的概念，也可能是因为写起来代码太长了？）</p>
 <p>目前，网上关于 WEB 代码审计的文章很多都是<code>PHP</code>的，和<code>Java</code>相关的很少，而且质量一般。所以我打算做一个<code>Java</code>代码审计的系列，分享<code>Java</code>代码审计相关的小姿势。</p>
@@ -534,89 +599,6 @@
       
         <p class="article-more-link">
           <a href="2018/09/19/summary-sqli-bypass/#more">阅读全文 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-summary-command-execution" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="2018/09/18/summary-command-execution/" class="article-date">
-      <time datetime="2018-09-18T11:44:31.000Z" itemprop="datePublished">2018-09-18</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="2018/09/18/summary-command-execution/">PHP中的命令执行</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在 PHP 中, <code>exec()</code>、<code>system()</code>、<code>popen()</code>、<code>passthru()</code>、<code>proc_open()</code>、<code>pcntl_exec()</code>、<code>shell_exec()</code>，还有反引号 ``包裹的内容，都可以用来执行系统命令。</p>
-<p>如果执行的命令参数是用户可控的，那么就会造成命令执行漏洞。</p>
-<p>下面是常见的函数描述：</p>
-<ul>
-<li><p>system()</p>
-<p>  输出并返回最后一行shell结果。 </p>
-</li>
-<li><p>exec()</p>
-<p>  不输出结果，返回最后一行shell结果，所有结果可以保存到一个返回的数组里面。</p>
-</li>
-<li><p>passthru()</p>
-<p>  只调用命令，把命令的运行结果原样地直接输出到标准输出设备上。</p>
-</li>
-<li><p>popen()、proc_open()</p>
-<p>  不会直接返回执行结果，而是返回一个文件指针。</p>
-</li>
-<li><p>反引号</p>
-<p>  调用 <code>shell_exec()</code> 函数</p>
-</li>
-</ul>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/PHP/">PHP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/Web/">Web</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="2018/09/18/summary-command-execution/#more">阅读全文 >></a>
         </p>
       
       <div class="clearfix"></div>
