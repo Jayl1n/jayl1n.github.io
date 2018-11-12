@@ -16,19 +16,19 @@
 
 
 
-<meta name="description" content="前言目前，有越来越多的网站上了 WAF ，有硬WAF，软WAF，云WAF，内嵌WAF。给SQL注入的利用带来不小麻烦，下面总结些常见的 WAF Bypass 姿势。  Bypass 姿势大小写混合在规则匹配时，只过滤了特定的大写或小写，可以通过混合大小写的方式绕过。（目前很少有这种情况出现）  UniON SelEcT 1,2,3">
+<meta name="description" content="前言现在，有越来越多的网站上了 WAF ，有硬WAF，软WAF，云WAF，内嵌WAF。给SQL注入的利用带来不小麻烦，下面总结些常见的 WAF Bypass 姿势。  Bypass 姿势大小写混合在规则匹配时，只过滤了特定的大写或小写，可以通过混合大小写的方式绕过。（目前很少有这种情况出现）  UniON SelEcT 1,2,3">
 <meta name="keywords" content="Web,SQLi">
 <meta property="og:type" content="article">
 <meta property="og:title" content="当SQL注入遇到WAF">
 <meta property="og:url" content="https://jayl1n.github.io/2018/09/19/summary-sqli-bypass/index.html">
 <meta property="og:site_name" content="Jayl1n&#39;s Blog">
-<meta property="og:description" content="前言目前，有越来越多的网站上了 WAF ，有硬WAF，软WAF，云WAF，内嵌WAF。给SQL注入的利用带来不小麻烦，下面总结些常见的 WAF Bypass 姿势。  Bypass 姿势大小写混合在规则匹配时，只过滤了特定的大写或小写，可以通过混合大小写的方式绕过。（目前很少有这种情况出现）  UniON SelEcT 1,2,3">
+<meta property="og:description" content="前言现在，有越来越多的网站上了 WAF ，有硬WAF，软WAF，云WAF，内嵌WAF。给SQL注入的利用带来不小麻烦，下面总结些常见的 WAF Bypass 姿势。  Bypass 姿势大小写混合在规则匹配时，只过滤了特定的大写或小写，可以通过混合大小写的方式绕过。（目前很少有这种情况出现）  UniON SelEcT 1,2,3">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://jayl1n.github.io/2018/09/19/summary-sqli-bypass/double-encode.png">
-<meta property="og:updated_time" content="2018-10-25T13:22:43.082Z">
+<meta property="og:updated_time" content="2018-10-31T04:05:38.349Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="当SQL注入遇到WAF">
-<meta name="twitter:description" content="前言目前，有越来越多的网站上了 WAF ，有硬WAF，软WAF，云WAF，内嵌WAF。给SQL注入的利用带来不小麻烦，下面总结些常见的 WAF Bypass 姿势。  Bypass 姿势大小写混合在规则匹配时，只过滤了特定的大写或小写，可以通过混合大小写的方式绕过。（目前很少有这种情况出现）  UniON SelEcT 1,2,3">
+<meta name="twitter:description" content="前言现在，有越来越多的网站上了 WAF ，有硬WAF，软WAF，云WAF，内嵌WAF。给SQL注入的利用带来不小麻烦，下面总结些常见的 WAF Bypass 姿势。  Bypass 姿势大小写混合在规则匹配时，只过滤了特定的大写或小写，可以通过混合大小写的方式绕过。（目前很少有这种情况出现）  UniON SelEcT 1,2,3">
 <meta name="twitter:image" content="https://jayl1n.github.io/2018/09/19/summary-sqli-bypass/double-encode.png">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
@@ -205,7 +205,7 @@
                 
                 <section class="switch-part switch-part2">
                     <div class="widget tagcloud" id="js-tagcloud">
-                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/BLOG/">BLOG</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/Java/">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/PHP/">PHP</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/Pentest/">Pentest</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/Python/">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/SQLi/">SQLi</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/Web/">Web</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/i春秋/">i春秋</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/sql-injection/">sql-injection</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/代码审计/">代码审计</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/心路/">心路</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/日常/">日常</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/爬虫/">爬虫</a></li></ul>
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/BLOG/">BLOG</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/Java/">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/PHP/">PHP</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/Pentest/">Pentest</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/Python/">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/SQLi/">SQLi</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/Web/">Web</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/i春秋/">i春秋</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/代码审计/">代码审计</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/心路/">心路</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/日常/">日常</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/爬虫/">爬虫</a></li></ul>
                     </div>
                 </section>
                 
@@ -320,7 +320,7 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>目前，有越来越多的网站上了 WAF ，有硬WAF，软WAF，云WAF，内嵌WAF。给SQL注入的利用带来不小麻烦，下面总结些常见的 WAF Bypass 姿势。</p>
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>现在，有越来越多的网站上了 WAF ，有硬WAF，软WAF，云WAF，内嵌WAF。给SQL注入的利用带来不小麻烦，下面总结些常见的 WAF Bypass 姿势。</p>
 <hr>
 <h2 id="Bypass-姿势"><a href="#Bypass-姿势" class="headerlink" title="Bypass 姿势"></a>Bypass 姿势</h2><h3 id="大小写混合"><a href="#大小写混合" class="headerlink" title="大小写混合"></a>大小写混合</h3><p>在规则匹配时，只过滤了特定的大写或小写，可以通过混合大小写的方式绕过。（目前很少有这种情况出现）</p>
 <blockquote>
@@ -404,7 +404,7 @@
         <p><span>本文标题:</span><a href="">当SQL注入遇到WAF</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">Jayl1n</a></p>
         <p><span>发布时间:</span>2018-09-19, 19:07:41</p>
-        <p><span>最后更新:</span>2018-10-25, 21:22:43</p>
+        <p><span>最后更新:</span>2018-10-31, 12:05:38</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="" title="当SQL注入遇到WAF">https://jayl1n.github.io/2018/09/19/summary-sqli-bypass/</a>
             <span class="copy-path" data-clipboard-text="原文: https://jayl1n.github.io/2018/09/19/summary-sqli-bypass/　　作者: Jayl1n" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
@@ -532,7 +532,7 @@
         
     </div>
 
-    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="../../../10/29/java-audit-step-by-step-2/">从1开始的Java代码审计·第二弹·基础篇（下）</a></li><li class="post-list-item"><a class="post-list-link" href="../../../10/25/java-audit-step-by-step-1/">从1开始的Java代码审计·第一弹·基础篇（上）</a></li><li class="post-list-item"><a class="post-list-link" href="../../../10/25/java-audit-step-by-step-0/">从1开始的Java代码审计·序</a></li><li class="post-list-item"><a class="post-list-link" href="../../../10/05/pentest-20181005/">渗透日记-20181005</a></li><li class="post-list-item"><a class="post-list-link" href="">当SQL注入遇到WAF</a></li><li class="post-list-item"><a class="post-list-link" href="../../18/summary-command-execution/">PHP中的命令执行</a></li><li class="post-list-item"><a class="post-list-link" href="../../18/summary-fileupload-bypass/">文件上传绕过的各种姿势</a></li><li class="post-list-item"><a class="post-list-link" href="../../11/ichunqiu-web-BLOG/">i春秋-Web-BLOG</a></li><li class="post-list-item"><a class="post-list-link" href="../../10/ichunqiu-web-SQLi/">i春秋-Web-SQLi</a></li><li class="post-list-item"><a class="post-list-link" href="../../09/daily-life-20180909/">日常心路-180909</a></li><li class="post-list-item"><a class="post-list-link" href="../../../08/07/sql-injection-cheat-sheet/">SQL注入备忘录</a></li><li class="post-list-item"><a class="post-list-link" href="../../../08/01/crawl-admin5/">爬虫之批量下载Admin5源码</a></li><li class="post-list-item"><a class="post-list-link" href="../../../07/31/yesterday-and-tomorrow/">昨天，明天</a></li></ul>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="../../../10/29/java-audit-step-by-step-2/">从1开始的Java代码审计·第二弹·基础篇（下）</a></li><li class="post-list-item"><a class="post-list-link" href="../../../10/25/java-audit-step-by-step-1/">从1开始的Java代码审计·第一弹·基础篇（上）</a></li><li class="post-list-item"><a class="post-list-link" href="../../../10/25/java-audit-step-by-step-0/">从1开始的Java代码审计·序</a></li><li class="post-list-item"><a class="post-list-link" href="../../../10/05/pentest-20181005/">渗透日记-20181005</a></li><li class="post-list-item"><a class="post-list-link" href="">当SQL注入遇到WAF</a></li><li class="post-list-item"><a class="post-list-link" href="../../18/summary-command-execution/">PHP中的命令执行</a></li><li class="post-list-item"><a class="post-list-link" href="../../18/summary-fileupload-bypass/">文件上传绕过的各种姿势</a></li><li class="post-list-item"><a class="post-list-link" href="../../11/ichunqiu-web-BLOG/">i春秋-Web-BLOG</a></li><li class="post-list-item"><a class="post-list-link" href="../../10/ichunqiu-web-SQLi/">i春秋-Web-SQLi</a></li><li class="post-list-item"><a class="post-list-link" href="../../09/daily-life-20180909/">日常心路-180909</a></li><li class="post-list-item"><a class="post-list-link" href="../../../08/01/crawl-admin5/">爬虫之批量下载Admin5源码</a></li><li class="post-list-item"><a class="post-list-link" href="../../../07/31/yesterday-and-tomorrow/">昨天，明天</a></li></ul>
 
 
 

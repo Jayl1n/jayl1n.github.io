@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://jayl1n.github.io/2018/09/19/summary-sqli-bypass/</loc>
+    
+    <lastmod>2018-10-31T04:05:38.349Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://jayl1n.github.io/about/index.html</loc>
     
     <lastmod>2018-10-30T06:18:35.105Z</lastmod>
@@ -37,13 +44,6 @@
   </url>
   
   <url>
-    <loc>https://jayl1n.github.io/2018/09/19/summary-sqli-bypass/</loc>
-    
-    <lastmod>2018-10-25T13:22:43.082Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://jayl1n.github.io/2018/09/18/summary-fileupload-bypass/</loc>
     
     <lastmod>2018-10-25T13:22:36.722Z</lastmod>
@@ -54,13 +54,6 @@
     <loc>https://jayl1n.github.io/2018/09/18/summary-command-execution/</loc>
     
     <lastmod>2018-10-25T13:22:31.742Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://jayl1n.github.io/2018/08/07/sql-injection-cheat-sheet/</loc>
-    
-    <lastmod>2018-10-25T13:22:22.851Z</lastmod>
     
   </url>
   

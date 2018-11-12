@@ -8,6 +8,5 @@ https://jayl1n.github.io/2018/09/18/summary-fileupload-bypass/
 https://jayl1n.github.io/2018/09/11/ichunqiu-web-BLOG/
 https://jayl1n.github.io/2018/09/10/ichunqiu-web-SQLi/
 https://jayl1n.github.io/2018/09/09/daily-life-20180909/
-https://jayl1n.github.io/2018/08/07/sql-injection-cheat-sheet/
 https://jayl1n.github.io/2018/08/01/crawl-admin5/
 https://jayl1n.github.io/2018/07/31/yesterday-and-tomorrow/
