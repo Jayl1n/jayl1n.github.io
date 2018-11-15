@@ -2,13 +2,6 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://jayl1n.github.io/2018/09/19/summary-sqli-bypass/</loc>
-    
-    <lastmod>2018-10-31T04:05:38.349Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://jayl1n.github.io/about/index.html</loc>
     
     <lastmod>2018-10-30T06:18:35.105Z</lastmod>
@@ -40,13 +33,6 @@
     <loc>https://jayl1n.github.io/2018/07/31/yesterday-and-tomorrow/</loc>
     
     <lastmod>2018-10-26T17:01:31.829Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://jayl1n.github.io/2018/09/18/summary-fileupload-bypass/</loc>
-    
-    <lastmod>2018-10-25T13:22:36.722Z</lastmod>
     
   </url>
   

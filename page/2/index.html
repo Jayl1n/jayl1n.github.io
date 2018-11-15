@@ -284,166 +284,6 @@
 </nav>
       <div class="body-wrap">
   
-    <article id="post-summary-command-execution" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="../../2018/09/18/summary-command-execution/" class="article-date">
-      <time datetime="2018-09-18T11:44:31.000Z" itemprop="datePublished">2018-09-18</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="../../2018/09/18/summary-command-execution/">PHP中的命令执行</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在 PHP 中, <code>exec()</code>、<code>system()</code>、<code>popen()</code>、<code>passthru()</code>、<code>proc_open()</code>、<code>pcntl_exec()</code>、<code>shell_exec()</code>，还有反引号 ``包裹的内容，都可以用来执行系统命令。</p>
-<p>如果执行的命令参数是用户可控的，那么就会造成命令执行漏洞。</p>
-<p>下面是常见的函数描述：</p>
-<ul>
-<li><p>system()</p>
-<p>  输出并返回最后一行shell结果。 </p>
-</li>
-<li><p>exec()</p>
-<p>  不输出结果，返回最后一行shell结果，所有结果可以保存到一个返回的数组里面。</p>
-</li>
-<li><p>passthru()</p>
-<p>  只调用命令，把命令的运行结果原样地直接输出到标准输出设备上。</p>
-</li>
-<li><p>popen()、proc_open()</p>
-<p>  不会直接返回执行结果，而是返回一个文件指针。</p>
-</li>
-<li><p>反引号</p>
-<p>  调用 <code>shell_exec()</code> 函数</p>
-</li>
-</ul>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/PHP/">PHP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/Web/">Web</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="../../2018/09/18/summary-command-execution/#more">阅读全文 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-summary-fileupload-bypass" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="../../2018/09/18/summary-fileupload-bypass/" class="article-date">
-      <time datetime="2018-09-18T09:52:50.000Z" itemprop="datePublished">2018-09-18</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="../../2018/09/18/summary-fileupload-bypass/">文件上传绕过的各种姿势</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <ol>
-<li><p>JS前端检测</p>
-<ul>
-<li><p>浏览器审核元素，修改代码</p>
-</li>
-<li><p>BP抓包，修改后缀</p>
-</li>
-</ul>
-</li>
-<li><p>文件后缀绕过</p>
-<p> Apache 的配置文件 <code>httpd.conf</code>,配置了哪些后缀会当作 <code>php</code> 脚本来解析，只要上传支持的后缀就行。</p>
-   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">AddType application/x-httpd-php .php .phtml</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/Web/">Web</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="../../2018/09/18/summary-fileupload-bypass/#more">阅读全文 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
     <article id="post-ichunqiu-web-BLOG" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -639,9 +479,139 @@
 
 
   
+    <article id="post-crawl-admin5" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="../../2018/08/01/crawl-admin5/" class="article-date">
+      <time datetime="2018-08-01T01:45:40.000Z" itemprop="datePublished">2018-08-01</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="../../2018/08/01/crawl-admin5/">爬虫之批量下载Admin5源码</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <h2 id="项目介绍"><a href="#项目介绍" class="headerlink" title="项目介绍"></a>项目介绍</h2><p><a href="http://down.admin5.com" target="_blank" rel="noopener"><code>Admin5</code></a> 提供了各种语言的开源项目，包括<code>asp</code> <code>php</code> <code>.net</code> <code>jsp</code>等。最近开始玩代码审计，到处找项目很麻烦，所以打算写一个爬虫，借助Admin5批量下载各类开源项目。</p>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/Python/">Python</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/爬虫/">爬虫</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="../../2018/08/01/crawl-admin5/#more">阅读全文 >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-yesterday-and-tomorrow" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="../../2018/07/31/yesterday-and-tomorrow/" class="article-date">
+      <time datetime="2018-07-31T12:57:12.000Z" itemprop="datePublished">2018-07-31</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="../../2018/07/31/yesterday-and-tomorrow/">昨天，明天</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>在二零一八年七月的尾巴，写下这篇文章。算是对过去的一个回忆总结，还有未来的计划。</p>
+<p>做安全，是我高中时候就有的想法。那个时候WooYun还在，我还记得曾经挖到一个小厂的任意用户密码重置的漏洞，注册了第一个账号，踏上了我在安全路上的第一步。</p>
+<p>高中的时候住校，手机查的还严。每天最开心的就是窝在被子里，翻着WooYun，逛逛Zone。看看今天谁家Struts2的洞还没补，哪个厂的裤子又被脱了。当然，还有各路大佬分享的奇技淫巧，一哥猪猪侠，画漫画的小川……</p>
+<p>大学，我来到离家1500KM的成都，因为各种原因，选了一个不喜欢的专业，加了学生会，每天都让自己很忙，常常是通宵在工作，也没有时间再去关注安全圈。第一个学期的学期末，重要的几门专业基础课还是都不懂。我意识到这个专业真的不适合我，即使毕业了，我也不会去做这行。某个晚上，我扯出路由器上的网线，连上学校内网，不小心拿到了支撑学校核心业务的数据库。表里，挂掉的两科静静的躺在那，思考了许久，还是关掉了终端…</p>
+<p>第二个学期，不顾家人反对，我转到了软件专业，学习软件开发。环境原因，班上的计算机水平都不行，凭着高中攒下的知识，吊打大部分人。我开始参加各种比赛，移动开发，大数据，软件杯。一路过来，经历了很多，承担了很多，收获了很多，可以说是我人生成长最多的历程。在这里，我迷失过，特别是我深入开发之后，我发现IT的方向原来这么多，我对每个方向都感兴趣，但一个人不可能把每条路走通，必须找一条合适自己路。开发这条路，我走了很久，也做过自己引以为傲的作品。不过我不喜欢做业务，像是搬砖一样的堆砌代码，写没有灵魂的程序，所以，是时候回去了。</p>
+<p>这一年，最开心的事莫过于通过升本考试，接下来的两年，我将在CUIT继续学习。CUIT最出名的，就是信息安全了吧，也是牛人云集的地方。希望多年以后，再看这篇文章的时候，我也是一枚大佬了。</p>
+<p>不忘初心，方得始终。</p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/心路/">心路</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/日常/">日常</a></li></ul>
+    </div>
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="../../">&laquo; Prev</a><a class="page-number" href="../../">1</a><span class="page-number current">2</span><a class="page-number" href="../3/">3</a><a class="extend next" rel="next" href="../3/">Next &raquo;</a>
+      <a class="extend prev" rel="prev" href="../../">&laquo; Prev</a><a class="page-number" href="../../">1</a><span class="page-number current">2</span>
     </nav>
   
 </div>

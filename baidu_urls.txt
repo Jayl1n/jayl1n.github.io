@@ -2,9 +2,7 @@ https://jayl1n.github.io/2018/10/29/java-audit-step-by-step-2/
 https://jayl1n.github.io/2018/10/25/java-audit-step-by-step-1/
 https://jayl1n.github.io/2018/10/25/java-audit-step-by-step-0/
 https://jayl1n.github.io/2018/10/05/pentest-20181005/
-https://jayl1n.github.io/2018/09/19/summary-sqli-bypass/
 https://jayl1n.github.io/2018/09/18/summary-command-execution/
-https://jayl1n.github.io/2018/09/18/summary-fileupload-bypass/
 https://jayl1n.github.io/2018/09/11/ichunqiu-web-BLOG/
 https://jayl1n.github.io/2018/09/10/ichunqiu-web-SQLi/
 https://jayl1n.github.io/2018/09/09/daily-life-20180909/
