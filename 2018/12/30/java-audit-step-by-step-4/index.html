@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+
+    <!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no" />
+<meta name="author" content="Jayl1n" />
+<meta name="baidu-site-verification" content="elXpeED2jg" />
+
+
+
+<meta name="description" content="最近的事情真的太多了 ≧﹏≦ ，趁着刚搞完小组的面试，发篇热乎的。">
+<meta name="keywords" content="Java,代码审计">
+<meta property="og:type" content="article">
+<meta property="og:title" content="从1开始的Java代码审计·第四弹·SSRF">
+<meta property="og:url" content="https://jayl1n.github.io/2018/12/30/java-audit-step-by-step-4/index.html">
+<meta property="og:site_name" content="Jayl1n&#39;s Blog">
+<meta property="og:description" content="最近的事情真的太多了 ≧﹏≦ ，趁着刚搞完小组的面试，发篇热乎的。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://jayl1n.github.io/2018/12/30/java-audit-step-by-step-4/java-protocol.png">
+<meta property="og:updated_time" content="2019-01-03T15:37:57.516Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="从1开始的Java代码审计·第四弹·SSRF">
+<meta name="twitter:description" content="最近的事情真的太多了 ≧﹏≦ ，趁着刚搞完小组的面试，发篇热乎的。">
+<meta name="twitter:image" content="https://jayl1n.github.io/2018/12/30/java-audit-step-by-step-4/java-protocol.png">
+
+<link rel="apple-touch-icon" href= "/apple-touch-icon.png">
+
+
+    <link rel="alternate" href="/atom.xml" title="Jayl1n&#39;s Blog" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="/img/cat.jpg">
+
+
+
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="../../../../css/style.css">
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>从1开始的Java代码审计·第四弹·SSRF | Jayl1n&#39;s Blog</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: true
+    }
+</script>
+
+
+    <script>
+        yiliaConfig.jquery_ui = [true, "//cdn.bootcss.com/jqueryui/1.10.4/jquery-ui.min.js", "//cdn.bootcss.com/jqueryui/1.10.4/css/jquery-ui.min.css"];
+    </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+
+
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "//hm.baidu.com/hm.js?08bebd32e2a42a1273ff796a43439f77";
+            var s = document.getElementsByTagName("script")[0]; 
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="/img/cat.jpg" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">Jayl1n</a></h1>
+        </hgroup>
+
+        
+
+        
+            <form id="search-form">
+            <input type="text" id="local-search-input" name="q" placeholder="search..." class="search form-control" autocomplete="off" autocorrect="off" searchonload="false" />
+            <i class="fa fa-times" onclick="resetSearch()"></i>
+            </form>
+            <div id="local-search-result"></div>
+            <p class='no-result'>No results found <i class='fa fa-spinner fa-pulse'></i></p>
+        
+
+
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        <li>友情链接</li>
+                        
+                        
+                        <li>关于我</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="../../../../index.html">主页</a></li>
+                        
+                            <li><a href="../../../../archives/">所有文章</a></li>
+                        
+                            <li><a href="../../../../tags/">标签云</a></li>
+                        
+                            <li><a href="../../../../about/">关于我</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" href="mailto:panja@foxmail.com" title="Email"></a>
+                            
+                                <a class="fa GitHub" href="https://www.github.com/Jayl1n" title="GitHub"></a>
+                            
+                                <a class="fa RSS" href="../../../../atom.xml" title="RSS"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/BLOG/">BLOG</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/Java/">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/PHP/">PHP</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/Pentest/">Pentest</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/Python/">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/SQLi/">SQLi</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/Web/">Web</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/i春秋/">i春秋</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/代码审计/">代码审计</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/心路/">心路</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/日常/">日常</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/爬虫/">爬虫</a></li></ul>
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://hexo.io">Hexo</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://pages.github.com/">GitHub</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://moxfive.xyz/">MOxFIVE</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+                
+                <section class="switch-part switch-part4">
+                
+                    <div id="js-aboutme">专注于安全</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">Jayl1n</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="/img/cat.jpg" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">Jayl1n</a></h1>
+            </hgroup>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="../../../../index.html">主页</a></li>
+                
+                    <li><a href="../../../../archives/">所有文章</a></li>
+                
+                    <li><a href="../../../../tags/">标签云</a></li>
+                
+                    <li><a href="../../../../about/">关于我</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" target="_blank" href="mailto:panja@foxmail.com" title="Email"></a>
+                            
+                                <a class="fa GitHub" target="_blank" href="https://www.github.com/Jayl1n" title="GitHub"></a>
+                            
+                                <a class="fa RSS" target="_blank" href="../../../../atom.xml" title="RSS"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+</nav>
+      <div class="body-wrap"><article id="post-java-audit-step-by-step-4" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="" class="article-date">
+      <time datetime="2018-12-29T16:17:42.000Z" itemprop="datePublished">2018-12-30</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      从1开始的Java代码审计·第四弹·SSRF
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../../../tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../../../tags/代码审计/">代码审计</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <blockquote>
+<p>最近的事情真的太多了 <strong>≧﹏≦</strong> ，趁着刚搞完小组的面试，发篇热乎的。</p>
+</blockquote>
+<a id="more"></a>
+<h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>自从 2016 年猪猪侠在乌云峰会发表议题——<a href="https://github.com/ring04h/papers/blob/master/build_your_ssrf_exp_autowork--20160711.pdf" target="_blank" rel="noopener">《Build Your SSRF Exploit Framework》</a>，<code>SSRF</code> 才开始火起来的吧，攻击面越来越广，利用某些奇技淫巧可以直接GETSHELL。</p>
+<p><code>SSRF</code> 的介绍、利用方式，PDF里都有讲，就不再赘述了，开始进入正题。</p>
+<h1 id="支持的协议"><a href="#支持的协议" class="headerlink" title="支持的协议"></a>支持的协议</h1><p>Java 支持的协议可以在 <code>sum.net.www.protocol</code> 包下看到，如下图：</p>
+<p><img src="/2018/12/30/java-audit-step-by-step-4/java-protocol.png" alt="java-protocol"></p>
+<p>图中用的 JDK 是 <code>1.7</code>，可以看到有 <code>gopher</code> <code>file</code> <code>ftp</code> <code>http</code> <code>https</code> <code>jar</code> <code>mailto</code> <code>netdoc</code> 八种协议。其中最有意思的是 <code>gopher</code> 协议，可以用来构造其它协议的请求。但是，<strong><code>gopher</code> 在 <code>JDK8</code> 中已经被移除。</strong> 经过测试，在高版本的 <code>JDK7</code> 里，虽然 <code>sun.net.www.protoocol</code> 中还有 <code>gopher</code> 包，但是实际也已经不能使用，会抛 <code>java.net.MalformedURLException: unknown protocol: gopher</code> 的异常，被阉割地时间在2012年左右（From <a href="http://www.k0rz3n.com" target="_blank" rel="noopener">@K0rz3n</a>）。</p>
+<h1 id="发起请求的流程"><a href="#发起请求的流程" class="headerlink" title="发起请求的流程"></a>发起请求的流程</h1><p>构造一个简单的 <code>http</code> 请求：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">    URL u = <span class="keyword">new</span> URL(url);</span><br><span class="line">    URLConnection urlConnection = u.openConnection();</span><br><span class="line">    InputStream inputStream = urlConnection.getInputStream();</span><br><span class="line"></span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">&#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">    e.printStackTrace();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>简述下这个过程，首先，构造一个 <code>URL</code> 对象，调用 <code>url</code> 的 <code>openConnection()</code> 方法来获取一个 <code>URLConnection</code> 实例，然后再调 <code>getInputStream()</code> 拿到 <code>InputStream</code>，也就是请求的响应流。之后，再做我们想要的其它事情。</p>
+<p>在这个过程中，如果 <code>URL</code> 是可控的，那么就会存在 <code>SSRF</code> 漏洞。</p>
+<p>下面分析下主要的几个方法。</p>
+<h2 id="new-URL"><a href="#new-URL" class="headerlink" title="new URL()"></a>new URL()</h2><p>构造一个 <code>URL</code> 对象，构造时，可以指定 <code>协议</code>，<code>HOST</code>，<code>端口</code>，<code>文件路径</code>，<code>URLStreamHandler</code>。</p>
+<p>其中，<code>URLStreamHandler</code> 是一个抽象类，每个协议都有继承它的子类 —— <code>Handler</code>（可以在各协议的包下找到）。<code>Handler</code> 定义了该如何去打开一个连接（ <code>openConnection()</code> ）。</p>
+<p>如果是直接传入一个 <code>URL</code> 字符串，会在构造对象时，根据 <code>protocol</code> 自动创建对应的 <code>Handler</code> 对象。</p>
+<h2 id="openConnection"><a href="#openConnection" class="headerlink" title="openConnection()"></a>openConnection()</h2><p>每次调用 <code>openConnection()</code> 时，都会创造一个新的实例，也就是 <code>URLConnection</code>。但是，<strong>在实例创建时，真实的网络连接实际上并没有建立</strong>。只有在调用 <code>URLConnection.connect()</code> 方法后才会建立连接。</p>
+<h2 id="getInputStream"><a href="#getInputStream" class="headerlink" title="getInputStream()"></a>getInputStream()</h2><p>从打开的连接获取一个 <code>InputStream</code>，可以从中得到 <code>URL</code> 请求的响应流。在调用这个方法时，会自动调用 <code>URLConnection.connect()</code> 方法，也就是建立连接。所以一旦调用 <code>getInputStream()</code> 连接就已经建立好了，不管后续做什么操作，这个 <code>URL</code> 请求都已经发出去了。</p>
+<h2 id="另一种写法"><a href="#另一种写法" class="headerlink" title="另一种写法"></a>另一种写法</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">URL u = <span class="keyword">new</span> URL(url);</span><br><span class="line">HttpURLConnection con = (HttpURLConnection) u.openConnection();</span><br><span class="line">con.setRequestMethod(<span class="string">"GET"</span>);</span><br><span class="line">con.setRequestProperty(<span class="string">"User-Agent"</span>, <span class="string">"Mozilla/5.0"</span>);</span><br><span class="line">con.getInputStream();</span><br><span class="line"></span><br><span class="line"><span class="comment">//...</span></span><br></pre></td></tr></table></figure>
+<p>假设这里的 <code>URL</code> 使用户可控的，这段代码相对于上一段来说，会稍微 “安全” 些。如果攻击者想要使用 <code>gopher</code> 协议攻击内网服务，在第 <code>2</code> 行时，会由于类型强制转换失败而抛出异常。在异常抛出前，一直没有调用到 <code>connect()</code> 方法，所以请求并没有发出去。</p>
+<blockquote>
+<p>第 <code>2</code> 行的类型转换相当于限定了协议，在能够明确使用的协议的情况下，建议用这种方式对协议做限制。</p>
+</blockquote>
+<h1 id="其它发起请求的例子"><a href="#其它发起请求的例子" class="headerlink" title="其它发起请求的例子"></a>其它发起请求的例子</h1><h2 id="javax-imageio-ImageIO"><a href="#javax-imageio-ImageIO" class="headerlink" title="javax.imageio.ImageIO"></a>javax.imageio.ImageIO</h2><p>这是 <code>JDK</code> 自带的类，它的 <code>read()</code> 方法，用来加载图片。它可以传入一个 <code>URL</code> 对象，且没有协议限制，如下：</p>
+<p>ImageIO.java:1386</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> BufferedImage <span class="title">read</span><span class="params">(URL input)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (input == <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">"input == null!"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    InputStream istream = <span class="keyword">null</span>;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        istream = input.openStream();</span><br><span class="line">    &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> IIOException(<span class="string">"Can't get input stream from URL!"</span>, e);</span><br><span class="line">    &#125;</span><br><span class="line">    ImageInputStream stream = createImageInputStream(istream);</span><br><span class="line">    BufferedImage bi;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        bi = read(stream);</span><br><span class="line">        <span class="keyword">if</span> (bi == <span class="keyword">null</span>) &#123;</span><br><span class="line">            stream.close();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">        istream.close();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> bi;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>如果服务器在加载图片时，<code>URL</code> 是用户可控的，那么就会存在 <code>SSRF</code> 漏洞。</strong></p>
+<h2 id="HttpClient"><a href="#HttpClient" class="headerlink" title="HttpClient"></a>HttpClient</h2><p>一个 <code>get</code> 请求的例子：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">CloseableHttpClient httpClient = HttpClients.createDefault();</span><br><span class="line">HttpGet getRequest = <span class="keyword">new</span> HttpGet(url);</span><br><span class="line">HttpResponse response = httpClient.execute(getRequest);</span><br></pre></td></tr></table></figure>
+<p>问题同上。</p>
+<h2 id="其它"><a href="#其它" class="headerlink" title="其它"></a>其它</h2><ul>
+<li><p>okhttp</p>
+</li>
+<li><p>Request</p>
+</li>
+<li><p>…</p>
+</li>
+</ul>
+<h1 id="容易出现SSRF的功能点"><a href="#容易出现SSRF的功能点" class="headerlink" title="容易出现SSRF的功能点"></a>容易出现SSRF的功能点</h1><p>只要是能够对外发起网络请求的地方，就有可能会出现SSRF漏洞。</p>
+<ul>
+<li><p>从指定url获取内容</p>
+</li>
+<li><p>数据源连接</p>
+</li>
+<li><p>后台状态刷新</p>
+</li>
+<li><p>webmail (POP3/SMTP/IMAP)</p>
+</li>
+<li><p>文件处理 (加载图片/XML/PDF/ffpmg/ImageMagic)</p>
+</li>
+</ul>
+<h1 id="修复策略"><a href="#修复策略" class="headerlink" title="修复策略"></a>修复策略</h1><ul>
+<li><p>避免 <code>url</code> 用户可控，包括 <code>path</code></p>
+</li>
+<li><p>统一请求响应及错误信息</p>
+</li>
+<li><p>白名单校验url及ip</p>
+</li>
+<li><p>限制协议及端口</p>
+</li>
+<li><p>TTL 设置为 0，防止 <code>DNS Rebinding</code> 攻击（Java默认为 0）</p>
+</li>
+</ul>
+<blockquote>
+<p>可以参考 <a href="https://joychou.org" target="_blank" rel="noopener">@JoyChou</a> 师傅的<a href="https://github.com/JoyChou93/trident/blob/master/src/main/java/SSRF.java" target="_blank" rel="noopener">修复方案</a>。</p>
+</blockquote>
+<h1 id="相关文章"><a href="#相关文章" class="headerlink" title="相关文章"></a>相关文章</h1><ul>
+<li><p><a href="https://github.com/ring04h/papers/blob/master/build_your_ssrf_exp_autowork--20160711.pdf" target="_blank" rel="noopener">Build Your SSRF Exploit Framework</a></p>
+</li>
+<li><p><a href="https://joychou.org/java/javassrf.html" target="_blank" rel="noopener">SSRF in JAVA</a></p>
+</li>
+<li><p><a href="https://joychou.org/java/use-dnsrebinding-to-bypass-ssrf-in-java.html" target="_blank" rel="noopener">Use DNS Rebinding to Bypass SSRF in JAVA</a></p>
+</li>
+</ul>
+
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="">从1开始的Java代码审计·第四弹·SSRF</a></p>
+        <p><span>文章作者:</span><a href="/" title="回到主页">Jayl1n</a></p>
+        <p><span>发布时间:</span>2018-12-30, 00:17:42</p>
+        <p><span>最后更新:</span>2019-01-03, 23:37:57</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="" title="从1开始的Java代码审计·第四弹·SSRF">https://jayl1n.github.io/2018/12/30/java-audit-step-by-step-4/</a>
+            <span class="copy-path" data-clipboard-text="原文: https://jayl1n.github.io/2018/12/30/java-audit-step-by-step-4/　　作者: Jayl1n" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+    <nav id="article-nav">
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="../../../11/15/java-audit-step-by-step-3/">
+                    从1开始的Java代码审计·第三弹·SQL注入
+                </a>
+            </div>
+        
+    </nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#简介"><span class="toc-number">1.</span> <span class="toc-text">简介</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#支持的协议"><span class="toc-number">2.</span> <span class="toc-text">支持的协议</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#发起请求的流程"><span class="toc-number">3.</span> <span class="toc-text">发起请求的流程</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#new-URL"><span class="toc-number">3.1.</span> <span class="toc-text">new URL()</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#openConnection"><span class="toc-number">3.2.</span> <span class="toc-text">openConnection()</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#getInputStream"><span class="toc-number">3.3.</span> <span class="toc-text">getInputStream()</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#另一种写法"><span class="toc-number">3.4.</span> <span class="toc-text">另一种写法</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#其它发起请求的例子"><span class="toc-number">4.</span> <span class="toc-text">其它发起请求的例子</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#javax-imageio-ImageIO"><span class="toc-number">4.1.</span> <span class="toc-text">javax.imageio.ImageIO</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HttpClient"><span class="toc-number">4.2.</span> <span class="toc-text">HttpClient</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#其它"><span class="toc-number">4.3.</span> <span class="toc-text">其它</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#容易出现SSRF的功能点"><span class="toc-number">5.</span> <span class="toc-text">容易出现SSRF的功能点</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#修复策略"><span class="toc-number">6.</span> <span class="toc-text">修复策略</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#相关文章"><span class="toc-number">7.</span> <span class="toc-text">相关文章</span></a></li></ol>
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-3 i,
+        .toc-level-3 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+    <script>
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
+    </script>
+
+
+
+    
+<div class="share">
+    
+        <div class="bdsharebuttonbox">
+            <a href="#" class="fa fa-twitter bds_twi" data-cmd="twi" title="分享到推特"></a>
+            <a href="#" class="fa fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+            <a href="#" class="fa fa-qq bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
+            <a href="#" class="fa fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+            <a href="#" class="fa fa fa-envelope-o bds_mail" data-cmd="mail" title="通过邮件分享"></a>
+            <a href="#" class="fa fa-weixin bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
+            <a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></i></a>
+        </div>
+        <script>
+            window._bd_share_config={
+                "common":{"bdSnsKey":{},"bdText":"从1开始的Java代码审计·第四弹·SSRF　| Jayl1n's Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+        </script>
+    
+
+    
+</div>
+
+
+
+
+
+
+
+    
+        <section id="comments">
+    <style> aside.comment-bar { margin: auto 30px; }</style>
+    <div id="disqus_thread"></div>
+    <script>
+        var disqus_config = function(){
+            this.page.url = 'https://jayl1n.github.io/2018/12/30/java-audit-step-by-step-4/';
+            this.page.identifier = '2018/12/30/java-audit-step-by-step-4/';
+        };
+        var loadComment = function(){
+            var d = document, s = d.createElement('script');
+            s.src = '//jayl1n-github-io.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        }
+    </script>
+    
+    <script> loadComment(); </script>
+
+</section>
+
+
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="../../../11/15/java-audit-step-by-step-3/" title="下一篇: 从1开始的Java代码审计·第三弹·SQL注入">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="">从1开始的Java代码审计·第四弹·SSRF</a></li><li class="post-list-item"><a class="post-list-link" href="../../../11/15/java-audit-step-by-step-3/">从1开始的Java代码审计·第三弹·SQL注入</a></li><li class="post-list-item"><a class="post-list-link" href="../../../10/29/java-audit-step-by-step-2/">从1开始的Java代码审计·第二弹·基础篇（下）</a></li><li class="post-list-item"><a class="post-list-link" href="../../../10/25/java-audit-step-by-step-1/">从1开始的Java代码审计·第一弹·基础篇（上）</a></li><li class="post-list-item"><a class="post-list-link" href="../../../10/25/java-audit-step-by-step-0/">从1开始的Java代码审计·序</a></li><li class="post-list-item"><a class="post-list-link" href="../../../10/05/pentest-20181005/">渗透日记-20181005</a></li><li class="post-list-item"><a class="post-list-link" href="../../../09/18/summary-command-execution/">PHP中的命令执行</a></li><li class="post-list-item"><a class="post-list-link" href="../../../09/11/ichunqiu-web-BLOG/">i春秋-Web-BLOG</a></li><li class="post-list-item"><a class="post-list-link" href="../../../09/10/ichunqiu-web-SQLi/">i春秋-Web-SQLi</a></li><li class="post-list-item"><a class="post-list-link" href="../../../09/09/daily-life-20180909/">日常心路-180909</a></li><li class="post-list-item"><a class="post-list-link" href="../../../08/01/crawl-admin5/">爬虫之批量下载Admin5源码</a></li><li class="post-list-item"><a class="post-list-link" href="../../../07/31/yesterday-and-tomorrow/">昨天，明天</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2018-2019 Jayl1n
+            </div>
+            <div class="footer-right">
+                <span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" title="本站到访数"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>| </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit"  title="本页阅读量"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+
+<script>
+    var now = new Date(); 
+    function createtime() { 
+        var grt= new Date("07/31/2018 00:00:00");//此处修改你的建站时间或者网站上线时间 
+        now.setTime(now.getTime()+250); 
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
+        document.getElementById("timeDate").innerHTML = "本站已运行 "+dnum+" 天 "; 
+        document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒"; 
+    } 
+setInterval("createtime()",250);
+</script>
+    </div>
+    
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var iPad = window.navigator.userAgent.indexOf('iPad');
+            if (iPad > -1 || $(".left-col").css("display") === "none") {
+                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
+                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
+                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
+            }
+            else {
+                var backgroundnum = 20;
+                var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover"});
+            }
+        })
+    </script>
+
+
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
+    
+        var oOpenInNew = {
+            
+            
+            
+            
+            
+            
+             archives: ".archive-article-title", 
+             miniArchives: "a.post-list-link", 
+            
+             friends: "#js-friends a", 
+             socail: ".social a" 
+        }
+        for (var x in oOpenInNew) {
+            $(oOpenInNew[x]).attr("target", "_blank");
+        }
+    
+</script>
+
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div>
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/miku.model.json"},"display":{"position":"right","width":75,"height":150},"mobile":{"show":true}});</script></body>
+</html>

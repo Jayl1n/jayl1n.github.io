@@ -284,6 +284,77 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="post-pentest-20181005" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="../../2018/10/05/pentest-20181005/" class="article-date">
+      <time datetime="2018-10-05T05:36:01.000Z" itemprop="datePublished">2018-10-05</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="../../2018/10/05/pentest-20181005/">渗透日记-20181005</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <p>在 shodan 上搜到一个有趣的站，名字就叫 webshell。</p>
+<p><img src="/2018/10/05/pentest-20181005/1.png" alt="1"></p>
+<p>根据提示</p>
+<blockquote>
+<p>Nothing specify params. Try to use “?file=” or “?id=time” to read a stream.</p>
+</blockquote>
+<p>可以通过 file 参数读取文件内容。</p>
+<p>尝试读取 /etc/passwd 成功。</p>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/Pentest/">Pentest</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="../../2018/10/05/pentest-20181005/#more">阅读全文 >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
     <article id="post-summary-command-execution" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -562,70 +633,6 @@
 
 
   
-    <article id="post-crawl-admin5" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="../../2018/08/01/crawl-admin5/" class="article-date">
-      <time datetime="2018-08-01T01:45:40.000Z" itemprop="datePublished">2018-08-01</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="../../2018/08/01/crawl-admin5/">爬虫之批量下载Admin5源码</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <h2 id="项目介绍"><a href="#项目介绍" class="headerlink" title="项目介绍"></a>项目介绍</h2><p><a href="http://down.admin5.com" target="_blank" rel="noopener"><code>Admin5</code></a> 提供了各种语言的开源项目，包括<code>asp</code> <code>php</code> <code>.net</code> <code>jsp</code>等。最近开始玩代码审计，到处找项目很麻烦，所以打算写一个爬虫，借助Admin5批量下载各类开源项目。</p>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/Python/">Python</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/爬虫/">爬虫</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="../../2018/08/01/crawl-admin5/#more">阅读全文 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="../../">&laquo; Prev</a><a class="page-number" href="../../">1</a><span class="page-number current">2</span><a class="page-number" href="../3/">3</a><a class="extend next" rel="next" href="../3/">Next &raquo;</a>
@@ -637,7 +644,7 @@
         <div id="footer-info">
             <div class="footer-left">
                 <i class="fa fa-copyright"></i> 
-                2018 Jayl1n
+                2018-2019 Jayl1n
             </div>
             <div class="footer-right">
                 <span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>
