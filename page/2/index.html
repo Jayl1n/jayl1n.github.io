@@ -207,7 +207,7 @@
                 
                 <section class="switch-part switch-part2">
                     <div class="widget tagcloud" id="js-tagcloud">
-                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="../../tags/BLOG/">BLOG</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Java/">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/PHP/">PHP</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Pentest/">Pentest</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Python/">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/SQLi/">SQLi</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Web/">Web</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/i春秋/">i春秋</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/代码审计/">代码审计</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/心路/">心路</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/日常/">日常</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/爬虫/">爬虫</a></li></ul>
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="../../tags/BLOG/">BLOG</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Java/">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/PHP/">PHP</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Pentest/">Pentest</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Python/">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/SQLi/">SQLi</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Web/">Web</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/i春秋/">i春秋</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/代码审计/">代码审计</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/工具分享/">工具分享</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/心路/">心路</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/日常/">日常</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/爬虫/">爬虫</a></li></ul>
                     </div>
                 </section>
                 
@@ -283,6 +283,71 @@
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
       <div class="body-wrap">
+  
+    <article id="post-java-audit-step-by-step-0" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="../../2018/10/25/java-audit-step-by-step-0/" class="article-date">
+      <time datetime="2018-10-24T17:00:52.000Z" itemprop="datePublished">2018-10-25</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="../../2018/10/25/java-audit-step-by-step-0/">从1开始的Java代码审计·序</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>小组经常有小伙伴问我<code>Java</code>该怎么审计，其实我也挺头大的。因为我觉得审<code>Java</code>的代码和审<code>PHP</code>的代码，相差不大。WEB 漏洞就那些，只是换了门语言实现而已，只要漏洞原理知道了，审起来是很容易的。</p>
+<p>很多学安全的同学，应该是从<code>PHP</code>入门的。<code>PHP</code>作为一门脚本语言，跨平台、语法简单、易上手、开源框架多、用户量大。但是，<code>PHP</code>语言本身的特性，它在后期的拓展和维护困难，而且支持所有漏洞（抖个机灵）。很多对系统稳定性、安全性要求较高的厂商不太会去选择<code>PHP</code>，而是<code>Java</code>或者别的语言。</p>
+<p><code>Java</code>是纯正的面向对象的语言，适合团队协作开发，重构、维护相对轻松，语言生态好，且在高性能、高并发、分布式的场景吊打某语言。（虽然<code>PHP</code>也是支持面向对象的写法，不过身边真的在用面向对象的方法写<code>PHP</code>的同学真的很少，可能是不太理解面向对象的概念，也可能是因为写起来代码太长了？）</p>
+<p>目前，网上关于 WEB 代码审计的文章很多都是<code>PHP</code>的，和<code>Java</code>相关的很少，而且质量一般。所以我打算做一个<code>Java</code>代码审计的系列，分享<code>Java</code>代码审计相关的小姿势。</p>
+<p>在这个系列里，我假设每个读者都对 Java 和 WEB 安全方面的知识都有一定的了解，所以可能不会对漏洞的原理做很深的分析。</p>
+<p>如果你觉得看起来有些累，或者对某个漏洞不理解，建议先去找些相关资料学习下。</p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/代码审计/">代码审计</a></li></ul>
+    </div>
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
   
     <article id="post-pentest-20181005" class="article article-type-post" itemscope itemprop="blogPost">
   
@@ -551,71 +616,6 @@
         <p class="article-more-link">
           <a href="../../2018/09/10/ichunqiu-web-SQLi/#more">阅读全文 >></a>
         </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-daily-life-20180909" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="../../2018/09/09/daily-life-20180909/" class="article-date">
-      <time datetime="2018-09-09T15:14:15.000Z" itemprop="datePublished">2018-09-09</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="../../2018/09/09/daily-life-20180909/">日常心路-180909</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-        <p>最近忙了很多事，从公司离职，搬家，开学，又跑到某市做培训。</p>
-<p>突然回到校园生活，身份从社会人变成学生，感觉还有点不适应。</p>
-<p>今天，如愿以偿的通过了<code>Syclover</code>的面试，进入了新芽组，应该是唯一一个大三的新芽 ( ╯□╰ )，不过也算是完成了高中时候的心愿（进入CUIT，进入Syclover）。今天面的师傅很严肃，感觉自己确实还差的太多了，希望能在这个学期努力跟上。</p>
-<p>这个学期，需要额外补<code>3</code>门课，把四级过了，还要尽量通过核心组面试，任务挺重的⊙﹏⊙∥。</p>
-<p>诸君共勉吧(ﾉ*･ω･)ﾉ。</p>
-<p><img src="/2018/09/09/daily-life-20180909/jldnydhgjxzpmdzj.jpg" alt="表情"></p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/心路/">心路</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/日常/">日常</a></li></ul>
-    </div>
-
       
       <div class="clearfix"></div>
     </div>
