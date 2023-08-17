@@ -207,7 +207,7 @@
                 
                 <section class="switch-part switch-part2">
                     <div class="widget tagcloud" id="js-tagcloud">
-                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="../../tags/BLOG/">BLOG</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/CTF/">CTF</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/JSP/">JSP</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Java/">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/PHP/">PHP</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Pentest/">Pentest</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Pwn/">Pwn</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Python/">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/RedTeam/">RedTeam</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/SQLi/">SQLi</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Web/">Web</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/i春秋/">i春秋</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/二进制/">二进制</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/代码审计/">代码审计</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/工具分享/">工具分享</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/开发/">开发</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/心路/">心路</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/日常/">日常</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/浏览器/">浏览器</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/爬虫/">爬虫</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/红蓝对抗/">红蓝对抗</a></li></ul>
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="../../tags/BLOG/">BLOG</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/CTF/">CTF</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/JSP/">JSP</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Java/">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/PHP/">PHP</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Pentest/">Pentest</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Pwn/">Pwn</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Python/">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/RedTeam/">RedTeam</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/SQLi/">SQLi</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Web/">Web</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/i春秋/">i春秋</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/二进制/">二进制</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/代码审计/">代码审计</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/工具分享/">工具分享</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/开发/">开发</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/心得/">心得</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/心路/">心路</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/日常/">日常</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/浏览器/">浏览器</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/爬虫/">爬虫</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/红蓝对抗/">红蓝对抗</a></li></ul>
                     </div>
                 </section>
                 
@@ -291,6 +291,97 @@
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
       <div class="body-wrap">
+  
+    <article id="post-java-nohup-implementation" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="../../2020/02/13/java-nohup-implementation/" class="article-date">
+      <time datetime="2020-02-13T06:12:04.000Z" itemprop="datePublished">2020-02-13</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="../../2020/02/13/java-nohup-implementation/">Java 实现后台执行</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>常用的将程序放到后台执行，并在shell退出后依然运行的方法，是使用 <code>nohup</code> 与 <code>&amp;</code>，比如 <code>nohup java -jar abc.jar &amp;</code>。</p>
+<h1 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h1><p><code>nohup</code> 的作用是忽略 <code>SIGHUP</code> 信号。当一个shell关闭后，会向运行的程序发送 <code>SIGHUP</code> 信号，通知同一shell内的各个进程，它们与控制终端不再关联。系统对 <code>SIGHUP</code> 信号的默认处理是终止收到该信号的进程。</p>
+<p><code>&amp;</code> 的作用是忽略 <code>SIGINT</code> 信号。<code>Ctrl+C</code> 会向前台进程发送 <code>SIGINT</code> 信号，以关闭程序。</p>
+<h1 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h1><p>综上，只要我们能实现 <code>nohup</code> 和 <code>&amp;</code> 的功能，就能让程序在后台运行，不会因为 shell 断开而中断了。</p>
+<p>由于题目是用 Java 实现，而 Java 本身并不能进行如此底层的操作，所以思路是使用 JNI，借助 C/C++ 实现。</p>
+<p>直接上代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> io.github.jayl1n.daemon;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">native</span> <span class="keyword">boolean</span> <span class="title">ignoreSignal</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>javah io.github.jayl1n.daemon.Main</code> 生成头文件，添加到 C++ 项目里。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"io_github_jayl1n_daemon_Main.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;signal.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function">JNIEXPORT jboolean JNICALL <span class="title">Java_io_github_jayl1n_daemon_Main_ignoreSignal</span><span class="params">(JNIEnv *, jobject)</span> </span>&#123;</span><br><span class="line">    <span class="comment">//忽略 SIGHUP SIGINT 信号，防止 shell 断开 ，Ctrl+C 中断程序</span></span><br><span class="line">    signal(SIGHUP, SIG_IGN);</span><br><span class="line">    signal(SIGINT, SIG_IGN);</span><br><span class="line">    <span class="keyword">return</span> JNI_TRUE;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>生成出来的动态库，需要放到与jar包相同的目录下，或者是 <code>java.library.path</code> 指定的路径，否则在 <code>System.loadLibrary</code> 时无法找到动态库。</p>
+<p><code>java.library.path</code> 变量可以在执行时添加 <code>-Djava.library.path=/a/b/c</code> 参数指定。<code>System.getProperty(&quot;java.library.path&quot;)</code> 可以查看当前的路径。但无法通过 <code>System.setProperty(&quot;java.library.path&quot;,&quot;/a/b/c&quot;)</code> 修改，因为在 JVM 启动时就会缓存这个值，后续修改不会生效，可以通过反射来清除 <code>ClassLoader</code> 的 <code>sys_paths</code> 变量(缓存标志)，重新初始化 <code>usr_paths</code>，代码如下：</p>
+<p>java/lang/ClassLoader.java:1815</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">loadLibrary</span><span class="params">(Class&lt;?&gt; fromClass, String name, <span class="keyword">boolean</span> isAbsolute)</span> </span>&#123;</span><br><span class="line">    ClassLoader loader = (fromClass == <span class="keyword">null</span>) ? <span class="keyword">null</span> : fromClass.getClassLoader();</span><br><span class="line">    <span class="keyword">if</span> (sys_paths == <span class="keyword">null</span>) &#123;</span><br><span class="line">        usr_paths = initializePath(<span class="string">"java.library.path"</span>);</span><br><span class="line">        sys_paths = initializePath(<span class="string">"sun.boot.library.path"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (isAbsolute) &#123;</span><br><span class="line">        <span class="keyword">if</span> (loadLibrary0(fromClass, <span class="keyword">new</span> File(name))) &#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> UnsatisfiedLinkError(<span class="string">"Can't load library: "</span> + name);</span><br><span class="line">    &#125;</span><br><span class="line">    ......</span><br></pre></td></tr></table></figure>
+<p>第三行，<code>sys_paths</code> 不为 null 时，不会再初始化 <code>java.library.path</code>，相当于是第一次读取就被缓存到了 <code>usr_paths</code>。</p>
+<p>通过反射清除 <code>sys_paths</code>:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"> <span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="comment">//先修改 java.library.path</span></span><br><span class="line">    System.setProperty(<span class="string">"java.library.path"</span>, System.getProperty(<span class="string">"java.library.path"</span>) + <span class="string">":/Users/jaylin/daemon-demo/bin"</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//清除缓存标志</span></span><br><span class="line">    Field sys_paths = ClassLoader.class.getDeclaredField(<span class="string">"sys_paths"</span>);</span><br><span class="line">    sys_paths.setAccessible(<span class="keyword">true</span>);</span><br><span class="line">    sys_paths.set(<span class="keyword">null</span>,<span class="keyword">null</span>);</span><br><span class="line">&#125; <span class="keyword">catch</span> (NoSuchFieldException | IllegalAccessException e) &#123;</span><br><span class="line">    e.printStackTrace();</span><br><span class="line">&#125;</span><br><span class="line">    <span class="comment">//后续再 loadLibrary 时，将会使用新的 usr_paths</span></span><br></pre></td></tr></table></figure>
+<p>👆上面说了一个奇迹淫巧，在有多个动态库，相互依赖时比较有用。</p>
+<p>这里其实也可以使用 <code>System.load</code> 直接指定绝对路径（注意和<code>System.loadLibrary</code> 的区别）。</p>
+<p>由于动态库无法直接打包到 <code>jar</code> 包里用，所以一般是要分开上传到服务器。</p>
+<p>为了优雅的使用动态库，可以硬编码到 jar 包里，在执行时释放出来，JNI 支持延时加载动态库。</p>
+<p>这里我使用 base64 编码， <code>cat /Users/jaylin/daemon-demo/bin/libdaemon_jni.dylib | base64</code>，下面写个例子，定时输出字符到 <code>/tmp/test</code>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">public class Main &#123;</span><br><span class="line">    private native boolean ignoreSignal();</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) throws IOException, Base64DecodingException &#123;</span><br><span class="line">        //释放动态库</span><br><span class="line">        String dynlib = &quot;z/rt/+AQAAAOglAAAAvwIAAAC+AQAAAEiJRejoEgAAALEBD7b5SIlF4In4SIPEIF3DkP8lZhAAAAAATI0dZRAAAEFT/yVVAAAAkGgAAAAA6eb///==（省略）&quot;;</span><br><span class="line">        File dynlibFile = new File(&quot;/tmp/.jayl1n&quot;);</span><br><span class="line">        FileOutputStream fileOutputStream = new FileOutputStream(dynlibFile);</span><br><span class="line">        fileOutputStream.write(Base64.decode(dynlib));</span><br><span class="line">        fileOutputStream.close();</span><br><span class="line"></span><br><span class="line">        //加载动态库</span><br><span class="line">        System.load(&quot;/tmp/.jayl1n&quot;);</span><br><span class="line">        //调用</span><br><span class="line">        new Main().ignoreSignal();</span><br><span class="line">        AtomicInteger i = new AtomicInteger();</span><br><span class="line">        while (true) &#123;</span><br><span class="line">            try &#123;</span><br><span class="line">                Runtime.getRuntime().exec(new String[]&#123;&quot;/bin/bash&quot;, &quot;-c&quot;, &quot;echo &quot; + i.getAndIncrement() + &quot; &gt;&gt; /tmp/test&quot;&#125;);</span><br><span class="line">                Thread.sleep(1000);</span><br><span class="line">            &#125; catch (IOException | InterruptedException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>效果：</p>
+<p><img src="/2020/02/13/java-nohup-implementation/xg.gif" alt="效果"></p>
+<h1 id="进阶-——-免疫-kill-命令"><a href="#进阶-——-免疫-kill-命令" class="headerlink" title="进阶 —— 免疫 kill 命令"></a>进阶 —— 免疫 kill 命令</h1><p>kill 命令默认是发送 <code>SIGTERM</code> 信号，友好地通知进程该结束了。进程在这种情况下可以不响应 <code>SIGTERM</code>（即忽略），继续执行下去。</p>
+<p>也就是说只要再 <code>signal(SIGTERM, SIG_IGN);</code> 就可以防止被 kill 杀掉了，经过测试确实可以实现，有兴趣的可以自己试一下。</p>
+<p>不过，当 kill 命令带参数时（kill -9），发送的是 <code>SIGKILL</code> 信号，这个信号无法被捕获或忽略，CTF 里有常用的杀不死马的方法 <code>kill -9 -1</code>(杀死除init进程外的所有进程)，此时，程序无法感知到 <code>SIGKILL</code> 信号，就被系统干掉了。</p>
+<h1 id="References"><a href="#References" class="headerlink" title="References"></a>References</h1><p><a href="https://people.cs.pitt.edu/~alanjawi/cs449/code/shell/UnixSignals.htm" target="_blank" rel="noopener">Unix Signals</a></p>
+<p><a href="https://my.oschina.net/LinBigR/blog/799561" target="_blank" rel="noopener">Nohup源码分析</a></p>
+<p><a href="https://blog.csdn.net/z50L2O08e2u4afToR9A/article/details/80047865" target="_blank" rel="noopener">一分钟了解nohup和&amp;的功效</a></p>
+<p><a href="https://blog.csdn.net/weixin_39540568/article/details/87985417" target="_blank" rel="noopener">kill命令——系统内部执行流程</a></p>
+<p><a href="https://blog.csdn.net/madpointer/article/details/13091705" target="_blank" rel="noopener">不可忽略或捕捉的信号—SIGSTOP和SIGKILL</a></p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/Java/">Java</a></li></ul>
+    </div>
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
   
     <article id="post-happy-new-year-2020" class="article article-type-post" itemscope itemprop="blogPost">
   
@@ -644,72 +735,6 @@
       
         <p class="article-more-link">
           <a href="../../2019/01/08/tools-load-shellcode/#more">阅读全文 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-java-audit-step-by-step-4" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="../../2018/12/30/java-audit-step-by-step-4/" class="article-date">
-      <time datetime="2018-12-29T16:17:42.000Z" itemprop="datePublished">2018-12-30</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="../../2018/12/30/java-audit-step-by-step-4/">从1开始的Java代码审计·第四弹·SSRF</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <blockquote>
-<p>最近的事情真的太多了 <strong>≧﹏≦</strong> ，趁着刚搞完小组的面试，发篇热乎的。</p>
-</blockquote>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/代码审计/">代码审计</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="../../2018/12/30/java-audit-step-by-step-4/#more">阅读全文 >></a>
         </p>
       
       <div class="clearfix"></div>

@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://jayl1n.github.io/"/>
-  <updated>2023-08-16T15:16:43.329Z</updated>
+  <updated>2023-08-17T15:16:35.050Z</updated>
   <id>https://jayl1n.github.io/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>CISSP 认证过程分享</title>
+    <link href="https://jayl1n.github.io/2023/08/17/cissp-certification-process-sharing/"/>
+    <id>https://jayl1n.github.io/2023/08/17/cissp-certification-process-sharing/</id>
+    <published>2023-08-17T10:39:04.000Z</published>
+    <updated>2023-08-17T15:16:35.050Z</updated>
+    
+    <content type="html"><![CDATA[<p>最近跟风考了个 CISSP ，前后花了大概20多天，分享下过程。</p><h1 id="报名"><a href="#报名" class="headerlink" title="报名"></a>报名</h1><p>直接在 ISC 官网找 CISSP，单次考试 $749，补考需要再交 $749。</p><p>最近 ISC 有 “考试安心保障” 活动， +$199 可以多一次补考的机会，怕一次过不去，我买了这个总价 $948。</p><ul><li><a href="https://www.isc2.org/landing/exam-peace-of-mind" target="_blank" rel="noopener">https://www.isc2.org/landing/exam-peace-of-mind</a></li></ul><p>虽然最后我没用到补考，但还是建议没信心的同学可以考虑下这个。</p><h1 id="学习资源"><a href="#学习资源" class="headerlink" title="学习资源"></a>学习资源</h1><ul><li><p>《CISSP官方学习指南（第8版）》，也称 OSG，为什么不是最新第9版？因为这本书自20年到我手上，已经在某个箱子底下压了2年。</p></li><li><p><a href="https://firmianay.gitbook.io/cissp-notes/" target="_blank" rel="noopener">https://firmianay.gitbook.io/cissp-notes/</a>  firmianay大佬的总结归纳，虽然不是百分百全，但也很好用了，有几个域我没来得及看纸质书，直接看的这个学的。</p></li><li><p>铭学在线  <a href="https://exam.maxstu.com/h5/100000/" target="_blank" rel="noopener">https://exam.maxstu.com/h5/100000/</a>  ，这是用来刷题的，题目质量还可以，看完一章拿来巩固下，还自带错题集。</p></li></ul><h1 id="学习心得"><a href="#学习心得" class="headerlink" title="学习心得"></a>学习心得</h1><p>OSG 能看完就尽量看完，一定要看，推荐纸质书，方便笔记。</p><p>书后面的练习要做，并且能完全理解。</p><p>书刷完以后，可以考虑二刷下 firmianay 的笔记，看完一个域做对应的铭学里的题。</p><p>铭学的题质量不错，还带有解析，务必理解。</p><p>然后就可以考虑刷模拟题了，模拟题网上资源应该不少，各位自己想办法。</p><p>可能你会找到翻译很烂的模拟题，做下来正确率也不高。不用怀疑，考试的题目就这水平，就刷题吧，遇到无法理解的 google 搜一下英文原题，一般都能搜到解释，可以 google hack 一下 <code>examtopics.com</code>，里面有不少 CISSP 的考题。</p><p>据说模拟题刷到正确率 60% 就能去考试了，我感觉是差不多。</p><p>因为我给自己排的时间比较紧，在考试前的最后两天才把所有域的知识刷完，然后刷了一天的题，就匆匆忙忙的就去考试了。</p><p>模拟题大概做了 100 多题，发现正确率很低，可能就 50% 左右，主要原因是翻译的题目看的很难受，题意很难理解，还特地问了下朋友考试是不是就这样子，得到肯定的答案后，考试前一晚都没睡好，一直刷题刷到2点。</p><h1 id="关于题目"><a href="#关于题目" class="headerlink" title="关于题目"></a>关于题目</h1><p>书后的习题以及铭学的题是非常友好的，题目题意选项都是能比较容易就理解的。</p><p>真实考题比较糟心，有不少翻译很难理解，需要自己看英语原题的，平时做题尽量对照着看下英语锻炼下。</p><p>我看到不少题是有争议的，因为在不同场景下的最佳实践是不一样的，可能多个选项都是对的。当然，也有可能考点藏的比较深，多思考一下。</p><p>遇到中英文都无法理解的题，就机选吧，不要在考试的时候搞自己心态（这很重要）。</p><p>有些题目可能有多个正确答案，选你觉得最合适的就行，也不用太纠结。</p><h1 id="考试当天"><a href="#考试当天" class="headerlink" title="考试当天"></a>考试当天</h1><p>我选的考场是上海徐汇区的腾飞大厦。</p><p>本来准备住考场附近，关注了下酒店价格有点小离谱，决定还是住家里，考试当天打个车。</p><p>6点从松江的家里出发，7点到腾飞大厦。上2楼，闸机刷脸上楼，来太早了工作人员都没来，在门外等了半个小时。</p><p>7点半开始入场，做考前讲解，寄存物品（一人一柜），身份验证。</p><p>接近8点进入考场，坐下以后就可以开始考试。</p><p>考场备了隔音耳机，效果不错。</p><p>考试过程可以离场喝水吃东西，跟监考的工作人员说一声就行。</p><p>考试的时间非常充裕，所以我做到150题的时候离场休息了，实在是坐太久了屁股疼 Orz。</p><p>估摸着休息了有20分钟，又回去战斗了。</p><p>我出考场的时候大概 11:30 ，快得有点超预期了。</p><p>跟着指引在门口打印了成绩单，看到单子上恭喜两个字小小激动了一下。</p><h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>我平时的工作是挖洞搞研究，对安全风向管理、资产管理、运营这种和技术关联不大的领域接触的少，了解的少，通过 CISSP 的认证，填补了这块知识的空缺，以后也许可能会用到吧。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;最近跟风考了个 CISSP ，前后花了大概20多天，分享下过程。&lt;/p&gt;
+&lt;h1 id=&quot;报名&quot;&gt;&lt;a href=&quot;#报名&quot; class=&quot;headerlink&quot; title=&quot;报名&quot;&gt;&lt;/a&gt;报名&lt;/h1&gt;&lt;p&gt;直接在 ISC 官网找 CISSP，单次考试 $749，补考
+      
+    
+    </summary>
+    
+    
+    
+      <category term="日常" scheme="https://jayl1n.github.io/tags/%E6%97%A5%E5%B8%B8/"/>
+    
+      <category term="心得" scheme="https://jayl1n.github.io/tags/%E5%BF%83%E5%BE%97/"/>
+    
+  </entry>
   
   <entry>
     <title>V8 沙盒绕过</title>
@@ -151,13 +178,13 @@
     
     
     
-      <category term="开发" scheme="https://jayl1n.github.io/tags/%E5%BC%80%E5%8F%91/"/>
-    
       <category term="Java" scheme="https://jayl1n.github.io/tags/Java/"/>
+    
+      <category term="红蓝对抗" scheme="https://jayl1n.github.io/tags/%E7%BA%A2%E8%93%9D%E5%AF%B9%E6%8A%97/"/>
     
       <category term="RedTeam" scheme="https://jayl1n.github.io/tags/RedTeam/"/>
     
-      <category term="红蓝对抗" scheme="https://jayl1n.github.io/tags/%E7%BA%A2%E8%93%9D%E5%AF%B9%E6%8A%97/"/>
+      <category term="开发" scheme="https://jayl1n.github.io/tags/%E5%BC%80%E5%8F%91/"/>
     
       <category term="工具分享" scheme="https://jayl1n.github.io/tags/%E5%B7%A5%E5%85%B7%E5%88%86%E4%BA%AB/"/>
     
@@ -213,11 +240,11 @@
     
       <category term="Java" scheme="https://jayl1n.github.io/tags/Java/"/>
     
-      <category term="RedTeam" scheme="https://jayl1n.github.io/tags/RedTeam/"/>
+      <category term="JSP" scheme="https://jayl1n.github.io/tags/JSP/"/>
     
       <category term="红蓝对抗" scheme="https://jayl1n.github.io/tags/%E7%BA%A2%E8%93%9D%E5%AF%B9%E6%8A%97/"/>
     
-      <category term="JSP" scheme="https://jayl1n.github.io/tags/JSP/"/>
+      <category term="RedTeam" scheme="https://jayl1n.github.io/tags/RedTeam/"/>
     
   </entry>
   
@@ -268,9 +295,9 @@
     
     
     
-      <category term="RedTeam" scheme="https://jayl1n.github.io/tags/RedTeam/"/>
-    
       <category term="红蓝对抗" scheme="https://jayl1n.github.io/tags/%E7%BA%A2%E8%93%9D%E5%AF%B9%E6%8A%97/"/>
+    
+      <category term="RedTeam" scheme="https://jayl1n.github.io/tags/RedTeam/"/>
     
       <category term="Pentest" scheme="https://jayl1n.github.io/tags/Pentest/"/>
     
@@ -419,9 +446,9 @@
     
     
     
-      <category term="代码审计" scheme="https://jayl1n.github.io/tags/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/"/>
-    
       <category term="Java" scheme="https://jayl1n.github.io/tags/Java/"/>
+    
+      <category term="代码审计" scheme="https://jayl1n.github.io/tags/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/"/>
     
   </entry>
   
@@ -452,9 +479,9 @@
     
     
     
-      <category term="代码审计" scheme="https://jayl1n.github.io/tags/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/"/>
-    
       <category term="Java" scheme="https://jayl1n.github.io/tags/Java/"/>
+    
+      <category term="代码审计" scheme="https://jayl1n.github.io/tags/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/"/>
     
   </entry>
   
@@ -476,9 +503,9 @@
     
     
     
-      <category term="代码审计" scheme="https://jayl1n.github.io/tags/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/"/>
-    
       <category term="Java" scheme="https://jayl1n.github.io/tags/Java/"/>
+    
+      <category term="代码审计" scheme="https://jayl1n.github.io/tags/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/"/>
     
   </entry>
   
@@ -499,9 +526,9 @@
     
     
     
-      <category term="代码审计" scheme="https://jayl1n.github.io/tags/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/"/>
-    
       <category term="Java" scheme="https://jayl1n.github.io/tags/Java/"/>
+    
+      <category term="代码审计" scheme="https://jayl1n.github.io/tags/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/"/>
     
   </entry>
   
@@ -525,37 +552,9 @@
     
     
     
-      <category term="代码审计" scheme="https://jayl1n.github.io/tags/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/"/>
-    
       <category term="Java" scheme="https://jayl1n.github.io/tags/Java/"/>
     
-  </entry>
-  
-  <entry>
-    <title>渗透日记-20181005</title>
-    <link href="https://jayl1n.github.io/2018/10/05/pentest-20181005/"/>
-    <id>https://jayl1n.github.io/2018/10/05/pentest-20181005/</id>
-    <published>2018-10-05T05:36:01.000Z</published>
-    <updated>2023-08-16T15:16:43.231Z</updated>
-    
-    <content type="html"><![CDATA[<p>在 shodan 上搜到一个有趣的站，名字就叫 webshell。</p><p><img src="/2018/10/05/pentest-20181005/1.png" alt="1"></p><p>根据提示</p><blockquote><p>Nothing specify params. Try to use “?file=” or “?id=time” to read a stream.</p></blockquote><p>可以通过 file 参数读取文件内容。</p><p>尝试读取 /etc/passwd 成功。</p><a id="more"></a><p><img src="/2018/10/05/pentest-20181005/2.png" alt="2"></p><p>尝试执行命令，<code>a;ls</code>，成功。</p><p><img src="/2018/10/05/pentest-20181005/3.png" alt="3"></p><p>但是但我尝试读取上级目录的时候，<code>a;ls ..</code>，失败。</p><p><img src="/2018/10/05/pentest-20181005/4.png" alt="4"></p><p>尝试了很多方法，最后发现，可能是空格失效了。</p><p>找到 l3m0n 师傅的命令执行绕过技巧，尝试 <code>&lt;&gt;</code> <code>${IFS}</code> 替代空格。</p><p>执行成功。</p><p><img src="/2018/10/05/pentest-20181005/5.png" alt="5"></p><p>接下来，就可以弹一个shell回来，然后为所欲为啦。 （。＾▽＾）</p><p>不过我喜欢用 msf ，那就先在自己服务器的 web 目录写一个 meterpreter 的后门。</p><p>再 wget 下来后运行。</p><p><img src="/2018/10/05/pentest-20181005/6.png" alt="6"></p><p><img src="/2018/10/05/pentest-20181005/7.png" alt="7"></p><p>成功连上。</p><p><img src="/2018/10/05/pentest-20181005/8.png" alt="8"></p><p>Ubuntu 16.04 内核 <code>4.4.0-77</code>，<code>CVE-2017-16995</code> 应该可以直接提权，不过是国内的机器，也没什么太多有意思的东西，就不深入了。</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;在 shodan 上搜到一个有趣的站，名字就叫 webshell。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;/2018/10/05/pentest-20181005/1.png&quot; alt=&quot;1&quot;&gt;&lt;/p&gt;
-&lt;p&gt;根据提示&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;Nothing specify params. Try to use “?file=” or “?id=time” to read a stream.&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;可以通过 file 参数读取文件内容。&lt;/p&gt;
-&lt;p&gt;尝试读取 /etc/passwd 成功。&lt;/p&gt;
-    
-    </summary>
-    
-    
-    
-      <category term="Pentest" scheme="https://jayl1n.github.io/tags/Pentest/"/>
+      <category term="代码审计" scheme="https://jayl1n.github.io/tags/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/"/>
     
   </entry>
   

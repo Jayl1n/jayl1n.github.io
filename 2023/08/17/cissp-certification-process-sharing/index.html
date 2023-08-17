@@ -16,24 +16,18 @@
 
 
 
-<meta name="description" content="项目介绍Admin5 提供了各种语言的开源项目，包括asp php .net jsp等。最近开始玩代码审计，到处找项目很麻烦，所以打算写一个爬虫，借助Admin5批量下载各类开源项目。">
-<meta name="keywords" content="Python,爬虫">
+<meta name="description" content="最近跟风考了个 CISSP ，前后花了大概20多天，分享下过程。 报名直接在 ISC 官网找 CISSP，单次考试 $749，补考需要再交 $749。 最近 ISC 有 “考试安心保障” 活动， +$199 可以多一次补考的机会，怕一次过不去，我买了这个总价 $948。  https://www.isc2.org/landing/exam-peace-of-mind  虽然最后我没用到补考，但还是">
+<meta name="keywords" content="日常,心得">
 <meta property="og:type" content="article">
-<meta property="og:title" content="爬虫之批量下载Admin5源码">
-<meta property="og:url" content="https://jayl1n.github.io/2018/08/01/crawl-admin5/index.html">
+<meta property="og:title" content="CISSP 认证过程分享">
+<meta property="og:url" content="https://jayl1n.github.io/2023/08/17/cissp-certification-process-sharing/index.html">
 <meta property="og:site_name" content="Jayl1n&#39;s Blog">
-<meta property="og:description" content="项目介绍Admin5 提供了各种语言的开源项目，包括asp php .net jsp等。最近开始玩代码审计，到处找项目很麻烦，所以打算写一个爬虫，借助Admin5批量下载各类开源项目。">
+<meta property="og:description" content="最近跟风考了个 CISSP ，前后花了大概20多天，分享下过程。 报名直接在 ISC 官网找 CISSP，单次考试 $749，补考需要再交 $749。 最近 ISC 有 “考试安心保障” 活动， +$199 可以多一次补考的机会，怕一次过不去，我买了这个总价 $948。  https://www.isc2.org/landing/exam-peace-of-mind  虽然最后我没用到补考，但还是">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://jayl1n.github.io/2018/08/01/crawl-admin5/screenshot-1.png">
-<meta property="og:image" content="https://jayl1n.github.io/2018/08/01/crawl-admin5/screenshot-2.png">
-<meta property="og:image" content="https://jayl1n.github.io/2018/08/01/crawl-admin5/screenshot-3.png">
-<meta property="og:image" content="https://jayl1n.github.io/2018/08/01/crawl-admin5/screenshot-4.png">
-<meta property="og:image" content="https://jayl1n.github.io/2018/08/01/crawl-admin5/screenshot-5.png">
-<meta property="og:updated_time" content="2023-08-16T15:16:43.179Z">
+<meta property="og:updated_time" content="2023-08-17T15:16:35.050Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="爬虫之批量下载Admin5源码">
-<meta name="twitter:description" content="项目介绍Admin5 提供了各种语言的开源项目，包括asp php .net jsp等。最近开始玩代码审计，到处找项目很麻烦，所以打算写一个爬虫，借助Admin5批量下载各类开源项目。">
-<meta name="twitter:image" content="https://jayl1n.github.io/2018/08/01/crawl-admin5/screenshot-1.png">
+<meta name="twitter:title" content="CISSP 认证过程分享">
+<meta name="twitter:description" content="最近跟风考了个 CISSP ，前后花了大概20多天，分享下过程。 报名直接在 ISC 官网找 CISSP，单次考试 $749，补考需要再交 $749。 最近 ISC 有 “考试安心保障” 活动， +$199 可以多一次补考的机会，怕一次过不去，我买了这个总价 $948。  https://www.isc2.org/landing/exam-peace-of-mind  虽然最后我没用到补考，但还是">
 
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
@@ -65,7 +59,7 @@
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>爬虫之批量下载Admin5源码 | Jayl1n&#39;s Blog</title>
+<title>CISSP 认证过程分享 | Jayl1n&#39;s Blog</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -292,11 +286,11 @@
     </div>
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
-      <div class="body-wrap"><article id="post-crawl-admin5" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-cissp-certification-process-sharing" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
       <a href="" class="article-date">
-      <time datetime="2018-08-01T01:45:40.000Z" itemprop="datePublished">2018-08-01</time>
+      <time datetime="2023-08-17T10:39:04.000Z" itemprop="datePublished">2023-08-17</time>
 </a>
 
 
@@ -311,7 +305,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      爬虫之批量下载Admin5源码
+      CISSP 认证过程分享
     </h1>
   
 
@@ -322,7 +316,7 @@
 
         
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../../../tags/Python/">Python</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../../../tags/爬虫/">爬虫</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../../../tags/心得/">心得</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../../../tags/日常/">日常</a></li></ul>
     </div>
 
         <div class="clearfix"></div>
@@ -332,61 +326,47 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <h2 id="项目介绍"><a href="#项目介绍" class="headerlink" title="项目介绍"></a>项目介绍</h2><p><a href="http://down.admin5.com" target="_blank" rel="noopener"><code>Admin5</code></a> 提供了各种语言的开源项目，包括<code>asp</code> <code>php</code> <code>.net</code> <code>jsp</code>等。最近开始玩代码审计，到处找项目很麻烦，所以打算写一个爬虫，借助Admin5批量下载各类开源项目。</p>
-<a id="more"></a>
-<h2 id="分析页面"><a href="#分析页面" class="headerlink" title="分析页面"></a>分析页面</h2><p>首先，分析下<code>Admin5</code>的页面。</p>
-<p><img src="/2018/08/01/crawl-admin5/screenshot-1.png" alt="截图-1"></p>
-<p>可以看到，页面数据直接在html中显示的，并不是JS渲染上去的，这就比较好爬了。在响应的请求中，页面用的是<code>gb2312</code>编码，打印的时候需要注意一下，不然会乱码。建议设置编码为<code>gbk</code>，因为<code>gb2312</code>的支持的字没有<code>gbk</code>多，像打印<code>囧</code>的时候，就会抛异常。</p>
-<p>首页的地址是<code>http://down.admin5.com/php/</code>，往后翻页，再看看首页的地址。</p>
-<p><img src="/2018/08/01/crawl-admin5/screenshot-2.png" alt="截图-2"></p>
-<p>变成了<code>http://down.admin5.com/php/list_30_1.html</code>。</p>
-<p>那么就可以得出页面的地址规则 <code>php/list_30_页码.html</code>。</p>
-<p><img src="/2018/08/01/crawl-admin5/screenshot-3.png" alt="截图-3"></p>
-<p>这里使用<code>XPATH表达式</code>可以很方便的获取页面数据，<code>//div[@class=&quot;lists_bigimg_right&quot;]/a</code>，获取当前页所有项目详情的 <code>a</code> 标签，即详情页的地址。</p>
-<p>随便进入一个项目的详情，找到下载地址。</p>
-<p><img src="/2018/08/01/crawl-admin5/screenshot-4.png" alt="截图-4"></p>
-<p>使用 XPATH : <code>//ul[@class=&quot;down-anniu&quot;]//li/a/@href</code>，获取下载地址，这条XPATH是获取所有的下载点地址，实际用不到这么多，可以修改下 <code>//ul[@class=&quot;down-anniu&quot;]/li[1]/a/@href</code>，只获取1条。</p>
-<p>当然，这个页面还包含了其它的数据，同样可以用 XPATH 采集，就不详细写了，后面在代码中会有。</p>
-<h2 id="运行流程"><a href="#运行流程" class="headerlink" title="运行流程"></a>运行流程</h2><p>下面梳理下我们爬虫的运行流程。</p>
-<ol>
-<li><p>访问<code>http://down.admin5.com/php/</code>，<code>asp</code>,<code>.net</code>等语言项目的页面其实是一样的，改下路径就行，这里以<code>php</code>的为例。</p>
-</li>
-<li><p>获取后续页面的地址，即下一页。由于<code>Admin5</code>的页面比较简单，可以直接获取总页数，然后用<code>for</code>循环，遍历<code>http://down.admin5.com/php/list_30_页码.html</code>。</p>
-</li>
-<li><p>获取每个项目的详细页地址，并跟进。</p>
-</li>
-<li><p>提取项目的详细参数，获取下载地址，加入下载队列。</p>
-</li>
-<li><p>下载模块不断取出队列的任务，下载项目，直到队列为空。</p>
-</li>
-</ol>
-<h2 id="具体实现"><a href="#具体实现" class="headerlink" title="具体实现"></a>具体实现</h2><p>这个项目比较简单，所以没有用<code>scrapy</code>等很重的框架去做。就用最简单的<code>requests</code>库去实现，下面设计一下具体的业务模型。</p>
-<h3 id="模型"><a href="#模型" class="headerlink" title="模型"></a>模型</h3><ol>
-<li>ProjectItem<ul>
-<li>name</li>
-<li>size</li>
-<li>update_date</li>
-<li>official_url</li>
-<li>download_url</li>
+        <p>最近跟风考了个 CISSP ，前后花了大概20多天，分享下过程。</p>
+<h1 id="报名"><a href="#报名" class="headerlink" title="报名"></a>报名</h1><p>直接在 ISC 官网找 CISSP，单次考试 $749，补考需要再交 $749。</p>
+<p>最近 ISC 有 “考试安心保障” 活动， +$199 可以多一次补考的机会，怕一次过不去，我买了这个总价 $948。</p>
+<ul>
+<li><a href="https://www.isc2.org/landing/exam-peace-of-mind" target="_blank" rel="noopener">https://www.isc2.org/landing/exam-peace-of-mind</a></li>
 </ul>
+<p>虽然最后我没用到补考，但还是建议没信心的同学可以考虑下这个。</p>
+<h1 id="学习资源"><a href="#学习资源" class="headerlink" title="学习资源"></a>学习资源</h1><ul>
+<li><p>《CISSP官方学习指南（第8版）》，也称 OSG，为什么不是最新第9版？因为这本书自20年到我手上，已经在某个箱子底下压了2年。</p>
 </li>
-</ol>
-<p>这个模型包含每个项目的属性，包括项目名称，大小，更新日期，官方地址，下载地址。</p>
-<ol start="2">
-<li>Downloader<ul>
-<li>download_queue</li>
-<li>cache_path</li>
-<li>save_path</li>
-<li>add_task(projcet_item)</li>
-<li>print_progress()</li>
-<li>save_cache()</li>
+<li><p><a href="https://firmianay.gitbook.io/cissp-notes/" target="_blank" rel="noopener">https://firmianay.gitbook.io/cissp-notes/</a>  firmianay大佬的总结归纳，虽然不是百分百全，但也很好用了，有几个域我没来得及看纸质书，直接看的这个学的。</p>
+</li>
+<li><p>铭学在线  <a href="https://exam.maxstu.com/h5/100000/" target="_blank" rel="noopener">https://exam.maxstu.com/h5/100000/</a>  ，这是用来刷题的，题目质量还可以，看完一章拿来巩固下，还自带错题集。</p>
+</li>
 </ul>
-</li>
-</ol>
-<p>下载器，这个模型负责下载项目，维护下载队列，监控下载进度，并对下载过的项目地址做缓存，防止重复下载。</p>
-<h4 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h4><p>已上传到 <a href="https://github.com/CHN-Jaylin/Spider/tree/master/admin5" target="_blank" rel="noopener">Github</a>， 具体实现请查看代码，注释已经写的比较清楚了。</p>
-<h4 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h4><p><img src="/2018/08/01/crawl-admin5/screenshot-5.png" alt="截图-5"></p>
-<p>已经实现了自动保存下载进度，可以随时<code>Ctrl+C</code>退出程序，下次执行时会跳过已下载的项目。</p>
+<h1 id="学习心得"><a href="#学习心得" class="headerlink" title="学习心得"></a>学习心得</h1><p>OSG 能看完就尽量看完，一定要看，推荐纸质书，方便笔记。</p>
+<p>书后面的练习要做，并且能完全理解。</p>
+<p>书刷完以后，可以考虑二刷下 firmianay 的笔记，看完一个域做对应的铭学里的题。</p>
+<p>铭学的题质量不错，还带有解析，务必理解。</p>
+<p>然后就可以考虑刷模拟题了，模拟题网上资源应该不少，各位自己想办法。</p>
+<p>可能你会找到翻译很烂的模拟题，做下来正确率也不高。不用怀疑，考试的题目就这水平，就刷题吧，遇到无法理解的 google 搜一下英文原题，一般都能搜到解释，可以 google hack 一下 <code>examtopics.com</code>，里面有不少 CISSP 的考题。</p>
+<p>据说模拟题刷到正确率 60% 就能去考试了，我感觉是差不多。</p>
+<p>因为我给自己排的时间比较紧，在考试前的最后两天才把所有域的知识刷完，然后刷了一天的题，就匆匆忙忙的就去考试了。</p>
+<p>模拟题大概做了 100 多题，发现正确率很低，可能就 50% 左右，主要原因是翻译的题目看的很难受，题意很难理解，还特地问了下朋友考试是不是就这样子，得到肯定的答案后，考试前一晚都没睡好，一直刷题刷到2点。</p>
+<h1 id="关于题目"><a href="#关于题目" class="headerlink" title="关于题目"></a>关于题目</h1><p>书后的习题以及铭学的题是非常友好的，题目题意选项都是能比较容易就理解的。</p>
+<p>真实考题比较糟心，有不少翻译很难理解，需要自己看英语原题的，平时做题尽量对照着看下英语锻炼下。</p>
+<p>我看到不少题是有争议的，因为在不同场景下的最佳实践是不一样的，可能多个选项都是对的。当然，也有可能考点藏的比较深，多思考一下。</p>
+<p>遇到中英文都无法理解的题，就机选吧，不要在考试的时候搞自己心态（这很重要）。</p>
+<p>有些题目可能有多个正确答案，选你觉得最合适的就行，也不用太纠结。</p>
+<h1 id="考试当天"><a href="#考试当天" class="headerlink" title="考试当天"></a>考试当天</h1><p>我选的考场是上海徐汇区的腾飞大厦。</p>
+<p>本来准备住考场附近，关注了下酒店价格有点小离谱，决定还是住家里，考试当天打个车。</p>
+<p>6点从松江的家里出发，7点到腾飞大厦。上2楼，闸机刷脸上楼，来太早了工作人员都没来，在门外等了半个小时。</p>
+<p>7点半开始入场，做考前讲解，寄存物品（一人一柜），身份验证。</p>
+<p>接近8点进入考场，坐下以后就可以开始考试。</p>
+<p>考场备了隔音耳机，效果不错。</p>
+<p>考试过程可以离场喝水吃东西，跟监考的工作人员说一声就行。</p>
+<p>考试的时间非常充裕，所以我做到150题的时候离场休息了，实在是坐太久了屁股疼 Orz。</p>
+<p>估摸着休息了有20分钟，又回去战斗了。</p>
+<p>我出考场的时候大概 11:30 ，快得有点超预期了。</p>
+<p>跟着指引在门口打印了成绩单，看到单子上恭喜两个字小小激动了一下。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>我平时的工作是挖洞搞研究，对安全风向管理、资产管理、运营这种和技术关联不大的领域接触的少，了解的少，通过 CISSP 的认证，填补了这块知识的空缺，以后也许可能会用到吧。</p>
 
       
     </div>
@@ -395,13 +375,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="">爬虫之批量下载Admin5源码</a></p>
+        <p><span>本文标题:</span><a href="">CISSP 认证过程分享</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">Jayl1n</a></p>
-        <p><span>发布时间:</span>2018-08-01, 09:45:40</p>
-        <p><span>最后更新:</span>2023-08-16, 23:16:43</p>
+        <p><span>发布时间:</span>2023-08-17, 18:39:04</p>
+        <p><span>最后更新:</span>2023-08-17, 23:16:35</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="" title="爬虫之批量下载Admin5源码">https://jayl1n.github.io/2018/08/01/crawl-admin5/</a>
-            <span class="copy-path" data-clipboard-text="原文: https://jayl1n.github.io/2018/08/01/crawl-admin5/　　作者: Jayl1n" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="" title="CISSP 认证过程分享">https://jayl1n.github.io/2023/08/17/cissp-certification-process-sharing/</a>
+            <span class="copy-path" data-clipboard-text="原文: https://jayl1n.github.io/2023/08/17/cissp-certification-process-sharing/　　作者: Jayl1n" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
         <p>
@@ -413,16 +393,10 @@
 
     <nav id="article-nav">
         
-            <div id="article-nav-newer" class="article-nav-title">
-                <a href="../../../09/09/daily-life-20180909/">
-                    日常心路-180909
-                </a>
-            </div>
-        
         
             <div id="article-nav-older" class="article-nav-title">
-                <a href="../../../07/31/yesterday-and-tomorrow/">
-                    昨天，明天
+                <a href="../../../../2022/02/27/v8-sandbox-escape/">
+                    V8 沙盒绕过
                 </a>
             </div>
         
@@ -434,7 +408,7 @@
     <div id="toc" class="toc-article">
         <strong class="toc-title">文章目录</strong>
         
-            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#项目介绍"><span class="toc-number">1.</span> <span class="toc-text">项目介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#分析页面"><span class="toc-number">2.</span> <span class="toc-text">分析页面</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#运行流程"><span class="toc-number">3.</span> <span class="toc-text">运行流程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#具体实现"><span class="toc-number">4.</span> <span class="toc-text">具体实现</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#模型"><span class="toc-number">4.1.</span> <span class="toc-text">模型</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#代码"><span class="toc-number">4.1.1.</span> <span class="toc-text">代码</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#效果"><span class="toc-number">4.1.2.</span> <span class="toc-text">效果</span></a></li></ol></li></ol></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#报名"><span class="toc-number">1.</span> <span class="toc-text">报名</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#学习资源"><span class="toc-number">2.</span> <span class="toc-text">学习资源</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#学习心得"><span class="toc-number">3.</span> <span class="toc-text">学习心得</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#关于题目"><span class="toc-number">4.</span> <span class="toc-text">关于题目</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#考试当天"><span class="toc-number">5.</span> <span class="toc-text">考试当天</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#总结"><span class="toc-number">6.</span> <span class="toc-text">总结</span></a></li></ol>
         
     </div>
     <style>
@@ -470,7 +444,7 @@
         </div>
         <script>
             window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"爬虫之批量下载Admin5源码　| Jayl1n's Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                "common":{"bdSnsKey":{},"bdText":"CISSP 认证过程分享　| Jayl1n's Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
         </script>
     
 
@@ -489,8 +463,8 @@
     <div id="disqus_thread"></div>
     <script>
         var disqus_config = function(){
-            this.page.url = 'https://jayl1n.github.io/2018/08/01/crawl-admin5/';
-            this.page.identifier = '2018/08/01/crawl-admin5/';
+            this.page.url = 'https://jayl1n.github.io/2023/08/17/cissp-certification-process-sharing/';
+            this.page.identifier = '2023/08/17/cissp-certification-process-sharing/';
         };
         var loadComment = function(){
             var d = document, s = d.createElement('script');
@@ -512,21 +486,19 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="../../../09/09/daily-life-20180909/" title="上一篇: 日常心路-180909">
-                <i class="fa fa-angle-left"></i>
-            </a>
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
         
 
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="../../../07/31/yesterday-and-tomorrow/" title="下一篇: 昨天，明天">
+            <a href="../../../../2022/02/27/v8-sandbox-escape/" title="下一篇: V8 沙盒绕过">
                 <i class="fa fa-angle-right"></i>
             </a>
         
     </div>
 
-    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="../../../../2023/08/17/cissp-certification-process-sharing/">CISSP 认证过程分享</a></li><li class="post-list-item"><a class="post-list-link" href="../../../../2022/02/27/v8-sandbox-escape/">V8 沙盒绕过</a></li><li class="post-list-item"><a class="post-list-link" href="../../../../2021/10/05/pentest-gb28181-attack/">GB28181 的一点小问题</a></li><li class="post-list-item"><a class="post-list-link" href="../../../../2021/07/07/realpwn-heap-spary-exercise/">【RealPwn-2】 堆喷练习</a></li><li class="post-list-item"><a class="post-list-link" href="../../../../2021/07/04/realpwn-vtable-hijacking-exercise/">【RealPwn-1】 虚函数表劫持练习</a></li><li class="post-list-item"><a class="post-list-link" href="../../../../2021/07/01/use-inlinehook-technology-to-make-a-more-general-webshell/">利用 Hook 技术打造通用的 Webshell</a></li><li class="post-list-item"><a class="post-list-link" href="../../../../2021/06/23/compile-v8-on-windows10/">在 Win10 上编译 V8 引擎</a></li><li class="post-list-item"><a class="post-list-link" href="../../../../2021/02/05/antiav-jsp-webshell/">JSP免杀 —— 绕过智能AI？</a></li><li class="post-list-item"><a class="post-list-link" href="../../../../2021/01/03/compile-virtualbox-on-macos10-15/">MacOS 下编译 VirtualBox</a></li><li class="post-list-item"><a class="post-list-link" href="../../../../2020/04/10/pentest-cobaltstrike-improve/">魔改 CobaltStrike 3.14 实现域前置自定义端口</a></li><li class="post-list-item"><a class="post-list-link" href="../../../../2020/02/13/java-nohup-implementation/">Java 实现后台执行</a></li><li class="post-list-item"><a class="post-list-link" href="../../../../2020/01/04/happy-new-year-2020/">2020 大家新年快乐鸭</a></li><li class="post-list-item"><a class="post-list-link" href="../../../../2019/06/26/sctf-2019-babyEoP-Writeup/">SCTF2019 babyEoP Writeup</a></li><li class="post-list-item"><a class="post-list-link" href="../../../../2019/03/29/pentest-getpassword/">Windows下抓取明文密码</a></li><li class="post-list-item"><a class="post-list-link" href="../../../../2019/01/08/tools-load-shellcode/">【GSL】 从内存加载 SHELLCODE 绕过AV查杀</a></li><li class="post-list-item"><a class="post-list-link" href="../../../12/30/java-audit-step-by-step-4/">从1开始的Java代码审计·第四弹·SSRF</a></li><li class="post-list-item"><a class="post-list-link" href="../../../11/15/java-audit-step-by-step-3/">从1开始的Java代码审计·第三弹·SQL注入</a></li><li class="post-list-item"><a class="post-list-link" href="../../../10/29/java-audit-step-by-step-2/">从1开始的Java代码审计·第二弹·基础篇（下）</a></li><li class="post-list-item"><a class="post-list-link" href="../../../10/25/java-audit-step-by-step-1/">从1开始的Java代码审计·第一弹·基础篇（上）</a></li><li class="post-list-item"><a class="post-list-link" href="../../../10/25/java-audit-step-by-step-0/">从1开始的Java代码审计·序</a></li><li class="post-list-item"><a class="post-list-link" href="../../../10/05/pentest-20181005/">渗透日记-20181005</a></li><li class="post-list-item"><a class="post-list-link" href="../../../09/18/summary-command-execution/">PHP中的命令执行</a></li><li class="post-list-item"><a class="post-list-link" href="../../../09/11/ichunqiu-web-BLOG/">i春秋-Web-BLOG</a></li><li class="post-list-item"><a class="post-list-link" href="../../../09/10/ichunqiu-web-SQLi/">i春秋-Web-SQLi</a></li><li class="post-list-item"><a class="post-list-link" href="../../../09/09/daily-life-20180909/">日常心路-180909</a></li><li class="post-list-item"><a class="post-list-link" href="">爬虫之批量下载Admin5源码</a></li><li class="post-list-item"><a class="post-list-link" href="../../../07/31/yesterday-and-tomorrow/">昨天，明天</a></li></ul>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="">CISSP 认证过程分享</a></li><li class="post-list-item"><a class="post-list-link" href="../../../../2022/02/27/v8-sandbox-escape/">V8 沙盒绕过</a></li><li class="post-list-item"><a class="post-list-link" href="../../../../2021/10/05/pentest-gb28181-attack/">GB28181 的一点小问题</a></li><li class="post-list-item"><a class="post-list-link" href="../../../../2021/07/07/realpwn-heap-spary-exercise/">【RealPwn-2】 堆喷练习</a></li><li class="post-list-item"><a class="post-list-link" href="../../../../2021/07/04/realpwn-vtable-hijacking-exercise/">【RealPwn-1】 虚函数表劫持练习</a></li><li class="post-list-item"><a class="post-list-link" href="../../../../2021/07/01/use-inlinehook-technology-to-make-a-more-general-webshell/">利用 Hook 技术打造通用的 Webshell</a></li><li class="post-list-item"><a class="post-list-link" href="../../../../2021/06/23/compile-v8-on-windows10/">在 Win10 上编译 V8 引擎</a></li><li class="post-list-item"><a class="post-list-link" href="../../../../2021/02/05/antiav-jsp-webshell/">JSP免杀 —— 绕过智能AI？</a></li><li class="post-list-item"><a class="post-list-link" href="../../../../2021/01/03/compile-virtualbox-on-macos10-15/">MacOS 下编译 VirtualBox</a></li><li class="post-list-item"><a class="post-list-link" href="../../../../2020/04/10/pentest-cobaltstrike-improve/">魔改 CobaltStrike 3.14 实现域前置自定义端口</a></li><li class="post-list-item"><a class="post-list-link" href="../../../../2020/02/13/java-nohup-implementation/">Java 实现后台执行</a></li><li class="post-list-item"><a class="post-list-link" href="../../../../2020/01/04/happy-new-year-2020/">2020 大家新年快乐鸭</a></li><li class="post-list-item"><a class="post-list-link" href="../../../../2019/06/26/sctf-2019-babyEoP-Writeup/">SCTF2019 babyEoP Writeup</a></li><li class="post-list-item"><a class="post-list-link" href="../../../../2019/03/29/pentest-getpassword/">Windows下抓取明文密码</a></li><li class="post-list-item"><a class="post-list-link" href="../../../../2019/01/08/tools-load-shellcode/">【GSL】 从内存加载 SHELLCODE 绕过AV查杀</a></li><li class="post-list-item"><a class="post-list-link" href="../../../../2018/12/30/java-audit-step-by-step-4/">从1开始的Java代码审计·第四弹·SSRF</a></li><li class="post-list-item"><a class="post-list-link" href="../../../../2018/11/15/java-audit-step-by-step-3/">从1开始的Java代码审计·第三弹·SQL注入</a></li><li class="post-list-item"><a class="post-list-link" href="../../../../2018/10/29/java-audit-step-by-step-2/">从1开始的Java代码审计·第二弹·基础篇（下）</a></li><li class="post-list-item"><a class="post-list-link" href="../../../../2018/10/25/java-audit-step-by-step-1/">从1开始的Java代码审计·第一弹·基础篇（上）</a></li><li class="post-list-item"><a class="post-list-link" href="../../../../2018/10/25/java-audit-step-by-step-0/">从1开始的Java代码审计·序</a></li><li class="post-list-item"><a class="post-list-link" href="../../../../2018/10/05/pentest-20181005/">渗透日记-20181005</a></li><li class="post-list-item"><a class="post-list-link" href="../../../../2018/09/18/summary-command-execution/">PHP中的命令执行</a></li><li class="post-list-item"><a class="post-list-link" href="../../../../2018/09/11/ichunqiu-web-BLOG/">i春秋-Web-BLOG</a></li><li class="post-list-item"><a class="post-list-link" href="../../../../2018/09/10/ichunqiu-web-SQLi/">i春秋-Web-SQLi</a></li><li class="post-list-item"><a class="post-list-link" href="../../../../2018/09/09/daily-life-20180909/">日常心路-180909</a></li><li class="post-list-item"><a class="post-list-link" href="../../../../2018/08/01/crawl-admin5/">爬虫之批量下载Admin5源码</a></li><li class="post-list-item"><a class="post-list-link" href="../../../../2018/07/31/yesterday-and-tomorrow/">昨天，明天</a></li></ul>
 
 
 
