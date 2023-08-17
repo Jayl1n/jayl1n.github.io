@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+
+    <!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no">
+<meta name="author" content="Jayl1n">
+<meta name="baidu-site-verification" content="elXpeED2jg">
+
+
+
+<meta name="description" content="我们在审计一个项目的时候，最开始应该是先熟悉项目的结构，了解项目的技术栈。 本篇，我会引入一个开源的 Java Web 项目，通过实例分析 Java Web 的项目结构，常用的 MVC 模式。">
+<meta name="keywords" content="代码审计,Java">
+<meta property="og:type" content="article">
+<meta property="og:title" content="从1开始的Java代码审计·第二弹·基础篇（下）">
+<meta property="og:url" content="https://jayl1n.github.io/2018/10/29/java-audit-step-by-step-2/index.html">
+<meta property="og:site_name" content="Jayl1n&#39;s Blog">
+<meta property="og:description" content="我们在审计一个项目的时候，最开始应该是先熟悉项目的结构，了解项目的技术栈。 本篇，我会引入一个开源的 Java Web 项目，通过实例分析 Java Web 的项目结构，常用的 MVC 模式。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://jayl1n.github.io/2018/10/29/java-audit-step-by-step-2/check1.png">
+<meta property="og:image" content="https://jayl1n.github.io/2018/10/29/java-audit-step-by-step-2/check2.png">
+<meta property="og:image" content="https://jayl1n.github.io/2018/10/29/java-audit-step-by-step-2/check3.png">
+<meta property="og:image" content="https://jayl1n.github.io/2018/10/29/java-audit-step-by-step-2/maven1.png">
+<meta property="og:image" content="https://jayl1n.github.io/2018/10/29/java-audit-step-by-step-2/maven2.png">
+<meta property="og:image" content="https://jayl1n.github.io/2018/10/29/java-audit-step-by-step-2/mybatis1.png">
+<meta property="og:updated_time" content="2023-08-16T15:16:43.196Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="从1开始的Java代码审计·第二弹·基础篇（下）">
+<meta name="twitter:description" content="我们在审计一个项目的时候，最开始应该是先熟悉项目的结构，了解项目的技术栈。 本篇，我会引入一个开源的 Java Web 项目，通过实例分析 Java Web 的项目结构，常用的 MVC 模式。">
+<meta name="twitter:image" content="https://jayl1n.github.io/2018/10/29/java-audit-step-by-step-2/check1.png">
+
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+
+    <link rel="alternate" href="/atom.xml" title="Jayl1n&#39;s Blog" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="/img/cat.jpg">
+
+
+
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="../../../../css/style.css">
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>从1开始的Java代码审计·第二弹·基础篇（下） | Jayl1n&#39;s Blog</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: true
+    }
+</script>
+
+
+    <script>
+        yiliaConfig.jquery_ui = [true, "//cdn.bootcss.com/jqueryui/1.10.4/jquery-ui.min.js", "//cdn.bootcss.com/jqueryui/1.10.4/css/jquery-ui.min.css"];
+    </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+
+
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "//hm.baidu.com/hm.js?08bebd32e2a42a1273ff796a43439f77";
+            var s = document.getElementsByTagName("script")[0]; 
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+
+</head></html>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="/img/cat.jpg" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">Jayl1n</a></h1>
+        </hgroup>
+
+        
+
+        
+            <form id="search-form">
+            <input type="text" id="local-search-input" name="q" placeholder="search..." class="search form-control" autocomplete="off" autocorrect="off" searchonload="false" />
+            <i class="fa fa-times" onclick="resetSearch()"></i>
+            </form>
+            <div id="local-search-result"></div>
+            <p class='no-result'>No results found <i class='fa fa-spinner fa-pulse'></i></p>
+        
+
+
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        <li>友情链接</li>
+                        
+                        
+                        <li>关于我</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="../../../../index.html">主页</a></li>
+                        
+                            <li><a href="../../../../archives/">所有文章</a></li>
+                        
+                            <li><a href="../../../../tags/">标签云</a></li>
+                        
+                            <li><a href="../../../../about/">关于我</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" href="mailto:panja@foxmail.com" title="Email"></a>
+                            
+                                <a class="fa GitHub" href="https://www.github.com/Jayl1n" title="GitHub"></a>
+                            
+                                <a class="fa RSS" href="../../../../atom.xml" title="RSS"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/BLOG/">BLOG</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/CTF/">CTF</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/JSP/">JSP</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/Java/">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/PHP/">PHP</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/Pentest/">Pentest</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/Pwn/">Pwn</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/Python/">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/RedTeam/">RedTeam</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/SQLi/">SQLi</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/Web/">Web</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/i春秋/">i春秋</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/二进制/">二进制</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/代码审计/">代码审计</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/工具分享/">工具分享</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/开发/">开发</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/心路/">心路</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/日常/">日常</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/浏览器/">浏览器</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/爬虫/">爬虫</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/红蓝对抗/">红蓝对抗</a></li></ul>
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://redteam.today">李三的剑谱</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://blog.l0ca1.xyz/">l0cal</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://7o8v.me/">7o8v</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://godot.win/">Godot</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://evoa.me/">evoA</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://abcdefghijklmnopqrst.xyz/">骑麦兜看落日</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://kkdlong.win">kkdlong</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+                
+                <section class="switch-part switch-part4">
+                
+                    <div id="js-aboutme">专注于安全</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">Jayl1n</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="/img/cat.jpg" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">Jayl1n</a></h1>
+            </hgroup>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="../../../../index.html">主页</a></li>
+                
+                    <li><a href="../../../../archives/">所有文章</a></li>
+                
+                    <li><a href="../../../../tags/">标签云</a></li>
+                
+                    <li><a href="../../../../about/">关于我</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" target="_blank" href="mailto:panja@foxmail.com" title="Email"></a>
+                            
+                                <a class="fa GitHub" target="_blank" href="https://www.github.com/Jayl1n" title="GitHub"></a>
+                            
+                                <a class="fa RSS" target="_blank" href="../../../../atom.xml" title="RSS"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+</nav>
+      <div class="body-wrap"><article id="post-java-audit-step-by-step-2" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="" class="article-date">
+      <time datetime="2018-10-29T05:45:39.000Z" itemprop="datePublished">2018-10-29</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      从1开始的Java代码审计·第二弹·基础篇（下）
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../../../tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../../../tags/代码审计/">代码审计</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>我们在审计一个项目的时候，最开始应该是先熟悉项目的结构，了解项目的技术栈。</p>
+<p>本篇，我会引入一个开源的 Java Web 项目，通过实例分析 Java Web 的项目结构，常用的 MVC 模式。</p>
+<a id="more"></a>
+<h1 id="JEESNS"><a href="#JEESNS" class="headerlink" title="JEESNS"></a>JEESNS</h1><p><a href="https://github.com/zchuanzhao/jeesns" target="_blank" rel="noopener">JEESNS</a>，是一款基于 JAVA 企业级平台研发的社交管理系统，在 github 上有 200+ star，在开源的 Java Web 项目中算是还不错的了。在本章及后面的内容，我会用它做实例，进行审计分析。</p>
+<p>项目地址： <a href="https://github.com/zchuanzhao/jeesns" target="_blank" rel="noopener">https://github.com/zchuanzhao/jeesns</a></p>
+<h2 id="下载项目"><a href="#下载项目" class="headerlink" title="下载项目"></a>下载项目</h2><p>你可以直接把项目 clone 下来，然后导入到 IDE。也可以直接在 IDEA 里把项目从 VCS（版本控制系统）中 checkout 出来。</p>
+<p>下面我演示下，如何在 IDEA 里直接从 git 服务器上迁出项目。</p>
+<ol>
+<li><p>打开 IDEA，点<code>Check out from Version Control</code>，选择<code>Git</code>。<br><img src="/2018/10/29/java-audit-step-by-step-2/check1.png" alt="check1"></p>
+</li>
+<li><p>在弹出的 dialog 里，输入 git 的地址(<a href="https://github.com/zchuanzhao/jeesns.git)，以及本地保存的位置，然后`clone`。" target="_blank" rel="noopener">https://github.com/zchuanzhao/jeesns.git)，以及本地保存的位置，然后`clone`。</a><br><img src="/2018/10/29/java-audit-step-by-step-2/check2.png" alt="check2"></p>
+</li>
+<li><p>之后，IDEA 会开始下载项目，并构建，下面是构建完毕的项目工程。<br><img src="/2018/10/29/java-audit-step-by-step-2/check3.png" alt="check3"></p>
+</li>
+</ol>
+<hr>
+<h1 id="项目结构解析"><a href="#项目结构解析" class="headerlink" title="项目结构解析"></a>项目结构解析</h1><h2 id="Maven"><a href="#Maven" class="headerlink" title="Maven"></a>Maven</h2><h3 id="根目录下的-pom-xml"><a href="#根目录下的-pom-xml" class="headerlink" title="根目录下的 pom.xml"></a>根目录下的 pom.xml</h3><p>在项目的根目录下，有一个<code>pom.xml</code>的文件，这个文件的存在，表明项目是用<code>Maven</code>构建的，<a href="http://www.runoob.com/maven/maven-tutorial.html" target="_blank" rel="noopener">关于 Maven 可以点这里</a>。它是用来管理项目源码、配置文件，不过最大的用处还是处理<strong>项目的依赖关系</strong>。作用有点类似于 nodejs 的 npm，python 的 pip。</p>
+<p>下面，点开这个<code>pom.xml</code>。</p>
+<p><img src="/2018/10/29/java-audit-step-by-step-2/maven1.png" alt="maven1"></p>
+<p>红框的 ① 处，描述了这个项目的开发组织，项目名称，项目版本。</p>
+<p>② 处，用的是<code>modules</code>标签，说明这是一个多模块项目。在左边的导航栏，可以看到确实有许多子模块。</p>
+<blockquote>
+<p>多模块项目是为了在项目开发中便于后期维护，所以采用分层开发的方法，这样各个模块的职责会比较的明确，维护起来相对容易。在打包时，只要对父模块打包即可，子模块会自动合并进来。</p>
+</blockquote>
+<p>③ 处，是 maven 在构建时相关的配置，这里用了一个 compiler 插件，表示源码用的是<code>1.7</code>的<code>JDK</code>并且生成的目标字节码文件也要是<code>1.7</code>的。</p>
+<h3 id="子模块下的-pom-xml"><a href="#子模块下的-pom-xml" class="headerlink" title="子模块下的 pom.xml"></a>子模块下的 pom.xml</h3><p>点开每个子模块，看到每个模块下还会有一个<code>pom.xml</code>。</p>
+<p><img src="/2018/10/29/java-audit-step-by-step-2/maven2.png" alt="maven2"></p>
+<p>随便点一个<code>pom.xml</code>，它和根目录下的<code>pom.xml</code>有所不同，多了一个<code>&lt;parent&gt;</code>标签，和<code>dependencies</code>。</p>
+<p><code>&lt;parent&gt;</code>标签，表示这个子模块，将上级的<code>jeesns</code>项目作父模块。</p>
+<p><code>dependencies</code>，描述了这个模块的依赖关系。当前的<code>web</code>模块依赖于子模块<code>core</code>,<code>model</code>,<code>service</code>,<code>common</code>。而子模块<code>core</code>里，依赖于许多的第三方库，包括<code>Spring</code>、<code>MyBatis</code>、<code>apache-commons</code>等。它们都继承了上级的<code>jeesns</code>父模块，在逻辑上同属一个项目。</p>
+<blockquote>
+<p>相关文章 <a href="https://www.cnblogs.com/davenkin/p/advanced-maven-multi-module-vs-inheritance.html" target="_blank" rel="noopener">https://www.cnblogs.com/davenkin/p/advanced-maven-multi-module-vs-inheritance.html</a></p>
+</blockquote>
+<h2 id="第三方库的安全检查"><a href="#第三方库的安全检查" class="headerlink" title="第三方库的安全检查"></a>第三方库的安全检查</h2><p>前面有说过，<code>pom.xml</code>有个重要的作用是管理依赖关系。在<code>&lt;dependencies&gt;</code>中填写要引入的第三方库信息，<code>Maven</code>在<code>import</code>时，会从<code>仓库</code>下载相关的库文件，加入到当前项目。</p>
+<p>我们需要<code>&lt;dependencies&gt;</code>中，检查使用的第三方库是否有已知的安全漏洞。<br>这里只要根据组件名称、版本号，去官网或者<code>CVE</code>漏洞库搜下就行了。如果项目很大，引入了太多库，这也是件很累的事情。</p>
+<p>所以 OWASP 出了一个工具 <a href="https://www.owasp.org/index.php/OWASP_Dependency_Check" target="_blank" rel="noopener"><code>Dependency_Check</code></a> 专门检查这类问题，这个工具的使用在前面一篇已经讲过了，就不多介绍了。</p>
+<h2 id="子模块"><a href="#子模块" class="headerlink" title="子模块"></a>子模块</h2><p><code>JEESNS</code> 一共分了六个子模块，分别是 <code>jeesns-common</code>、<code>jeesns-core</code>、<code>jeesns-dao</code>、<code>jeesns-model</code>、<code>jeesns-service</code>、<code>jeesns-web</code>。</p>
+<p>接下来，我们来分析各个子模块的作用。</p>
+<h3 id="jeesns-core"><a href="#jeesns-core" class="headerlink" title="jeesns-core"></a>jeesns-core</h3><p>看名字就知道，这是这套 Web 程序的核心部分。</p>
+<p>通过分析 <code>pom.xml</code> 文件，发现它引入了以下第三方库：</p>
+<table>
+<thead>
+<tr>
+<th>库名</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>spring-*</td>
+<td>spring 框架相关</td>
+</tr>
+<tr>
+<td>freemarker</td>
+<td>前端模板引擎</td>
+</tr>
+<tr>
+<td>httpclient</td>
+<td>http 客户端</td>
+</tr>
+<tr>
+<td>mysql-connector</td>
+<td>mysql 连接器驱动</td>
+</tr>
+<tr>
+<td>c3p0</td>
+<td>数据库连接池</td>
+</tr>
+<tr>
+<td>mybatis</td>
+<td>半自动 ORM 框架</td>
+</tr>
+<tr>
+<td>hibernate-validator</td>
+<td>数据有效性验证</td>
+</tr>
+<tr>
+<td>jackson</td>
+<td>json 数据处理库</td>
+</tr>
+<tr>
+<td>jsoup</td>
+<td>html 解析器</td>
+</tr>
+<tr>
+<td>log4j</td>
+<td>日志管理框架</td>
+</tr>
+<tr>
+<td>commons-io</td>
+<td>io 工具类</td>
+</tr>
+<tr>
+<td>commons-codec</td>
+<td>编码处理工具类</td>
+</tr>
+<tr>
+<td>commons-lang</td>
+<td>Java 基本对象工具类</td>
+</tr>
+<tr>
+<td>commons-fileupload</td>
+<td>提供文件上传功能</td>
+</tr>
+<tr>
+<td>commons-logging</td>
+<td>提供 Java 日志接口</td>
+</tr>
+</tbody>
+</table>
+<p>根据上表，即使我们不看官方的介绍，也基本可以确定这套程序的技术栈。</p>
+<p>主要使用了 <code>SSM框架</code> (Spring+SpringMVC+MyBatis)， <code>freemarker</code> 模板引擎，支持 <code>MySQL</code> 数据库，使用 <code>c3p0</code> 连接池，<code>jackson</code> 处理 <code>json</code> 数据，<code>hibernate-validator</code> 对用户传来的请求数据进行有效性验证，还有一些 <code>apache</code> 提供的工具类。</p>
+<h4 id="包结构"><a href="#包结构" class="headerlink" title="包结构"></a>包结构</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">- core</span><br><span class="line"></span><br><span class="line">  - annotation 定义注解</span><br><span class="line"></span><br><span class="line">  - consts 定义常量</span><br><span class="line"></span><br><span class="line">  - directive 定义了一个抽象类 `BaseDirective` ，所有的标签类都会继承它</span><br><span class="line"></span><br><span class="line">  - dto 定义`响应结果`的数据传输模型</span><br><span class="line"></span><br><span class="line">  - enums 定义功能相关的常量</span><br><span class="line"></span><br><span class="line">  - exception 定义异常</span><br><span class="line"></span><br><span class="line">  - filter 定义过滤器，目前只有一个`XSS`过滤器</span><br><span class="line"></span><br><span class="line">  - handler 定义处理器，目前只有`DirectiveHandler`，负责处理每个页面的渲染</span><br><span class="line"></span><br><span class="line">  - model 定义了数据模型，这里只有`Page`，描述页面对象，用于数据分页情况</span><br><span class="line"></span><br><span class="line">  - utils 定义工具类</span><br><span class="line"></span><br><span class="line">+ interceptor</span><br><span class="line"></span><br><span class="line">  - PageInterceptor 分页拦截器，处理需要分页的请求。</span><br></pre></td></tr></table></figure>
+<h4 id="模块小结"><a href="#模块小结" class="headerlink" title="模块小结"></a>模块小结</h4><p>通过分析 <code>jeesns-core</code> 的模块，我们已经知道了 <code>jeesns</code> 的技术栈，是目前比较流行的 <code>SSM</code> 框架，这个核心模块给整个项目构建了一个基本骨架，包括功能方面的还有我们关心的安全方面的（虽然只有 <code>XSS</code> 防御 <code>($ _ $)</code> ）。</p>
+<p>在分析下面模块之前，我们需要先了解 <code>SSM</code> 的一些概念。<a href="https://www.cnblogs.com/zyw-205520/p/4771253.html" target="_blank" rel="noopener">参考文章</a></p>
+<p>当然，最重要的还是要知道什么是 <code>MVC</code>，因为大部分的 <code>Web</code> 项目，都是基于这种<code>设计模式</code>开发的，包括 <code>JEESNS</code> 。<a href="https://blog.csdn.net/qq_26411021/article/details/79493340" target="_blank" rel="noopener">参考文章</a></p>
+<blockquote>
+<p>设计模式与编程语言无关，可以说是一套经验科学，由前人总结、分类，被广泛使用。目的是为了代码可重用性、让代码更容易被他人理解、保证代码可靠性。</p>
+</blockquote>
+<blockquote>
+<blockquote>
+<p><code>Java</code> 设计模式学习链接：<a href="https://github.com/AlfredTheBest/Design-Pattern" target="_blank" rel="noopener">https://github.com/AlfredTheBest/Design-Pattern</a></p>
+</blockquote>
+</blockquote>
+<p>如果，你已经了解了<code>SSM</code>、<code>MVC</code>的概念，那就接着往下看吧 <code>O(∩_∩)O</code> 。</p>
+<h3 id="jeesns-web"><a href="#jeesns-web" class="headerlink" title="jeesns-web"></a>jeesns-web</h3><p>对应 <code>MVC</code> 中的 <code>Controller</code> 层，负责具体业务的模块流程的控制，会调用到下面 <code>Service</code> 层的接口来控制业务流程。</p>
+<p><code>webapp</code> 里是 <code>View</code> 层用到的静态资源（js、css、jpg）以及<code>freemarker</code>的模板文件。</p>
+<p><code>resources</code> 里，有项目相关的各种配置文件。</p>
+<h4 id="模块小结-1"><a href="#模块小结-1" class="headerlink" title="模块小结"></a>模块小结</h4><p><code>Controller</code> 层和 <code>View</code> 层结合的最紧密，两者通常协同开发。</p>
+<p>这里的 <code>Controller</code> 层还设置了<code>监听器</code>，负责对用户的身份和权限进行认证管理。</p>
+<blockquote>
+<p>通常在 Java Web 里，我们会用 <code>Spring-Security</code> 或 <code>Shiro</code> 这些第三方库来帮助我们实现<strong>用户认证和用户授权</strong>的功能 。</p>
+</blockquote>
+<h3 id="jeesns-service"><a href="#jeesns-service" class="headerlink" title="jeesns-service"></a>jeesns-service</h3><p><code>Service</code> 层，主要负责业务模块的应用逻辑应用设计，先设计接口，在设计实现类。这一层，是纯业务逻辑。在使用 <code>Service</code> 层时，会继续调用下面的 <code>DAO</code> 层的接口。</p>
+<h3 id="jeesns-dao"><a href="#jeesns-dao" class="headerlink" title="jeesns-dao"></a>jeesns-dao</h3><p><code>DAO</code> 层，负责数据持久化，通俗点说就是用来和数据库交互，读写数据的模块。</p>
+<p>前面有说到，<code>JEESNS</code> 用了 <code>MyBatis</code> 作为数据持久化框架。<code>MyBatis</code> 属于半自动 <code>ORM</code> ，它会帮我们自动将数据查询结果映射到对象，但是数据查询的 <code>SQL</code> 语句还是要我们自己手写，这点和其它的 <code>ORM</code> 明显的不一样。</p>
+<p><code>MyBatis</code> 的使用方式主要有两种，一种是使用<code>注解</code>，直接将<code>SQL</code>语句和<code>方法</code>绑定在一起，像下面这样：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> org.mybatis.example;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">BlogMapper</span> </span>&#123;</span><br><span class="line">  <span class="meta">@Select</span>(<span class="string">"SELECT * FROM blog WHERE id = #&#123;id&#125;"</span>)</span><br><span class="line">  <span class="function">Blog <span class="title">selectBlog</span><span class="params">(<span class="keyword">int</span> id)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这种方式，适合简单的<code>SQL</code>语句，一旦语句长了，注释会变得复杂混乱，维护起来很麻烦，所以它只适合小项目（小项目用的也不多）。</p>
+<p>用的最多的是第二种——<code>XML</code>配置，将<code>SQL</code>语句和<code>Java</code>代码分离，有独立的<code>xml</code>文件，描述某个方法会和某个<code>SQL</code>语句绑定。</p>
+<p><img src="/2018/10/29/java-audit-step-by-step-2/mybatis1.png" alt="mybatis1"></p>
+<p>如图，每一个接口，在资源文件目录中，都有对应的<code>xml</code>。接口中的方法，和<code>xml</code>中<code>id</code>相同的<code>SQL</code>语句关联。</p>
+<p>例如，<code>IArticleCateDao</code> 的 <code>list()</code>方法被调用，那么就会找到 <code>ArticleCateMapper.xml</code>中 <code>id</code>等于 <code>list</code> 的方法，执行它的 <code>SQL</code>，然后根据 <code>resultMap</code> 描述的 <em>字段-属性</em> 映射关系，返回相应的实例对象。</p>
+<p>这里的 <code>resultMap</code> 具体如下：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">resultMap</span> <span class="attr">id</span>=<span class="string">"ArticleCateResult"</span> <span class="attr">type</span>=<span class="string">"ArticleCate"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">id</span> <span class="attr">column</span>=<span class="string">"id"</span> <span class="attr">jdbcType</span>=<span class="string">"INTEGER"</span> <span class="attr">property</span>=<span class="string">"id"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">result</span> <span class="attr">column</span>=<span class="string">"fid"</span> <span class="attr">jdbcType</span>=<span class="string">"INTEGER"</span> <span class="attr">property</span>=<span class="string">"fid"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">result</span> <span class="attr">column</span>=<span class="string">"name"</span> <span class="attr">jdbcType</span>=<span class="string">"VARCHAR"</span> <span class="attr">property</span>=<span class="string">"name"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">result</span> <span class="attr">column</span>=<span class="string">"status"</span> <span class="attr">jdbcType</span>=<span class="string">"INTEGER"</span> <span class="attr">property</span>=<span class="string">"status"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">result</span> <span class="attr">column</span>=<span class="string">"sort"</span> <span class="attr">jdbcType</span>=<span class="string">"INTEGER"</span> <span class="attr">property</span>=<span class="string">"sort"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">resultMap</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>其中，<code>id</code>属性是该映射的名称，<code>type</code>属性代表映射的类。里面有 <code>5</code> 个子元素，<code>id</code>元素映射到<code>ArticleCate</code>的<code>id</code>属性。其它四个<code>result</code>元素中的<code>column</code>属性会映射到对应的<code>property</code>属性。</p>
+<h4 id="模块小结-2"><a href="#模块小结-2" class="headerlink" title="模块小结"></a>模块小结</h4><p><code>dao</code> 模块负责数据的持久化，会和数据库交互。开发者编写的<code>SQL</code>语句也定义在这个模块，<code>MyBatis</code>有特殊的语法将查询的参数代入到<code>SQL</code>语句中，如果开发者在这里使用的语法有问题，就有极有可能出现 <code>SQL注入</code>。</p>
+<h3 id="jeesns-model"><a href="#jeesns-model" class="headerlink" title="jeesns-model"></a>jeesns-model</h3><p>定义了所有和功能业务相关的数据模型，和数据库表对应。</p>
+<h3 id="jeesns-common"><a href="#jeesns-common" class="headerlink" title="jeesns-common"></a>jeesns-common</h3><p>定义了其它模块会用到的常量以及工具类。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>本篇主要以 <code>JEESNS</code> 为例，介绍了目前比较流行的 <code>Java Web</code> 项目的结构。</p>
+<p>理清项目结构后，我们就可以继续下一步——漏洞挖掘啦。</p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="">从1开始的Java代码审计·第二弹·基础篇（下）</a></p>
+        <p><span>文章作者:</span><a href="/" title="回到主页">Jayl1n</a></p>
+        <p><span>发布时间:</span>2018-10-29, 13:45:39</p>
+        <p><span>最后更新:</span>2023-08-16, 23:16:43</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="" title="从1开始的Java代码审计·第二弹·基础篇（下）">https://jayl1n.github.io/2018/10/29/java-audit-step-by-step-2/</a>
+            <span class="copy-path" data-clipboard-text="原文: https://jayl1n.github.io/2018/10/29/java-audit-step-by-step-2/　　作者: Jayl1n" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+    <nav id="article-nav">
+        
+            <div id="article-nav-newer" class="article-nav-title">
+                <a href="../../../11/15/java-audit-step-by-step-3/">
+                    从1开始的Java代码审计·第三弹·SQL注入
+                </a>
+            </div>
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="../../25/java-audit-step-by-step-1/">
+                    从1开始的Java代码审计·第一弹·基础篇（上）
+                </a>
+            </div>
+        
+    </nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#JEESNS"><span class="toc-number">1.</span> <span class="toc-text">JEESNS</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#下载项目"><span class="toc-number">1.1.</span> <span class="toc-text">下载项目</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#项目结构解析"><span class="toc-number">2.</span> <span class="toc-text">项目结构解析</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Maven"><span class="toc-number">2.1.</span> <span class="toc-text">Maven</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#根目录下的-pom-xml"><span class="toc-number">2.1.1.</span> <span class="toc-text">根目录下的 pom.xml</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#子模块下的-pom-xml"><span class="toc-number">2.1.2.</span> <span class="toc-text">子模块下的 pom.xml</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第三方库的安全检查"><span class="toc-number">2.2.</span> <span class="toc-text">第三方库的安全检查</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#子模块"><span class="toc-number">2.3.</span> <span class="toc-text">子模块</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#jeesns-core"><span class="toc-number">2.3.1.</span> <span class="toc-text">jeesns-core</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#包结构"><span class="toc-number">2.3.1.1.</span> <span class="toc-text">包结构</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#模块小结"><span class="toc-number">2.3.1.2.</span> <span class="toc-text">模块小结</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#jeesns-web"><span class="toc-number">2.3.2.</span> <span class="toc-text">jeesns-web</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#模块小结-1"><span class="toc-number">2.3.2.1.</span> <span class="toc-text">模块小结</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#jeesns-service"><span class="toc-number">2.3.3.</span> <span class="toc-text">jeesns-service</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#jeesns-dao"><span class="toc-number">2.3.4.</span> <span class="toc-text">jeesns-dao</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#模块小结-2"><span class="toc-number">2.3.4.1.</span> <span class="toc-text">模块小结</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#jeesns-model"><span class="toc-number">2.3.5.</span> <span class="toc-text">jeesns-model</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#jeesns-common"><span class="toc-number">2.3.6.</span> <span class="toc-text">jeesns-common</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#总结"><span class="toc-number">3.</span> <span class="toc-text">总结</span></a></li></ol>
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-3 i,
+        .toc-level-3 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+    <script>
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
+    </script>
+
+
+
+    
+<div class="share">
+    
+        <div class="bdsharebuttonbox">
+            <a href="#" class="fa fa-twitter bds_twi" data-cmd="twi" title="分享到推特"></a>
+            <a href="#" class="fa fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+            <a href="#" class="fa fa-qq bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
+            <a href="#" class="fa fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+            <a href="#" class="fa fa fa-envelope-o bds_mail" data-cmd="mail" title="通过邮件分享"></a>
+            <a href="#" class="fa fa-weixin bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
+            <a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></i></a>
+        </div>
+        <script>
+            window._bd_share_config={
+                "common":{"bdSnsKey":{},"bdText":"从1开始的Java代码审计·第二弹·基础篇（下）　| Jayl1n's Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+        </script>
+    
+
+    
+</div>
+
+
+
+
+
+
+
+    
+        <section id="comments">
+    <style> aside.comment-bar { margin: auto 30px; }</style>
+    <div id="disqus_thread"></div>
+    <script>
+        var disqus_config = function(){
+            this.page.url = 'https://jayl1n.github.io/2018/10/29/java-audit-step-by-step-2/';
+            this.page.identifier = '2018/10/29/java-audit-step-by-step-2/';
+        };
+        var loadComment = function(){
+            var d = document, s = d.createElement('script');
+            s.src = '//jayl1n-github-io.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        }
+    </script>
+    
+    <script> loadComment(); </script>
+
+</section>
+
+
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="../../../11/15/java-audit-step-by-step-3/" title="上一篇: 从1开始的Java代码审计·第三弹·SQL注入">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="../../25/java-audit-step-by-step-1/" title="下一篇: 从1开始的Java代码审计·第一弹·基础篇（上）">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="../../../../2022/02/27/v8-sandbox-escape/">V8 沙盒绕过</a></li><li class="post-list-item"><a class="post-list-link" href="../../../../2021/10/05/pentest-gb28181-attack/">GB28181 的一点小问题</a></li><li class="post-list-item"><a class="post-list-link" href="../../../../2021/07/07/realpwn-heap-spary-exercise/">【RealPwn-2】 堆喷练习</a></li><li class="post-list-item"><a class="post-list-link" href="../../../../2021/07/04/realpwn-vtable-hijacking-exercise/">【RealPwn-1】 虚函数表劫持练习</a></li><li class="post-list-item"><a class="post-list-link" href="../../../../2021/07/01/use-inlinehook-technology-to-make-a-more-general-webshell/">利用 Hook 技术打造通用的 Webshell</a></li><li class="post-list-item"><a class="post-list-link" href="../../../../2021/06/23/compile-v8-on-windows10/">在 Win10 上编译 V8 引擎</a></li><li class="post-list-item"><a class="post-list-link" href="../../../../2021/02/05/antiav-jsp-webshell/">JSP免杀 —— 绕过智能AI？</a></li><li class="post-list-item"><a class="post-list-link" href="../../../../2021/01/03/compile-virtualbox-on-macos10-15/">MacOS 下编译 VirtualBox</a></li><li class="post-list-item"><a class="post-list-link" href="../../../../2020/04/10/pentest-cobaltstrike-improve/">魔改 CobaltStrike 3.14 实现域前置自定义端口</a></li><li class="post-list-item"><a class="post-list-link" href="../../../../2020/02/13/java-nohup-implementation/">Java 实现后台执行</a></li><li class="post-list-item"><a class="post-list-link" href="../../../../2020/01/04/happy-new-year-2020/">2020 大家新年快乐鸭</a></li><li class="post-list-item"><a class="post-list-link" href="../../../../2019/06/26/sctf-2019-babyEoP-Writeup/">SCTF2019 babyEoP Writeup</a></li><li class="post-list-item"><a class="post-list-link" href="../../../../2019/03/29/pentest-getpassword/">Windows下抓取明文密码</a></li><li class="post-list-item"><a class="post-list-link" href="../../../../2019/01/08/tools-load-shellcode/">【GSL】 从内存加载 SHELLCODE 绕过AV查杀</a></li><li class="post-list-item"><a class="post-list-link" href="../../../12/30/java-audit-step-by-step-4/">从1开始的Java代码审计·第四弹·SSRF</a></li><li class="post-list-item"><a class="post-list-link" href="../../../11/15/java-audit-step-by-step-3/">从1开始的Java代码审计·第三弹·SQL注入</a></li><li class="post-list-item"><a class="post-list-link" href="">从1开始的Java代码审计·第二弹·基础篇（下）</a></li><li class="post-list-item"><a class="post-list-link" href="../../25/java-audit-step-by-step-1/">从1开始的Java代码审计·第一弹·基础篇（上）</a></li><li class="post-list-item"><a class="post-list-link" href="../../25/java-audit-step-by-step-0/">从1开始的Java代码审计·序</a></li><li class="post-list-item"><a class="post-list-link" href="../../05/pentest-20181005/">渗透日记-20181005</a></li><li class="post-list-item"><a class="post-list-link" href="../../../09/18/summary-command-execution/">PHP中的命令执行</a></li><li class="post-list-item"><a class="post-list-link" href="../../../09/11/ichunqiu-web-BLOG/">i春秋-Web-BLOG</a></li><li class="post-list-item"><a class="post-list-link" href="../../../09/10/ichunqiu-web-SQLi/">i春秋-Web-SQLi</a></li><li class="post-list-item"><a class="post-list-link" href="../../../09/09/daily-life-20180909/">日常心路-180909</a></li><li class="post-list-item"><a class="post-list-link" href="../../../08/01/crawl-admin5/">爬虫之批量下载Admin5源码</a></li><li class="post-list-item"><a class="post-list-link" href="../../../07/31/yesterday-and-tomorrow/">昨天，明天</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2018-2023 Jayl1n
+            </div>
+            <div class="footer-right">
+                <span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" title="本站到访数"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>| </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit"  title="本页阅读量"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+
+<script>
+    var now = new Date(); 
+    function createtime() { 
+        var grt= new Date("07/31/2018 00:00:00");//此处修改你的建站时间或者网站上线时间 
+        now.setTime(now.getTime()+250); 
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
+        document.getElementById("timeDate").innerHTML = "本站已运行 "+dnum+" 天 "; 
+        document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒"; 
+    } 
+setInterval("createtime()",250);
+</script>
+    </div>
+    
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var iPad = window.navigator.userAgent.indexOf('iPad');
+            if (iPad > -1 || $(".left-col").css("display") === "none") {
+                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
+                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
+                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
+            }
+            else {
+                var backgroundnum = 20;
+                var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover"});
+            }
+        })
+    </script>
+
+
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
+    
+        var oOpenInNew = {
+            
+            
+            
+            
+            
+            
+             archives: ".archive-article-title", 
+             miniArchives: "a.post-list-link", 
+            
+             friends: "#js-friends a", 
+             socail: ".social a" 
+        }
+        for (var x in oOpenInNew) {
+            $(oOpenInNew[x]).attr("target", "_blank");
+        }
+    
+</script>
+
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div>
+</body>
+</html>
